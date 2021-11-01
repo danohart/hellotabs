@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import "tailwindcss/tailwind.css";
+import Place from "../components/place";
+
 import data from "../data/master-specials";
+import "tailwindcss/tailwind.css";
 
 export default function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
@@ -51,13 +53,7 @@ export default function Home() {
         </div>
         <div className='flex flex-wrap w-full'>
           {bars.map((bar) => (
-            <div className='p-6 w-full border-2 rounded mb-2 bg-white'>
-              <h2 className='text-4xl font-bold'>{bar.name}</h2>
-              <div className='text-purple-500'>{bar.address}</div>
-              <div className='font-semibold'>
-                {bar.specials ? bar.specials : "No Specials"}
-              </div>
-            </div>
+            <Place place={bar} />
           ))}
           <button onClick={showMorePlaces}>See More</button>
         </div>

@@ -1,4 +1,4 @@
-## Little Tabs - Find specials and happy hours in Chicago by neighborhood
+# Little Tabs - Find specials and happy hours in Chicago by neighborhood
 
 A website to help you find deals and specials at local Chicago bars by day and neighborhood. 
 ### Built using...
