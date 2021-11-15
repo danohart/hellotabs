@@ -4,10 +4,12 @@ export default function Place({ place, day }) {
       <h2 className='text-4xl font-bold'>{place.name}</h2>
       <div className='text-purple-500'>{place.address}</div>
       <div className='font-semibold'>
-        {place.day.map((special) => {
-          if (special.name === day)
-            return <div key={special.name}>{special.drink_specials}</div>;
-        })}
+        {place.day
+          ? place.day.map((special) => {
+              if (special.name === day)
+                return <div key={special.name}>{special.drink_specials}</div>;
+            })
+          : null}
       </div>
     </div>
   );

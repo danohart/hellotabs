@@ -1,25 +1,23 @@
 import { useState } from "react";
+import useSWR from "swr";
 import { useRouter } from "next/router";
-import clientPromise from "../lib/mongodb";
 import Head from "next/head";
 import Image from "next/image";
 import Place from "../components/place";
+import getDay from "../lib/date";
 
 import "tailwindcss/tailwind.css";
 
-export default function Home({ isConnected, places }) {
+const fetcher = (url) => fetch(url).then((r) => r.json());
+
+export default function Home() {
   const router = useRouter();
+  const { data, error } = useSWR("/api/places", fetcher);
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
-  const date = new Date();
-  const day = date.toLocaleDateString("en-US", { weekday: "long" });
-
-  const [navigationDay, setNavigationDay] = useState(day);
-
-  const bars = places.slice(0, amountOfPlaces);
+  const day = getDay();
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));
-    return router.replace(router.asPath);
   }
 
   const daysOfTheWeek = [
@@ -31,6 +29,13 @@ export default function Home({ isConnected, places }) {
     "Friday",
     "Saturday",
   ];
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
+  const places = data.places;
+
+  const bars = places.slice(0, amountOfPlaces);
 
   return (
     <div className='m-2'>
@@ -67,7 +72,6 @@ export default function Home({ isConnected, places }) {
       </main>
 
       <footer>
-        {isConnected ? "MongoDB 👍🏼" : "Nah"}
         <br />
         <a
           href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
@@ -82,23 +86,4 @@ export default function Home({ isConnected, places }) {
       </footer>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  let isConnected;
-  let places;
-
-  try {
-    const client = await clientPromise;
-    isConnected = true;
-    const database = client.db(process.env.MONGODB_DB);
-
-    places = await database.collection("places").find({}).limit(20).toArray();
-  } catch (e) {
-    console.log(e);
-    isConnected = false;
-  }
-  return {
-    props: { isConnected, places: JSON.parse(JSON.stringify(places)) },
-  };
 }
