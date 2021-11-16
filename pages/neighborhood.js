@@ -29,7 +29,7 @@ export default function Home() {
   const places = data.places;
 
   const bars = places.slice(0, amountOfPlaces);
-  console.log("bars", bars);
+
   return (
     <div className='m-2'>
       <Head>
