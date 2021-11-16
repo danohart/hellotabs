@@ -12,9 +12,10 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Home() {
   const router = useRouter();
-  const { data, error } = useSWR("/api/places", fetcher);
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
+
+  const { data, error } = useSWR("/api/places/" + day, fetcher);
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));
@@ -46,8 +47,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className='text-6xl'>Little Tabs</h1>
-        <div className='flex flex-wrap justify-items-center'>
+        <h1 className='text-6xl text-center'>Little Tabs</h1>
+        <h2 className='text-4xl text-center'>{day} Specials</h2>
+        <div className='flex flex-wrap justify-items-center mt-6'>
           {/* {daysOfTheWeek.map((theDay) => (
             <button
               className='w-1/5 px-4'
