@@ -2,9 +2,9 @@ import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Header from "../components/header";
+import Header from "../components/Header";
 import Image from "next/image";
-import Place from "../components/place";
+import Place from "../components/Place";
 import getDay from "../lib/date";
 
 import "tailwindcss/tailwind.css";
