@@ -1,9 +1,10 @@
 import { useState } from "react";
 import useSWR from "swr";
 import Head from "next/head";
-import Header from "../components/header";
+import Header from "../components/Header";
 import Image from "next/image";
-import Place from "../components/place";
+import Place from "../components/Place";
+import SearchBar from "../components/SearchBar";
 import getDay from "../lib/date";
 
 import "tailwindcss/tailwind.css";
@@ -45,6 +46,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header title={`${day} Specials`} />
+      <SearchBar />
       <main>
         <div className='flex flex-wrap justify-items-center mt-6'>
           {/* {daysOfTheWeek.map((theDay) => (
@@ -61,14 +63,16 @@ export default function Home() {
           {bars.map((bar) => (
             <Place place={bar} day={day} key={bar._id} />
           ))}
-          <div className='flex justify-center w-full'>
-            <button
-              className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
-              onClick={showMorePlaces}
-            >
-              See More
-            </button>
-          </div>
+          {places.length <= amountOfPlaces ? null : (
+            <div className='flex justify-center w-full'>
+              <button
+                className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
+                onClick={showMorePlaces}
+              >
+                See More
+              </button>
+            </div>
+          )}
         </div>
       </main>
 
