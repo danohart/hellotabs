@@ -43,8 +43,8 @@ export default function Home() {
           {bars.length === 0 ? (
             <div className='w-full text-center py-12 text-4xl'>
               No neighborhood{" "}
-              <span className='font-bold'>"{neighborhood}"</span> has been
-              found. Please go back and search again.
+              <span className='font-bold'>&quot;{neighborhood}&quot;</span> has
+              been found. Please go back and search again.
             </div>
           ) : (
             bars.map((bar) => <Place place={bar} day={day} key={bar._id} />)
