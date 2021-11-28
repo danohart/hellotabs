@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Header({ title }) {
   return (
-    <header>
+    <header className='py-4'>
       <h1 className='text-center'>
         <Link to='/' href='/'>
           Little Tabs

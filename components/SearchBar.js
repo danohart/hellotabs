@@ -11,7 +11,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className='w-1/2 mx-auto py-4 flex items-center'>
+    <div className='w-3/4 mx-auto py-4 flex items-center'>
       <div className='w-4'>
         <SearchIcon className='h-5 w-5 text-gray-500' />
       </div>

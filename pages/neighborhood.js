@@ -40,9 +40,15 @@ export default function Home() {
       <Header title={`Neighborhood Specials : ${neighborhood}`} />
       <main>
         <div className='flex flex-wrap w-full'>
-          {bars.map((bar) => (
-            <Place place={bar} day={day} key={bar._id} />
-          ))}
+          {bars.length === 0 ? (
+            <div className='w-full text-center py-12 text-4xl'>
+              No neighborhood{" "}
+              <span className='font-bold'>"{neighborhood}"</span> has been
+              found. Please go back and search again.
+            </div>
+          ) : (
+            bars.map((bar) => <Place place={bar} day={day} key={bar._id} />)
+          )}
           {bars && bars.length > 10 ? (
             <button
               className='w-50 justify-self-center bg-purple-500 text-white font-bold py-2 px-4 rounded'
@@ -54,7 +60,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer>
+      <footer className='flex justify-center w-full py-12'>
         <br />
         <a
           href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'

@@ -8,6 +8,7 @@ import SearchBar from "../components/SearchBar";
 import getDay from "../lib/date";
 
 import "tailwindcss/tailwind.css";
+import Navigation from "../components/Navigation";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -47,6 +48,7 @@ export default function Home() {
       </Head>
       <Header title={`${day} Specials`} />
       <SearchBar />
+      <Navigation />
       <main>
         <div className='flex flex-wrap justify-items-center mt-6'>
           {/* {daysOfTheWeek.map((theDay) => (
@@ -76,7 +78,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer>
+      <footer className='flex justify-center w-full py-12'>
         <br />
         <a
           href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
