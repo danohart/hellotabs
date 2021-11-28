@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     let { db } = await connectToDatabase();
     let places = await db
       .collection("places")
-      .find({ address: { $regex: neighborhood } })
+      .find({ enabled: { $eq: true }, address: { $regex: neighborhood } })
       .toArray();
     return res.json({
       places: JSON.parse(JSON.stringify(places)),

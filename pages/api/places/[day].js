@@ -13,6 +13,7 @@ export default async function handler(req, res) {
     let places = await db
       .collection("places")
       .find({
+        enabled: { $eq: true },
         day: {
           $elemMatch: { name: dayOfWeek, drink_specials: { $ne: "None" } },
         },

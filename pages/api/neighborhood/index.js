@@ -28,7 +28,10 @@ export default async function handler(req, res) {
 async function getPlaces(req, res) {
   try {
     let { db } = await connectToDatabase();
-    let places = await db.collection("places").find({}).toArray();
+    let places = await db
+      .collection("places")
+      .find({ enabled: { $eq: true } })
+      .toArray();
     return res.json({
       places: JSON.parse(JSON.stringify(places)),
       success: true,

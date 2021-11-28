@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     let { db } = await connectToDatabase();
     let places = await db
       .collection("places")
-      .find({ $text: { $search: search } })
+      .find({ $text: { $search: search }, enabled: { $eq: true } })
       .toArray();
     return res.json({
       places: JSON.parse(JSON.stringify(places)),
