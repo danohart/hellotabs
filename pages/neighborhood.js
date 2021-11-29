@@ -37,7 +37,7 @@ export default function Home() {
         <meta name='description' content='Happy Hour in Chicago' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Header title={`Neighborhood Specials : ${neighborhood}`} />
+      <Header title={`Today's Neighborhood Specials : ${neighborhood}`} />
       <main>
         <div className='flex flex-wrap w-full'>
           {bars.length === 0 ? (
