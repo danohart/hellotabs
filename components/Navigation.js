@@ -4,13 +4,40 @@ import { useState } from "react";
 export default function Navigation() {
   const [showNeighborhoods, setShowNeighborhoods] = useState(true);
   const neighborhoods = [
-    "Avondale",
+    "Garfield Ridge",
+    "Lincoln Park",
+    "Ukrainian Village",
+    "Irving Park",
+    "Lakeview",
+    "Near North Side",
+    "Printers Row",
+    "Streeterville",
+    "North Center",
+    "Edison Park",
+    "West Loop",
+    "Wicker Park",
     "Logan Square",
     "Wrigleyville",
-    "Lakeview",
     "Lincoln Square",
+    "Edgewater",
+    "Portage Park",
+    "Old Town",
+    "West Rogers Park",
+    "River North",
+    "Avondale",
+    "Humboldt Park",
+    "South Loop",
+    "Bucktown",
+    "Rogers Park",
+    "Norwood Park",
+    "Near West Side",
     "Bridgeport",
-    "Hyde Park",
+    "Loop",
+    "Noble Square",
+    "Andersonville",
+    "Uptown",
+    "University Village",
+    "Roscoe Village",
   ];
 
   return (
@@ -24,7 +51,7 @@ export default function Navigation() {
         </button>
       </div>
       <div className={showNeighborhoods ? "hidden" : "block"}>
-        {neighborhoods.map((neighborhood) => (
+        {neighborhoods.sort().map((neighborhood) => (
           <Link href={`/neighborhood?n=${neighborhood}`} key={neighborhood}>
             <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded'>
               {neighborhood}
