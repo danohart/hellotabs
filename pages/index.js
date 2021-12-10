@@ -9,6 +9,7 @@ import getDay from "../lib/date";
 
 import "tailwindcss/tailwind.css";
 import Navigation from "../components/Navigation";
+import Loader from "../components/Loader";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -33,7 +34,7 @@ export default function Home() {
   ];
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <Loader />;
 
   const places = data.places;
 
