@@ -44,7 +44,8 @@ export default function Search() {
         <div className='flex flex-wrap w-full'>
           {bars.length === 0 ? (
             <div>
-              Nothing matching "{searchQuery}". Try searching something else.
+              Nothing matching &quot;{searchQuery}&quot;. Try searching
+              something else.
             </div>
           ) : (
             bars.map((bar) => (

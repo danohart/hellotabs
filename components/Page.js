@@ -3,7 +3,7 @@ import ReactGA from "react-ga";
 
 if (process.env.NODE_ENV === "production") {
   if (typeof window !== "undefined") {
-    ReactGA.initialize("UA-41524322-20");
+    ReactGA.initialize(process.env.GA_ID);
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
 }
