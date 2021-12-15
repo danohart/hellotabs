@@ -7,6 +7,7 @@ import Image from "next/image";
 import Place from "../../components/Place";
 
 import "tailwindcss/tailwind.css";
+import SearchBar from "../../components/SearchBar";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -37,11 +38,19 @@ export default function Search() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header title={`Find: ${searchQuery}`} />
+
+      <SearchBar placeholder={searchQuery} />
       <main>
         <div className='flex flex-wrap w-full'>
-          {bars.map((bar) => (
-            <Place place={bar} day={"allDays"} key={bar._id} />
-          ))}
+          {bars.length === 0 ? (
+            <div>
+              Nothing matching "{searchQuery}". Try searching something else.
+            </div>
+          ) : (
+            bars.map((bar) => (
+              <Place place={bar} day={"allDays"} key={bar._id} />
+            ))
+          )}
           {bars && bars.length > 10 ? (
             <button
               className='w-50 justify-self-center bg-purple-500 text-white font-bold py-2 px-4 rounded'

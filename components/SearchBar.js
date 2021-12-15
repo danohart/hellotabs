@@ -2,12 +2,20 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SearchIcon } from "@heroicons/react/solid";
 
-export default function SearchBar() {
+export default function SearchBar(props) {
   const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
 
   function updateSearchInput(query) {
     setSearchInput(query.target.value);
+  }
+
+  function submitSearchQuery(event) {
+    event.preventDefault();
+    router.push({
+      pathname: "/search/",
+      query: "s=" + searchInput,
+    });
   }
 
   return (
@@ -16,16 +24,10 @@ export default function SearchBar() {
         <SearchIcon className='h-5 w-5 text-gray-500' />
       </div>
       <div className='w-full pl-2'>
-        <form
-          onSubmit={() =>
-            router.push({
-              pathname: "/search/",
-              query: { s: searchInput },
-            })
-          }
-        >
+        <form onSubmit={submitSearchQuery}>
           <input
             className='w-full bg-transparent border-b border-purple-500 hover:bg-purple-200 focus:bg-white p-2'
+            placeholder={props.placeholder || "Search"}
             onChange={updateSearchInput}
           />
         </form>
