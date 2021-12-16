@@ -44,7 +44,7 @@ export default function Navigation() {
     <div>
       <div className='flex w-full justify-center'>
         <button
-          className='m-1 w-3/4 bg-purple-500 text-white font-bold py-2 px-4 rounded'
+          className='m-1 w-3/4 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'
           onClick={() => setShowNeighborhoods(!showNeighborhoods)}
         >
           {showNeighborhoods ? "Show Neighborhoods" : "Hide Neighborhoods"}
@@ -53,7 +53,7 @@ export default function Navigation() {
       <div className={showNeighborhoods ? "hidden" : "block"}>
         {neighborhoods.sort().map((neighborhood) => (
           <Link href={`/neighborhood?n=${neighborhood}`} key={neighborhood}>
-            <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded'>
+            <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
               {neighborhood}
             </button>
           </Link>
