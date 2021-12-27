@@ -41,7 +41,6 @@ export default function Home() {
 
   return (
     <div className='m-2'>
-      <Meta day={day} />
       <Header title={`${day} Specials`} />
       <SearchBar />
       <Navigation />
