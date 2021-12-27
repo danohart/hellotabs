@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactGA from "react-ga";
+import Footer from "./Footer";
 
 if (process.env.NODE_ENV === "production") {
   if (typeof window !== "undefined") {
@@ -13,6 +14,7 @@ class Page extends Component {
     return (
       <>
         <div className='main'>{this.props.children}</div>
+        <Footer />
       </>
     );
   }
