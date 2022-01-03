@@ -4,7 +4,7 @@ import Footer from "./Footer";
 
 if (process.env.NODE_ENV === "production") {
   if (typeof window !== "undefined") {
-    ReactGA.initialize(process.env.GA_ID);
+    ReactGA.initialize("UA-41524322-20");
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
 }
