@@ -29,7 +29,6 @@ export default function Search() {
   const places = data.places;
 
   const bars = places.slice(0, amountOfPlaces);
-  console.log("places", places);
 
   return (
     <div className='m-2'>
