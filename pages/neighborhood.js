@@ -49,13 +49,15 @@ export default function Home() {
           ) : (
             bars.map((bar) => <Place place={bar} day={day} key={bar._id} />)
           )}
-          {bars && bars.length > 10 ? (
-            <button
-              className='w-50 justify-self-center bg-purple-500 text-white font-bold py-2 px-4 rounded'
-              onClick={showMorePlaces}
-            >
-              See More
-            </button>
+          {bars && bars.length >= 10 && bars.length !== places.length ? (
+            <div className='flex justify-center w-full'>
+              <button
+                className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
+                onClick={showMorePlaces}
+              >
+                See More
+              </button>
+            </div>
           ) : null}
         </div>
       </main>

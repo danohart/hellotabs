@@ -29,6 +29,7 @@ export default function Search() {
   const places = data.places;
 
   const bars = places.slice(0, amountOfPlaces);
+  console.log("places", places);
 
   return (
     <div className='m-2'>
@@ -52,13 +53,15 @@ export default function Search() {
               <Place place={bar} day={"allDays"} key={bar._id} />
             ))
           )}
-          {bars && bars.length > 10 ? (
-            <button
-              className='w-50 justify-self-center bg-purple-500 text-white font-bold py-2 px-4 rounded'
-              onClick={showMorePlaces}
-            >
-              See More
-            </button>
+          {bars && bars.length >= 10 && bars.length !== places.length ? (
+            <div className='flex justify-center w-full'>
+              <button
+                className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
+                onClick={showMorePlaces}
+              >
+                See More
+              </button>
+            </div>
           ) : null}
         </div>
       </main>
