@@ -30,7 +30,7 @@ async function getPlaces(req, res) {
     let { db } = await connectToDatabase();
     let places = await db
       .collection("places")
-      .find({ enabled: { $eq: true } })
+      .find({ enabled: { $eq: true } }, { skipSessions: true })
       .toArray();
     return res.json({
       places: JSON.parse(JSON.stringify(places)),

@@ -12,12 +12,15 @@ export default async function handler(req, res) {
     let { db } = await connectToDatabase();
     let places = await db
       .collection("places")
-      .find({
-        enabled: { $eq: true },
-        day: {
-          $elemMatch: { name: dayOfWeek, drink_specials: { $ne: "None" } },
+      .find(
+        {
+          enabled: { $eq: true },
+          day: {
+            $elemMatch: { name: dayOfWeek, drink_specials: { $ne: "None" } },
+          },
         },
-      })
+        { skipSessions: true }
+      )
       .toArray();
     return res.json({
       places: JSON.parse(JSON.stringify(places)),
