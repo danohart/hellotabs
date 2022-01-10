@@ -68,7 +68,7 @@ export default function AddPlace() {
           food_specials: formData.Saturday_food || "None",
         },
       ],
-      enabled: formData.enabled,
+      enabled: formData.enabled || false,
     });
   };
 
