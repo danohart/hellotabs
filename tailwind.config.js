@@ -21,6 +21,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
+    require("@tailwindcss/forms"),
     plugin(function ({ addBase, theme }) {
       addBase({
         h1: { fontSize: theme("fontSize.6xl") },
