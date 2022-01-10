@@ -116,8 +116,8 @@ export default function AddPlace() {
         </select>
         <div>
           {daysOfTheWeek.map((day) => (
-            <div className='flex mt-2'>
-              <span key={day}>{day}: </span>
+            <div className='flex mt-2' key={day}>
+              <span>{day}: </span>
               <input
                 type='text'
                 className='text-black'
