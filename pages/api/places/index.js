@@ -43,3 +43,24 @@ async function getPlaces(req, res) {
     });
   }
 }
+
+async function addPlace(req, res) {
+  try {
+    let { db } = await connectToDatabase();
+
+    const parsedBody = JSON.parse(req.body);
+
+    await db.collection("places").insertOne(parsedBody);
+
+    return res.json({
+      message: "Added place successfully",
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.json({
+      message: new Error(error).message,
+      success: false,
+    });
+  }
+}
