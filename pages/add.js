@@ -1,6 +1,7 @@
 import { useSWRConfig } from "swr";
 import { useState, useReducer } from "react";
 import Header from "../components/Header";
+import neighborhoods from "../lib/neighborhoods";
 
 const fetcher = (...args) => fetch(...args).then((r) => r.json());
 
@@ -111,12 +112,13 @@ export default function AddPlace() {
           onChange={handleChange}
         >
           <option>Select</option>
-          <option>Logan Square</option>
-          <option>Avondale</option>
+          {neighborhoods.sort().map((neighborhood) => (
+            <option key={neighborhood}>{neighborhood}</option>
+          ))}
         </select>
-        <div>
+        <div className='flex flex-wrap justify-start'>
           {daysOfTheWeek.map((day) => (
-            <div className='flex mt-2' key={day}>
+            <div className='flex flex-col w-1/3 mt-2 pr-4' key={day}>
               <span>{day}: </span>
               <input
                 type='text'

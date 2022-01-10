@@ -1,44 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
+import neighborhoods from "../lib/neighborhoods";
 
 export default function Navigation() {
   const [showNeighborhoods, setShowNeighborhoods] = useState(true);
-  const neighborhoods = [
-    "Garfield Ridge",
-    "Lincoln Park",
-    "Ukrainian Village",
-    "Irving Park",
-    "Lakeview",
-    "Near North Side",
-    "Printers Row",
-    "Streeterville",
-    "North Center",
-    "Edison Park",
-    "West Loop",
-    "Wicker Park",
-    "Logan Square",
-    "Wrigleyville",
-    "Lincoln Square",
-    "Edgewater",
-    "Portage Park",
-    "Old Town",
-    "West Rogers Park",
-    "River North",
-    "Avondale",
-    "Humboldt Park",
-    "South Loop",
-    "Bucktown",
-    "Rogers Park",
-    "Norwood Park",
-    "Near West Side",
-    "Bridgeport",
-    "Loop",
-    "Noble Square",
-    "Andersonville",
-    "Uptown",
-    "University Village",
-    "Roscoe Village",
-  ];
 
   return (
     <div>
