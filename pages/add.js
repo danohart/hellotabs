@@ -27,8 +27,6 @@ export default function AddPlace() {
   const [password, updatePassword] = useState("");
   const [formattedData, setFormattedData] = useState({});
 
-  console.log(formattedData);
-
   const submitData = () => {
     setFormattedData({
       name: formData.name,
@@ -36,37 +34,37 @@ export default function AddPlace() {
       day: [
         {
           name: "Sunday",
-          drink_specials: formData.Sunday_drink,
+          drink_specials: formData.Sunday_drink || "None",
           food_specials: formData.Sunday_food || "None",
         },
         {
           name: "Monday",
-          drink_specials: formData.Monday_drink,
+          drink_specials: formData.Monday_drink || "None",
           food_specials: formData.Monday_food || "None",
         },
         {
           name: "Tuesday",
-          drink_specials: formData.Tuesday_drink,
+          drink_specials: formData.Tuesday_drink || "None",
           food_specials: formData.Tuesday_food || "None",
         },
         {
           name: "Wednesday",
-          drink_specials: formData.Wednesday_drink,
+          drink_specials: formData.Wednesday_drink || "None",
           food_specials: formData.Wednesday_food || "None",
         },
         {
           name: "Thursday",
-          drink_specials: formData.Thursday_drink,
+          drink_specials: formData.Thursday_drink || "None",
           food_specials: formData.Thursday_food || "None",
         },
         {
           name: "Friday",
-          drink_specials: formData.Friday_drink,
+          drink_specials: formData.Friday_drink || "None",
           food_specials: formData.Friday_food || "None",
         },
         {
           name: "Saturday",
-          drink_specials: formData.Saturday_drink,
+          drink_specials: formData.Saturday_drink || "None",
           food_specials: formData.Saturday_food || "None",
         },
       ],
