@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Image from "next/image";
 import Place from "../components/Place";
 import getDay from "../lib/date";
+import Loader from "../components/Loader";
 
 import "tailwindcss/tailwind.css";
 
@@ -24,7 +25,7 @@ export default function Home() {
   }
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <Loader />;
 
   const places = data.places;
 

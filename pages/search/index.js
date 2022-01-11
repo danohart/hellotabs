@@ -3,8 +3,8 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../../components/Header";
-import Image from "next/image";
 import Place from "../../components/Place";
+import Loader from "../../components/Loader";
 
 import "tailwindcss/tailwind.css";
 import SearchBar from "../../components/SearchBar";
@@ -24,7 +24,7 @@ export default function Search() {
   }
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <Loader />;
 
   const places = data.places;
 

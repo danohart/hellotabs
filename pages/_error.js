@@ -1,10 +1,10 @@
 function Error({ statusCode }) {
   return (
-    <p>
+    <div className='my-8 text-center'>
       {statusCode
         ? `An error ${statusCode} occurred on server`
         : "An error occurred on client"}
-    </p>
+    </div>
   );
 }
 
