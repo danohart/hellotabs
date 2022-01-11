@@ -1,4 +1,5 @@
 import { TagIcon } from "@heroicons/react/solid";
+import Link from "next/link";
 
 export default function Place({ place, day }) {
   function filterDailySpecials() {
@@ -25,7 +26,16 @@ export default function Place({ place, day }) {
       className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500'
       key={place.name}
     >
-      <h2 className='text-4xl font-bold'>{place.name}</h2>
+      <h2 className='text-4xl font-bold'>
+        <Link
+          href={{
+            pathname: "/place",
+            query: { id: place._id },
+          }}
+        >
+          {place.name}
+        </Link>
+      </h2>
       <div className='text-purple-500 dark:text-purple-400'>
         {place.address.split("@")[0]} | {place.address.split("@")[1]}
       </div>

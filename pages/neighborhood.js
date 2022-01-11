@@ -7,10 +7,9 @@ import Image from "next/image";
 import Place from "../components/Place";
 import getDay from "../lib/date";
 import Loader from "../components/Loader";
+import fetcher from "../lib/fetcher";
 
 import "tailwindcss/tailwind.css";
-
-const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Home() {
   const router = useRouter();

@@ -5,10 +5,9 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 import Place from "../../components/Place";
+import fetcher from "../lib/fetcher";
 
 import "tailwindcss/tailwind.css";
-
-const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Search() {
   const router = useRouter();

@@ -5,12 +5,11 @@ import Header from "../components/Header";
 import Place from "../components/Place";
 import SearchBar from "../components/SearchBar";
 import getDay from "../lib/date";
+import fetcher from "../lib/fetcher";
 
 import "tailwindcss/tailwind.css";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
-
-const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);

@@ -8,6 +8,8 @@ export default function Footer() {
           alt='Creative Commons License'
           src='https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png'
           className='mx-auto'
+          width='80'
+          height='15'
         />
       </a>
       <br />
