@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import Loader from "../components/Loader";
 import fetcher from "../lib/fetcher";
+import Header from "../components/Header";
 
 export default function SinglePlace() {
   const router = useRouter();
@@ -14,5 +15,10 @@ export default function SinglePlace() {
   if (error) return <div>Failed to load</div>;
   if (!data) return <Loader />;
 
-  return <Place place={data.place} day='allDays' />;
+  return (
+    <>
+      <Header />
+      <Place place={data.place} day='allDays' />
+    </>
+  );
 }
