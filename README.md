@@ -1,4 +1,4 @@
-# Little Tabs - Find specials and happy hours in Chicago by neighborhood
+# Hello Chicago - Find specials and happy hours in Chicago by neighborhood
 
 A website to help you find deals and specials at local Chicago bars by day and neighborhood. 
 ### Built using...
@@ -15,7 +15,7 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:7777](http://localhost:7777) with your browser to see the result.
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <div className='m-2'>
       <Head>
-        <title>Little Tabs - Neighborhood</title>
+        <title>Hello Chicago - Neighborhood</title>
         <meta name='description' content='Happy Hour in Chicago' />
         <link rel='icon' href='/favicon.ico' />
       </Head>

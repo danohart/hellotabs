@@ -32,7 +32,7 @@ export default function Search() {
   return (
     <div className='m-2'>
       <Head>
-        <title>Little Tabs - Search</title>
+        <title>Hello Chicago - Search</title>
         <meta name='description' content='Happy Hour in Chicago' />
         <link rel='icon' href='/favicon.ico' />
       </Head>

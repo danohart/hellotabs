@@ -3,7 +3,7 @@ import Head from "next/head";
 export default function Meta(props) {
   const metaTitle = props.title
     ? props.title
-    : "Little Tabs | Daily Happy Hour Specials in Chicago";
+    : "Hello Chicago | Daily Happy Hour Specials in Chicago";
 
   const metaDescription = props.description
     ? props.description
