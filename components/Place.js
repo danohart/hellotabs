@@ -40,7 +40,8 @@ export default function Place({ place, day }) {
         {place.address.split("@")[0]} |{" "}
         <a
           className='underline'
-          target={"_blank"}
+          target='_blank'
+          rel='noreferrer'
           href={
             "https://maps.google.com/?q=" +
             place.name +
