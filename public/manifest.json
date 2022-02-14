@@ -14,10 +14,8 @@
       }
     ],
     "start_url": "/?source=homescreen",
-    "background_color": "#6b21a8",
     "display": "standalone",
     "scope": "/",
-    "theme_color": "#6b21a8",
     "description": "Daily Happy Hour Specials in Chicago",
     "screenshots": [
       {

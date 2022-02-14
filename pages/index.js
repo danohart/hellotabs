@@ -39,7 +39,7 @@ export default function Home() {
   const bars = places.slice(0, amountOfPlaces);
 
   return (
-    <div className='m-2'>
+    <div>
       <Header title={`${day} Specials`} />
       <SearchBar />
       <Navigation />

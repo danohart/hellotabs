@@ -13,7 +13,7 @@ class Page extends Component {
   render() {
     return (
       <>
-        <div className='main'>{this.props.children}</div>
+        <div className='main m-2'>{this.props.children}</div>
         <Footer />
       </>
     );

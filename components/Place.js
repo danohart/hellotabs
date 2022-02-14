@@ -37,7 +37,19 @@ export default function Place({ place, day }) {
         </Link>
       </h2>
       <div className='text-purple-500 dark:text-purple-400'>
-        {place.address.split("@")[0]} | {place.address.split("@")[1]}
+        {place.address.split("@")[0]} |{" "}
+        <a
+          className='underline'
+          target={"_blank"}
+          href={
+            "https://maps.google.com/?q=" +
+            place.name +
+            " " +
+            place.address.split("@")[1]
+          }
+        >
+          {place.address.split("@")[1]}
+        </a>
       </div>
       <div className='font-semibold'>
         {place.day ? filterDailySpecials() : null}

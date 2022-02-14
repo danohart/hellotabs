@@ -19,22 +19,16 @@ export default function Meta(props) {
       <meta property='og:url' content='https://www.hellochicago.co/' />
       <meta property='og:title' content={metaTitle} />
       <meta property='og:description' content={metaDescription} />
-      <meta
-        property='og:image'
-        content='https://hellochicago.co/chicagohappyhour.png'
-      />
+      <meta property='og:image' content='/chicagohappyhour.png' />
 
       <meta property='twitter:card' content='summary_large_image' />
       <meta property='twitter:url' content='https://www.hellochicago.co/' />
       <meta property='twitter:title' content={metaTitle} />
       <meta property='twitter:description' content={metaDescription} />
-      <meta
-        property='twitter:image'
-        content='https://hellochicago.co/chicagohappyhour.png'
-      ></meta>
+      <meta property='twitter:image' content='/chicagohappyhour.png'></meta>
 
       <link rel='manifest' href='/manifest.json' />
-      <meta name='theme-color' content='#6b21a8' />
+      <meta name='theme-color' content='#223079' />
       <link rel='apple-touch-icon' href='/app/hellochicago.png' />
     </Head>
   );

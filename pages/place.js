@@ -10,14 +10,13 @@ export default function SinglePlace() {
   const placeId = router.query.id;
 
   const { data, error } = useSWR("/api/place/" + placeId, fetcher);
-  console.log(error);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <Loader />;
 
   return (
     <>
-      <Header />
+      <Header title='Everyday Specials' />
       <Place place={data.place} day='allDays' />
     </>
   );
