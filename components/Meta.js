@@ -35,7 +35,7 @@ export default function Meta(props) {
 
       <link rel='manifest' href='/manifest.json' />
       <meta name='theme-color' content='#6b21a8' />
-      <link rel='apple-touch-icon' href='../public/app/hellochicago.png' />
+      <link rel='apple-touch-icon' href='/app/hellochicago.png' />
     </Head>
   );
 }
