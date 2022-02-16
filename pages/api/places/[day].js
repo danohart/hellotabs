@@ -21,6 +21,7 @@ export default async function handler(req, res) {
         },
         { skipSessions: true }
       )
+      .sort({ featured: -1 })
       .toArray();
     return res.json({
       places: JSON.parse(JSON.stringify(places)),
