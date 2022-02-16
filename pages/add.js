@@ -70,6 +70,7 @@ export default function AddPlace() {
         },
       ],
       enabled: formData.enabled || false,
+      featured: false,
     });
   };
 
