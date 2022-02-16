@@ -8,7 +8,7 @@ export default function Header({ title }) {
   return (
     <div className='flex flex-row items-center justify-between'>
       <div
-        className='font-extrabold uppercase flex items-center'
+        className='font-extrabold uppercase flex items-center cursor-pointer'
         onClick={() => router.back()}
       >
         <ArrowLeftIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
