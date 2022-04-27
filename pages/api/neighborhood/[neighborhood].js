@@ -12,8 +12,14 @@ export default async function handler(req, res) {
     let { db } = await connectToDatabase();
     let places = await db
       .collection("places")
-      .find({ enabled: { $eq: true }, address: { $regex: neighborhood } })
+      .find({
+        enabled: { $eq: true },
+        address: { $regex: neighborhood },
+        day: { drink_specials: { $ne: "None" } },
+      })
       .toArray();
+
+    console.log(places);
     return res.json({
       places: JSON.parse(JSON.stringify(places)),
       success: true,
