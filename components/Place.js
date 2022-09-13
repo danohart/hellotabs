@@ -21,6 +21,14 @@ export default function Place({ place, day }) {
     });
   }
 
+  function getGoogleMapsUrl(placeInfo) {
+    const placeAddress = placeInfo.address
+      ? placeInfo.address.split("@")[1]
+      : null;
+
+    return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
+  }
+
   return (
     <div
       className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500'
@@ -37,19 +45,14 @@ export default function Place({ place, day }) {
         </Link>
       </h2>
       <div className='text-purple-500 dark:text-purple-400'>
-        {place.address.split("@")[0]} |{" "}
+        {place.address ? place.address.split("@")[0] : null} |{" "}
         <a
           className='underline'
           target='_blank'
           rel='noreferrer'
-          href={
-            "https://maps.google.com/?q=" +
-            place.name +
-            " " +
-            place.address.split("@")[1]
-          }
+          href={getGoogleMapsUrl(place)}
         >
-          {place.address.split("@")[1]}
+          {place.address ? place.address.split("@")[1] : null}
         </a>
       </div>
       <div className='font-semibold'>
