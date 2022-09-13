@@ -27,7 +27,7 @@ export default function SearchBar(props) {
         <form onSubmit={submitSearchQuery}>
           <input
             className='w-full bg-transparent border-b border-purple-500 hover:bg-purple-200 dark:hover:bg-purple-900 focus:bg-white dark:focus:bg-purple-400 dark:focus:text-slate-800 p-2'
-            placeholder={props.placeholder || "Search"}
+            placeholder={props.placeholder || "Search for a particular place"}
             onChange={updateSearchInput}
           />
         </form>
