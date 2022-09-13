@@ -23,9 +23,13 @@ export default function Header({ title }) {
         <h2 className='text-center text-xl'>{title}</h2>
       </header>
       <div className='font-extrabold uppercase flex items-center text-sm'>
-        <Link href='/'>Home</Link>
-        <Link href='/'>
-          <HomeIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
+        <Link to='/' href='/'>
+          Home
+        </Link>
+        <Link to='/' href='/'>
+          <a>
+            <HomeIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
+          </a>
         </Link>
       </div>
     </div>

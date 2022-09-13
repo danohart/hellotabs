@@ -4,10 +4,15 @@ import { useRouter } from "next/router";
 import Loader from "../components/Loader";
 import fetcher from "../lib/fetcher";
 import Header from "../components/Header";
+import Meta from "../components/Meta";
 
 export default function SinglePlace() {
   const router = useRouter();
-  const placeId = router.query.id;
+  const placeId = router.query.id
+    ? router.query.id
+    : router.asPath.split("=")[1];
+
+  console.log("router", router.asPath.split("=")[1]);
 
   const { data, error } = useSWR("/api/place/" + placeId, fetcher);
 
@@ -16,6 +21,7 @@ export default function SinglePlace() {
 
   return (
     <>
+      <Meta title={`${data.place.name} Daily Specials`} />
       <Header title='Everyday Specials' />
       <Place place={data.place} day='allDays' />
     </>
