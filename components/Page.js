@@ -1,6 +1,7 @@
 import React from "react";
 import ReactGA from "react-ga";
 import Footer from "./Footer";
+import Meta from "./Meta";
 
 if (process.env.NODE_ENV === "production") {
   if (typeof window !== "undefined") {
@@ -12,6 +13,7 @@ if (process.env.NODE_ENV === "production") {
 function Page(props) {
   return (
     <>
+      <Meta />
       <div className='main m-2'>{props.children}</div>
       <Footer />
     </>
