@@ -3,7 +3,7 @@ import { useState } from "react";
 import neighborhoods from "../lib/neighborhoods";
 
 export default function Navigation() {
-  const [showNeighborhoods, setShowNeighborhoods] = useState(true);
+  let [showNeighborhoods, setShowNeighborhoods] = useState(true);
 
   return (
     <div>

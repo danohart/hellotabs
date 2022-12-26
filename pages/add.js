@@ -24,9 +24,9 @@ const daysOfTheWeek = [
 
 export default function AddPlace() {
   const { mutate } = useSWRConfig();
-  const [formData, setFormData] = useReducer(formReducer, {});
-  const [password, updatePassword] = useState("");
-  const [formattedData, setFormattedData] = useState({});
+  let [formData, setFormData] = useReducer(formReducer, {});
+  let [password, updatePassword] = useState("");
+  let [formattedData, setFormattedData] = useState({});
 
   const submitData = () => {
     setFormattedData({

@@ -9,11 +9,11 @@ import Meta from "../../components/Meta";
 import fetcher from "../../lib/fetcher";
 
 import "tailwindcss/tailwind.css";
-import { SearchBar } from "../../components/SearchBar";
+import SearchBar from "../../components/SearchBar";
 
-export default function Search() {
+export default function SearchIndex() {
   const router = useRouter();
-  const [amountOfPlaces, setAmountOfPlaces] = useState(10);
+  let [amountOfPlaces, setAmountOfPlaces] = useState(10);
 
   const searchQuery = router.query.s;
 

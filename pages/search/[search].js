@@ -11,7 +11,7 @@ import "tailwindcss/tailwind.css";
 
 export default function Search() {
   const router = useRouter();
-  const [amountOfPlaces, setAmountOfPlaces] = useState(10);
+  let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const searchQuery = router.query.s;
 
   const { data, error } = useSWR("/api/search/" + searchQuery, fetcher);

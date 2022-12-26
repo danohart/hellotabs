@@ -3,7 +3,7 @@ import useSWR from "swr";
 import Meta from "../components/Meta";
 import Header from "../components/Header";
 import Place from "../components/Place";
-import { SearchBar } from "../components/SearchBar";
+import SearchBar from "../components/SearchBar";
 import getDay from "../lib/date";
 import fetcher from "../lib/fetcher";
 
@@ -11,7 +11,7 @@ import "tailwindcss/tailwind.css";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
 
-export default function Home() {
+function Home() {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
 
@@ -20,16 +20,6 @@ export default function Home() {
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));
   }
-
-  const daysOfTheWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <Loader />;
@@ -75,3 +65,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
