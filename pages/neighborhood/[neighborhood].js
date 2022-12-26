@@ -33,10 +33,7 @@ export default function Neighborhood(props) {
 
   return (
     <div className='m-2'>
-      <Meta
-        title={`Best Happy Hours in ${props.title}, Chicago // Hello Chicago`}
-        description={`List of bars and restaurants in the ${props.title} neighborhood of Chicago that serve happy hour specials and deals.`}
-      />
+      <Meta title={props.title} description={props.description} />
       <Header title={`Today's Neighborhood Specials : ${neighborhood}`} />
       <main>
         <div className='flex flex-wrap w-full'>

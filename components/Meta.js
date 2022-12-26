@@ -29,7 +29,10 @@ export default function Meta(props) {
         content={metaDescription}
         key='description'
       />
-      <meta property='og:image' content='/chicagohappyhour.png' />
+      <meta
+        property='og:image'
+        content='https://www.hellochicago.co/chicagohappyhour.png'
+      />
 
       <meta property='twitter:card' content='summary_large_image' />
       <meta
