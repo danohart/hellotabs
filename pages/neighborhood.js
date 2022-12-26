@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import Head from "next/head";
+import Meta from "../components/Meta";
 import Header from "../components/Header";
 import Image from "next/image";
 import Place from "../components/Place";
@@ -11,9 +11,9 @@ import fetcher from "../lib/fetcher";
 
 import "tailwindcss/tailwind.css";
 
-export default function Home() {
+export default function Neighborhood() {
   const router = useRouter();
-  const [amountOfPlaces, setAmountOfPlaces] = useState(10);
+  let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
   const neighborhood = router.query.n;
 
@@ -32,11 +32,7 @@ export default function Home() {
 
   return (
     <div className='m-2'>
-      <Head>
-        <title>Hello Chicago - Neighborhood</title>
-        <meta name='description' content='Happy Hour in Chicago' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+      <Meta title={`${neighborhood} Specials - Hello Chicago`} />
       <Header title={`Today's Neighborhood Specials : ${neighborhood}`} />
       <main>
         <div className='flex flex-wrap w-full'>

@@ -17,8 +17,12 @@ export default function Meta(props) {
 
       <meta property='og:type' content='website' />
       <meta property='og:url' content='https://www.hellochicago.co/' />
-      <meta property='og:title' content={metaTitle} />
-      <meta property='og:description' content={metaDescription} />
+      <meta property='og:title' content={metaTitle} key='title' />
+      <meta
+        property='og:description'
+        content={metaDescription}
+        key='description'
+      />
       <meta property='og:image' content='/chicagohappyhour.png' />
 
       <meta property='twitter:card' content='summary_large_image' />

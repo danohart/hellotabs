@@ -5,10 +5,11 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Place from "../../components/Place";
 import Loader from "../../components/Loader";
+import Meta from "../../components/Meta";
 import fetcher from "../../lib/fetcher";
 
 import "tailwindcss/tailwind.css";
-import SearchBar from "../../components/SearchBar";
+import { SearchBar } from "../../components/SearchBar";
 
 export default function Search() {
   const router = useRouter();
@@ -31,11 +32,7 @@ export default function Search() {
 
   return (
     <div className='m-2'>
-      <Head>
-        <title>Hello Chicago - Search</title>
-        <meta name='description' content='Happy Hour in Chicago' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+      <Meta title='Hello Chicago - Search' />
       <Header title={`Find: ${searchQuery}`} />
 
       <SearchBar placeholder={searchQuery} />

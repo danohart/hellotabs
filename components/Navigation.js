@@ -12,10 +12,17 @@ export default function Navigation() {
           className='m-1 w-3/4 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'
           onClick={() => setShowNeighborhoods(!showNeighborhoods)}
         >
-          {showNeighborhoods ? "Show Neighborhoods" : "Hide Neighborhoods"}
+          {showNeighborhoods ? "Hide Neighborhoods" : "Show Neighborhoods"}
         </button>
       </div>
-      <div className={showNeighborhoods ? "hidden" : "block"}>
+      <div
+        className={
+          showNeighborhoods
+            ? "block flex w-full justify-center flex-wrap"
+            : "hidden"
+        }
+      >
+        <h3 className='m-3'>What neighborhood are you going to?</h3>
         {neighborhoods.sort().map((neighborhood) => (
           <Link href={`/neighborhood?n=${neighborhood}`} key={neighborhood}>
             <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>

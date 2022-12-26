@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { SearchIcon } from "@heroicons/react/solid";
+import { SearchIcon } from "@heroicons/react/24/solid";
 
 export default function SearchBar(props) {
   const router = useRouter();
-  const [searchInput, setSearchInput] = useState("");
+  let [searchInput, setSearchInput] = useState("");
 
   function updateSearchInput(query) {
     setSearchInput(query.target.value);

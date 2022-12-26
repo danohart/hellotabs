@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import Head from "next/head";
+import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 import Place from "../../components/Place";
@@ -29,11 +29,7 @@ export default function Search() {
 
   return (
     <div className='m-2'>
-      <Head>
-        <title>Hello Chicago - Search</title>
-        <meta name='description' content='Happy Hour in Chicago' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+      <Meta title='Hello Chicago - Search' />
       <Header title={`Find: ${searchQuery}`} />
       <main>
         <div className='flex flex-wrap w-full'>

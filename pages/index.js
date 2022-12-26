@@ -3,7 +3,7 @@ import useSWR from "swr";
 import Meta from "../components/Meta";
 import Header from "../components/Header";
 import Place from "../components/Place";
-import SearchBar from "../components/SearchBar";
+import { SearchBar } from "../components/SearchBar";
 import getDay from "../lib/date";
 import fetcher from "../lib/fetcher";
 
@@ -12,7 +12,7 @@ import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
 
 export default function Home() {
-  const [amountOfPlaces, setAmountOfPlaces] = useState(10);
+  let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
@@ -40,6 +40,7 @@ export default function Home() {
 
   return (
     <div>
+      <Meta />
       <Header title={`${day} Specials`} />
       <SearchBar />
       <Navigation />

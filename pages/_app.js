@@ -23,9 +23,13 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
+  const metaTitle = "Hello Chicago | Daily Happy Hour Specials in Chicago";
+  const metaDescription =
+    "Happy Hour in Chicago every day specials throughout the city.";
+
   return (
     <Page>
-      <Meta />
+      <Meta title={metaTitle} description={metaDescription} />
       <Component {...pageProps} />
     </Page>
   );

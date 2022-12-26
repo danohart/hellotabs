@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { HomeIcon, ArrowLeftIcon } from "@heroicons/react/solid";
+import { HomeIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 export default function Header({ title }) {
   const router = useRouter();
@@ -27,9 +27,7 @@ export default function Header({ title }) {
           Home
         </Link>
         <Link to='/' href='/'>
-          <a>
-            <HomeIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
-          </a>
+          <HomeIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
         </Link>
       </div>
     </div>

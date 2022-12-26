@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactGA from "react-ga";
 import Footer from "./Footer";
 
@@ -9,15 +9,13 @@ if (process.env.NODE_ENV === "production") {
   }
 }
 
-class Page extends Component {
-  render() {
-    return (
-      <>
-        <div className='main m-2'>{this.props.children}</div>
-        <Footer />
-      </>
-    );
-  }
+function Page(props) {
+  return (
+    <>
+      <div className='main m-2'>{props.children}</div>
+      <Footer />
+    </>
+  );
 }
 
 export default Page;

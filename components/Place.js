@@ -1,4 +1,4 @@
-import { TagIcon } from "@heroicons/react/solid";
+import { TagIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 export default function Place({ place, day }) {
