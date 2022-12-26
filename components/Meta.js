@@ -1,6 +1,9 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Meta(props) {
+  const router = useRouter();
+
   const metaTitle = props.title
     ? props.title
     : "Hello Chicago | Daily Happy Hour Specials in Chicago";
@@ -16,7 +19,10 @@ export default function Meta(props) {
       <link rel='icon' href='/favicon.ico' />
 
       <meta property='og:type' content='website' />
-      <meta property='og:url' content='https://www.hellochicago.co/' />
+      <meta
+        property='og:url'
+        content={"https://www.hellochicago.co" + router.asPath}
+      />
       <meta property='og:title' content={metaTitle} key='title' />
       <meta
         property='og:description'
@@ -26,7 +32,10 @@ export default function Meta(props) {
       <meta property='og:image' content='/chicagohappyhour.png' />
 
       <meta property='twitter:card' content='summary_large_image' />
-      <meta property='twitter:url' content='https://www.hellochicago.co/' />
+      <meta
+        property='twitter:url'
+        content={"https://www.hellochicago.co" + router.asPath}
+      />
       <meta property='twitter:title' content={metaTitle} />
       <meta property='twitter:description' content={metaDescription} />
       <meta
