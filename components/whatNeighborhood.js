@@ -1,4 +1,5 @@
 import neighborhoods from "../lib/neighborhoods";
+import Link from "next/link";
 
 export default function WhatNeighborhood() {
   return (
