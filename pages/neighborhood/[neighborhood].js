@@ -1,22 +1,23 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import Meta from "../components/Meta";
-import Header from "../components/Header";
-import Image from "next/image";
-import Place from "../components/Place";
-import getDay from "../lib/date";
-import Loader from "../components/Loader";
+import Meta from "../../components/Meta";
+import Header from "../../components/Header";
+import Place from "../../components/Place";
+import getDay from "../../lib/date";
+import Loader from "../../components/Loader";
 import Head from "next/head";
-import fetcher from "../lib/fetcher";
+import fetcher from "../../lib/fetcher";
+import Neighborhoods from "../../lib/neighborhoods";
 
 import "tailwindcss/tailwind.css";
 
 export default function Neighborhood(props) {
   const router = useRouter();
+
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
-  const neighborhood = router.query.n;
+  const neighborhood = router.query.neighborhood;
 
   const { data, error } = useSWR("/api/neighborhood/" + neighborhood, fetcher);
 
@@ -25,18 +26,17 @@ export default function Neighborhood(props) {
   }
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <Loader />;
+  if (!data) return <Loader pageInfo={props} />;
 
   const places = data.places;
 
   const bars = places.slice(0, amountOfPlaces);
-  console.log("proppppps", props);
 
   return (
     <div className='m-2'>
-      <Head>
-        <title>{`${props.title} Specials - Hello Chicago`}</title>
-      </Head>
+      <Meta
+        title={`${props.title} Neighborhood Deals // Happy Hour in Chicago`}
+      />
       <Header title={`Today's Neighborhood Specials : ${neighborhood}`} />
       <main>
         <div className='flex flex-wrap w-full'>
@@ -65,9 +65,18 @@ export default function Neighborhood(props) {
   );
 }
 
-export async function getStaticProps(context) {
-  console.log("content", context.params);
+export async function getStaticPaths() {
+  const paths = Neighborhoods.map((neighb) => ({
+    params: { neighborhood: neighb },
+  }));
+
+  return { paths, fallback: "blocking" };
+}
+
+export async function getStaticProps({ params }) {
   return {
-    props: { title: "Bibs" }, // will be passed to the page component as props
+    props: {
+      title: `${params.neighborhood} Neighborhood Deals // Happy Hour in Chicago`,
+    },
   };
 }

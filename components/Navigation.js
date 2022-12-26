@@ -24,7 +24,7 @@ export default function Navigation() {
       >
         <h3 className='m-3'>What neighborhood are you going to?</h3>
         {neighborhoods.sort().map((neighborhood) => (
-          <Link href={`/neighborhood?n=${neighborhood}`} key={neighborhood}>
+          <Link href={`/neighborhood/${neighborhood}`} key={neighborhood}>
             <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
               {neighborhood}
             </button>

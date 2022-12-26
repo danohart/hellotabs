@@ -29,7 +29,10 @@ export default function Meta(props) {
       <meta property='twitter:url' content='https://www.hellochicago.co/' />
       <meta property='twitter:title' content={metaTitle} />
       <meta property='twitter:description' content={metaDescription} />
-      <meta property='twitter:image' content='/chicagohappyhour.png'></meta>
+      <meta
+        property='twitter:image'
+        content='https://www.hellochicago.co/chicagohappyhour.png'
+      ></meta>
 
       <link rel='manifest' href='/manifest.json' />
       <meta name='theme-color' content='#223079' />

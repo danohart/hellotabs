@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import "../styles/globals.css";
 import "../styles/styles.css";
 import Page from "../components/Page";
+import Meta from "../components/Meta";
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
@@ -23,10 +24,13 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <Page>
-      <Component {...pageProps} />
-    </Page>
+    <>
+      <Meta />
+      <Page>
+        <Component {...pageProps} />
+      </Page>
+    </>
   );
 }
 
-export default MyApp;
+export default App;
