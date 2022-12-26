@@ -7,11 +7,12 @@ import Image from "next/image";
 import Place from "../components/Place";
 import getDay from "../lib/date";
 import Loader from "../components/Loader";
+import Head from "next/head";
 import fetcher from "../lib/fetcher";
 
 import "tailwindcss/tailwind.css";
 
-export default function Neighborhood() {
+export default function Neighborhood(props) {
   const router = useRouter();
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
@@ -29,10 +30,13 @@ export default function Neighborhood() {
   const places = data.places;
 
   const bars = places.slice(0, amountOfPlaces);
+  console.log("proppppps", props);
 
   return (
     <div className='m-2'>
-      <Meta title={`${neighborhood} Specials - Hello Chicago`} />
+      <Head>
+        <title>{`${props.title} Specials - Hello Chicago`}</title>
+      </Head>
       <Header title={`Today's Neighborhood Specials : ${neighborhood}`} />
       <main>
         <div className='flex flex-wrap w-full'>
@@ -59,4 +63,11 @@ export default function Neighborhood() {
       </main>
     </div>
   );
+}
+
+export async function getStaticProps(context) {
+  console.log("content", context.params);
+  return {
+    props: { title: "Bibs" }, // will be passed to the page component as props
+  };
 }
