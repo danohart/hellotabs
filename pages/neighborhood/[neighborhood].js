@@ -6,7 +6,6 @@ import Header from "../../components/Header";
 import Place from "../../components/Place";
 import getDay from "../../lib/date";
 import Loader from "../../components/Loader";
-import Head from "next/head";
 import fetcher from "../../lib/fetcher";
 import Neighborhoods from "../../lib/neighborhoods";
 
@@ -35,7 +34,8 @@ export default function Neighborhood(props) {
   return (
     <div className='m-2'>
       <Meta
-        title={`${props.title} Neighborhood Deals // Happy Hour in Chicago`}
+        title={`Best Happy Hours in ${props.title}, Chicago // Hello Chicago`}
+        description={`List of bars and restaurants in the ${props.title} neighborhood of Chicago that serve happy hour specials and deals.`}
       />
       <Header title={`Today's Neighborhood Specials : ${neighborhood}`} />
       <main>
@@ -76,7 +76,8 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   return {
     props: {
-      title: `${params.neighborhood} Neighborhood Deals // Happy Hour in Chicago`,
+      title: `Best Happy Hours in ${params.neighborhood}, Chicago // Hello Chicago`,
+      description: `List of bars and restaurants in the ${params.neighborhood} neighborhood of Chicago that serve happy hour specials and deals.`,
     },
   };
 }
