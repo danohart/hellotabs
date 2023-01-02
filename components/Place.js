@@ -1,4 +1,5 @@
-import { TagIcon } from "@heroicons/react/24/solid";
+import { TagIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
+import { dateCleanup } from "../lib/date";
 import Link from "next/link";
 
 export default function Place({ place, day }) {
@@ -13,9 +14,15 @@ export default function Place({ place, day }) {
     return place.day.map((special) => {
       if (special.name === day)
         return (
-          <div className='flex flex-row py-4 items-center' key={special.name}>
-            <TagIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
-            {special.drink_specials}
+          <div key={special.name}>
+            <div className='flex flex-row pt-4 items-center'>
+              <TagIcon className='h-5 w-5 text-purple-800 dark:text-purple-400' />
+              {special.drink_specials}
+            </div>
+            <div className='flex flex-row py-4 items-center'>
+              <CurrencyDollarIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
+              {special.food_specials}
+            </div>
           </div>
         );
     });
@@ -58,6 +65,11 @@ export default function Place({ place, day }) {
       <div className='font-semibold'>
         {place.day ? filterDailySpecials() : null}
       </div>
+      {place.lastUpdated ? (
+        <div className='font-semibold text-sm text-slate-400'>
+          Last Updated: {dateCleanup(place.lastUpdated)}
+        </div>
+      ) : null}
     </div>
   );
 }

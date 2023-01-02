@@ -28,54 +28,34 @@ export default function AddPlace() {
   let [password, updatePassword] = useState("");
   let [formattedData, setFormattedData] = useState({});
 
+  function daysObj() {
+    const days = daysOfTheWeek.map((day) => ({
+      name: day,
+      drink_specials: formData[day + "_drink"] || "None",
+      food_specials: formData[day + "_food"] || "None",
+      timeOfDay: {
+        startTime: formData[day + "_startTime"] || parseInt("0000", 32),
+        endTime: formData[day + "_endTime"] || parseInt("0000", 32),
+      },
+    }));
+
+    return days;
+  }
+
   const submitData = () => {
     setFormattedData({
       name: formData.name,
       address: formData.neighborhood + " @ " + formData.address,
-      day: [
-        {
-          name: "Sunday",
-          drink_specials: formData.Sunday_drink || "None",
-          food_specials: formData.Sunday_food || "None",
-        },
-        {
-          name: "Monday",
-          drink_specials: formData.Monday_drink || "None",
-          food_specials: formData.Monday_food || "None",
-        },
-        {
-          name: "Tuesday",
-          drink_specials: formData.Tuesday_drink || "None",
-          food_specials: formData.Tuesday_food || "None",
-        },
-        {
-          name: "Wednesday",
-          drink_specials: formData.Wednesday_drink || "None",
-          food_specials: formData.Wednesday_food || "None",
-        },
-        {
-          name: "Thursday",
-          drink_specials: formData.Thursday_drink || "None",
-          food_specials: formData.Thursday_food || "None",
-        },
-        {
-          name: "Friday",
-          drink_specials: formData.Friday_drink || "None",
-          food_specials: formData.Friday_food || "None",
-        },
-        {
-          name: "Saturday",
-          drink_specials: formData.Saturday_drink || "None",
-          food_specials: formData.Saturday_food || "None",
-        },
-      ],
+      day: daysObj(),
       enabled: formData.enabled || false,
       featured: false,
+      lastUpdated: new Date(),
     });
   };
 
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
+
     setFormData({
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
@@ -119,15 +99,40 @@ export default function AddPlace() {
         </select>
         <div className='flex flex-wrap justify-start'>
           {daysOfTheWeek.map((day) => (
-            <div className='flex flex-col w-1/3 mt-2 pr-4' key={day}>
-              <span>{day}: </span>
-              <input
-                type='text'
-                className='text-black'
-                name={day + "_drink"}
-                value={formData[day]}
-                onChange={handleChange}
-              />
+            <div className='flex flex-row mt-2 w-full' key={day}>
+              <div className='w-1/3 pr-4'>
+                <span>{day}: </span>
+                <br />
+                <input
+                  type='text'
+                  className='text-black w-full'
+                  name={day + "_drink"}
+                  value={formData[day]}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className='w-1/3 pr-4'>
+                <span>Start Time - {day}: </span>
+                <br />
+                <input
+                  type='text'
+                  className='text-black w-full'
+                  name={day + "_startTime"}
+                  value={formData[day + "_startTime"]}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className='w-1/3'>
+                <span>End Time - {day}: </span>
+                <br />
+                <input
+                  type='text'
+                  className='text-black w-full'
+                  name={day + "_endTime"}
+                  value={formData[day + "_endTime"]}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
           ))}
         </div>

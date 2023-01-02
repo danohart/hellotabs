@@ -30,6 +30,8 @@ export default function SearchIndex() {
 
   const bars = places.slice(0, amountOfPlaces);
 
+  console.log(places);
+
   return (
     <div className='m-2'>
       <Meta title='Hello Chicago - Search' />

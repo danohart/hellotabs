@@ -4,7 +4,7 @@ import Meta from "../components/Meta";
 import Header from "../components/Header";
 import Place from "../components/Place";
 import SearchBar from "../components/SearchBar";
-import getDay from "../lib/date";
+import { getDay } from "../lib/date";
 import fetcher from "../lib/fetcher";
 
 import "tailwindcss/tailwind.css";

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import Place from "../../components/Place";
-import getDay from "../../lib/date";
+import { getDay } from "../../lib/date";
 import Loader from "../../components/Loader";
 import fetcher from "../../lib/fetcher";
 import Neighborhoods from "../../lib/neighborhoods";
