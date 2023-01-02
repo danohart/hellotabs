@@ -10,9 +10,11 @@ import fetcher from "../lib/fetcher";
 import "tailwindcss/tailwind.css";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
+import { current } from "tailwindcss/colors";
 
 function Home() {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
+
   const day = getDay();
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
@@ -26,12 +28,41 @@ function Home() {
 
   const places = data.places;
 
+  function happyHoursRightNow() {
+    const currentTime = new Date();
+    const currentDay = currentTime.getDay();
+    let currentHour = currentTime.getHours() + "00";
+
+    const todayPlace = places.filter(
+      (p) =>
+        p.day[currentDay].timeOfDay.startTime < currentHour &&
+        p.day[currentDay].timeOfDay.endTime > currentHour &&
+        p.day[currentDay].drink_specials !== "None"
+    );
+
+    return todayPlace.length;
+  }
+
+  function determineCurrentHappyHourVerbiage() {
+    if (happyHoursRightNow() > 1)
+      return `There are ${happyHoursRightNow()} happy hours happening right now. Get on
+    it!`;
+    if (happyHoursRightNow() === 1)
+      return `There's only ${happyHoursRightNow()} happy hour happening right now. Get on
+    it!`;
+
+    return `There are ${happyHoursRightNow()} happy hours happening right now.`;
+  }
+
   const bars = places.slice(0, amountOfPlaces);
 
   return (
     <div>
       <Meta />
       <Header title={`${day} Specials`} />
+      <div className='mt-6 text-center'>
+        {determineCurrentHappyHourVerbiage()}
+      </div>
       <SearchBar />
       <Navigation />
       <main>
