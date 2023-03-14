@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../styles/globals.css";
 import "../styles/styles.css";
 import Page from "../components/Page";
 
