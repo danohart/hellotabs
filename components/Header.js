@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { HomeIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
+import Icon from "./Icon";
 
 export default function Header({ title }) {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function Header({ title }) {
         className='font-extrabold uppercase flex items-center cursor-pointer text-sm'
         onClick={() => router.back()}
       >
-        <ArrowLeftIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
+        <Icon icon='ArrowLeftIcon' />
         Back
       </div>
       <header className='py-4'>
@@ -27,7 +27,7 @@ export default function Header({ title }) {
           Home
         </Link>
         <Link to='/' href='/'>
-          <HomeIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
+          <Icon icon='HomeIcon' />
         </Link>
       </div>
     </div>

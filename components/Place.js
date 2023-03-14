@@ -1,4 +1,4 @@
-import { TagIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
+import Icon from "./Icon";
 import { dateCleanup } from "../lib/date";
 import Link from "next/link";
 
@@ -16,11 +16,11 @@ export default function Place({ place, day }) {
         return (
           <div key={special.name}>
             <div className='flex flex-row pt-4 items-center'>
-              <TagIcon className='h-5 w-5 text-purple-800 dark:text-purple-400' />
+              <Icon icon='TagIcon' />
               {special.drink_specials}
             </div>
             <div className='flex flex-row py-4 items-center'>
-              <CurrencyDollarIcon className=' h-5 w-5 text-purple-800 dark:text-purple-400' />
+              <Icon icon='CurrencyDollarIcon' />
               {special.food_specials}
             </div>
           </div>
