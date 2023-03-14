@@ -7,10 +7,8 @@ import SearchBar from "../components/SearchBar";
 import { getDay } from "../lib/date";
 import fetcher from "../lib/fetcher";
 
-import "tailwindcss/tailwind.css";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
-import { current } from "tailwindcss/colors";
 
 function Home() {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);

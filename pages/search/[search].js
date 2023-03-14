@@ -7,8 +7,6 @@ import Loader from "../../components/Loader";
 import Place from "../../components/Place";
 import fetcher from "../../lib/fetcher";
 
-import "tailwindcss/tailwind.css";
-
 export default function Search() {
   const router = useRouter();
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);

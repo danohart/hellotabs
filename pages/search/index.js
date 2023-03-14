@@ -8,7 +8,6 @@ import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import fetcher from "../../lib/fetcher";
 
-import "tailwindcss/tailwind.css";
 import SearchBar from "../../components/SearchBar";
 
 export default function SearchIndex() {

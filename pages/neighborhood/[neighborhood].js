@@ -9,8 +9,6 @@ import Loader from "../../components/Loader";
 import fetcher from "../../lib/fetcher";
 import Neighborhoods from "../../lib/neighborhoods";
 
-import "tailwindcss/tailwind.css";
-
 export default function Neighborhood(props) {
   const router = useRouter();
 
