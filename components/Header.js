@@ -15,12 +15,12 @@ export default function Header({ title }) {
         Back
       </div>
       <header className='py-4'>
-        <h1 className='text-center text-4xl'>
+        <h1 className='text-center'>
           <Link to='/' href='/'>
             Hello Chicago
           </Link>
         </h1>
-        <h2 className='text-center text-xl'>{title}</h2>
+        <h2 className='text-center'>{title}</h2>
       </header>
       <div className='font-extrabold uppercase flex items-center text-sm'>
         <Link to='/' href='/'>

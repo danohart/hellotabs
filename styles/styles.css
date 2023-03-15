@@ -3,10 +3,13 @@
 
 @layer base {
   h1 {
-    @apply text-6xl;
+    @apply text-4xl;
   }
   h2 {
-    @apply text-4xl;
+    @apply text-3xl sm:text-xl;
+  }
+  h3 {
+    @apply text-2xl;
   }
 }
 
