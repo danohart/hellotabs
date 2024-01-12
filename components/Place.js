@@ -75,9 +75,11 @@ export default function Place({ place, day }) {
 
   let startTime;
   let endTime;
-  if(dayInfo){
+  let happeningNow = false;
+  if (dayInfo) {
     startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
     endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
+    happeningNow = isBetweenTwoTimes(dayInfo.timeOfDay.startTime, dayInfo.timeOfDay.endTime);
   }
 
   return (
@@ -85,29 +87,40 @@ export default function Place({ place, day }) {
       className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500'
       key={place.name}
     >
-      <h2 className='text-4xl font-bold'>
-        <Link
-          href={{
-            pathname: "/place",
-            query: { id: place._id },
-          }}
-        >
-          {place.name}
-        </Link>
-      </h2>
-      <div className='text-purple-500 dark:text-purple-400'>
-        {place.address ? place.address.split("@")[0] : null} |{" "}
-        <a
-          className='underline'
-          target='_blank'
-          rel='noreferrer'
-          href={getGoogleMapsUrl(place)}
-        >
-          {place.address ? place.address.split("@")[1] : null}
-        </a>
+      <div className="flex justify-between">
+        <div className="flex flex-col justify-start">
+          <h2 className='text-3xl md:text-4xl font-bold'>
+            <Link
+              href={{
+                pathname: "/place",
+                query: { id: place._id },
+              }}
+            >
+              {place.name}
+            </Link>
+          </h2>
+          <div className='text-purple-500 dark:text-purple-400'>
+            {place.address ? place.address.split("@")[0] : null} |{" "}
+            <a
+              className='underline'
+              target='_blank'
+              rel='noreferrer'
+              href={getGoogleMapsUrl(place)}
+            >
+              {place.address ? place.address.split("@")[1] : null}
+            </a>
+          </div>
+        </div>
+        {dayInfo &&
+          <div className="flex flex-col justify-start items-center">
+            <div className="text-xl ml-4 whitespace-nowrap">{startTime} - {endTime}</div>
+            {happeningNow &&
+              <div className="font-bold tracking-wider text-xs mt-2 bg-orange-400 py-1 px-3 rounded-md">Now!</div>
+            }
+          </div>
+        }
       </div>
-      <div className="mt-2 font-semibold">{startTime} - {endTime}</div>
-      <div className=''>
+      <div>
         {place.day ? filterDailySpecials() : null}
       </div>
       {place.lastUpdated ? (
