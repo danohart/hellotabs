@@ -58,14 +58,17 @@ function Home() {
     <div>
       <Meta />
       <Header title={`${day} Specials`} />
-      <div className='mt-6 text-center'>
-        {determineCurrentHappyHourVerbiage()}
-      </div>
-      <SearchBar />
-      <Navigation />
-      <main>
-        <div className='flex flex-wrap justify-items-center mt-6'>
-          {/* {daysOfTheWeek.map((theDay) => (
+      <div className="flex flex-col items-center">
+        <div className="flex flex-col md:w-1/2">
+
+          <div className='mt-6 mx-10 text-center'>
+            {determineCurrentHappyHourVerbiage()}
+          </div>
+          <SearchBar />
+          <Navigation />
+          <main>
+            <div className='flex flex-wrap justify-items-center mt-6'>
+              {/* {daysOfTheWeek.map((theDay) => (
             <button
               className='w-1/5 px-4'
               onClick={() => setNavigationDay(theDay)}
@@ -74,23 +77,25 @@ function Home() {
               {theDay}
             </button>
           ))} */}
-        </div>
-        <div className='flex flex-wrap w-full'>
-          {bars.map((bar) => (
-            <Place place={bar} day={day} key={bar._id} />
-          ))}
-          {places.length <= amountOfPlaces ? null : (
-            <div className='flex justify-center w-full'>
-              <button
-                className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
-                onClick={showMorePlaces}
-              >
-                See More
-              </button>
             </div>
-          )}
+            <div className='flex flex-wrap w-full'>
+              {bars.map((bar) => (
+                <Place place={bar} day={day} key={bar._id} />
+              ))}
+              {places.length <= amountOfPlaces ? null : (
+                <div className='flex justify-center w-full'>
+                  <button
+                    className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
+                    onClick={showMorePlaces}
+                  >
+                    See More
+                  </button>
+                </div>
+              )}
+            </div>
+          </main>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

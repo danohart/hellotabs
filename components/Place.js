@@ -28,12 +28,56 @@ export default function Place({ place, day }) {
     });
   }
 
+  const dayInfo = place.day.filter((specialDay) => specialDay.name == day)[0];
+
   function getGoogleMapsUrl(placeInfo) {
     const placeAddress = placeInfo.address
       ? placeInfo.address.split("@")[1]
       : null;
 
     return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
+  }
+
+  function formatTimeDisplay(timeInt) {
+    const hour = Math.floor(timeInt / 100);
+    const minute = timeInt % 100;
+
+    if (isNaN(hour) || isNaN(minute)) {
+      return "?";
+    }
+
+    const period = hour < 12 ? 'am' : 'pm';
+    const convertedHour = hour % 12 === 0 ? 12 : hour % 12;
+
+    if (minute) {
+      return `${convertedHour}:${minute}${period}`;
+    } else {
+      return `${convertedHour}${period}`;
+    }
+  }
+
+  function getCurrentTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    // Format the current time as "HHMM"
+    const currentTime = hours * 100 + minutes;
+
+    return currentTime;
+  }
+
+  function isBetweenTwoTimes(startTime, endTime) {
+    const currentTime = getCurrentTime();
+
+    return currentTime >= startTime && currentTime <= endTime;
+  }
+
+  let startTime;
+  let endTime;
+  if(dayInfo){
+    startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
+    endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
   }
 
   return (
@@ -62,7 +106,8 @@ export default function Place({ place, day }) {
           {place.address ? place.address.split("@")[1] : null}
         </a>
       </div>
-      <div className='font-semibold'>
+      <div className="mt-2 font-semibold">{startTime} - {endTime}</div>
+      <div className=''>
         {place.day ? filterDailySpecials() : null}
       </div>
       {place.lastUpdated ? (
