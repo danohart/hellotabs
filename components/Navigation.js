@@ -22,14 +22,18 @@ export default function Navigation() {
             : "hidden"
         }
       >
-        <h3 className='m-3'>What neighborhood are you going to?</h3>
-        {neighborhoods.sort().map((neighborhood) => (
-          <Link href={`/neighborhood/${neighborhood}`} key={neighborhood}>
-            <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
-              {neighborhood}
-            </button>
-          </Link>
-        ))}
+        <div className="flex flex-col items-center my-4">
+          <h3 className='my-3 mx-12 text-center'>What neighborhood are you going to?</h3>
+          <div className="flex flex-wrap justify-center">
+            {neighborhoods.sort().map((neighborhood) => (
+              <Link href={`/neighborhood/${neighborhood}`} key={neighborhood}>
+                <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
+                  {neighborhood}
+                </button>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
