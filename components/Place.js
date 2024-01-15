@@ -1,8 +1,10 @@
 import Icon from "./Icon";
 import { dateCleanup } from "../lib/date";
 import Link from "next/link";
+import { isCurrentlyBetweenTwoTimes, formatTimeDisplay } from "../lib/time";
+import { calculateDistance } from "../lib/location";
 
-export default function Place({ place, day }) {
+export default function Place({ place, day, userLocation }) {
   function filterDailySpecials() {
     if (place.day && day === "allDays") {
       return place.day.map((special) => (
@@ -38,48 +40,13 @@ export default function Place({ place, day }) {
     return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
   }
 
-  function formatTimeDisplay(timeInt) {
-    const hour = Math.floor(timeInt / 100);
-    const minute = timeInt % 100;
-
-    if (isNaN(hour) || isNaN(minute)) {
-      return "?";
-    }
-
-    const period = hour < 12 ? 'am' : 'pm';
-    const convertedHour = hour % 12 === 0 ? 12 : hour % 12;
-
-    if (minute) {
-      return `${convertedHour}:${minute}${period}`;
-    } else {
-      return `${convertedHour}${period}`;
-    }
-  }
-
-  function getCurrentTime() {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-
-    // Format the current time as "HHMM"
-    const currentTime = hours * 100 + minutes;
-
-    return currentTime;
-  }
-
-  function isBetweenTwoTimes(startTime, endTime) {
-    const currentTime = getCurrentTime();
-
-    return currentTime >= startTime && currentTime <= endTime;
-  }
-
   let startTime;
   let endTime;
   let happeningNow = false;
   if (dayInfo) {
     startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
     endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
-    happeningNow = isBetweenTwoTimes(dayInfo.timeOfDay.startTime, dayInfo.timeOfDay.endTime);
+    happeningNow = isCurrentlyBetweenTwoTimes(dayInfo.timeOfDay.startTime, dayInfo.timeOfDay.endTime);
   }
 
   return (
@@ -109,6 +76,9 @@ export default function Place({ place, day }) {
             >
               {place.address ? place.address.split("@")[1] : null}
             </a>
+            { (userLocation && place.geo) && 
+              <div>{calculateDistance(userLocation, place.geo).toFixed(1)} miles</div>
+            }
           </div>
         </div>
         {dayInfo &&

@@ -4,6 +4,10 @@
       "_id": "619057c476b43483d5156219",
       "name": "Roscoe's Tavern",
       "address": "Lakeview @ 3356 N Halsted St",
+      "geo": {
+        "latitude": 41.94342691078982,
+        "longitude": -87.64967450312803
+      },
       "alt_id": "173",
       "day": [
         {
@@ -78,6 +82,10 @@
       "_id": "619057c476b43483d515619e",
       "name": "Innjoy (Wicker Park)",
       "address": "Wicker Park @ 2051 W Division St",
+      "geo": {
+        "latitude": 41.90298817123905,
+        "longitude": -87.679266567746
+      },
       "alt_id": "163",
       "day": [
         {
@@ -152,6 +160,10 @@
       "_id": "619057c476b43483d51561ef",
       "name": "Emerald Loop",
       "address": "Loop @ 216 N Wabash Ave",
+      "geo": {
+        "latitude": 41.8863541966384,
+        "longitude": -87.62653646775539
+      },
       "alt_id": "42",
       "day": [
         {
