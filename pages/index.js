@@ -108,6 +108,7 @@ function Home() {
 export default Home;
 
 
+//TODO refactor so these are in one spot, shared
 function getCurrentTime() {
   const now = new Date();
   const hours = now.getHours();
