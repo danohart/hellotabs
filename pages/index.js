@@ -10,7 +10,7 @@ import fetcher from "../lib/fetcher";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
 import { hasActiveHappyHour } from "../lib/time";
-import { sortByDistance } from "../lib/location";
+import { sortByDistance, calculateDistance } from "../lib/location";
 
 function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
@@ -28,8 +28,10 @@ function Home() {
   let places = data.places;
 
   // sort by distance
-  if(userLocation)
-    places = sortByDistance(userLocation, places);
+  if(userLocation){
+    places = places.map(place => ({ ...place, distance: calculateDistance(userLocation, place.geo) }));
+    places = sortByDistance(places);
+  }
 
   // sort so active happy hours are first
   let activeSpecialsPlaces = places.filter((place) => hasActiveHappyHour(place, day));
@@ -90,7 +92,7 @@ function Home() {
             </div>
             <div className='flex flex-wrap w-full'>
               {bars.map((bar) => (
-                <Place place={bar} day={day} userLocation={userLocation} key={bar._id} />
+                <Place place={bar} day={day} key={bar._id} />
               ))}
               {places.length <= amountOfPlaces ? null : (
                 <div className='flex justify-center w-full'>

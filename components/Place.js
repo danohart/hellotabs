@@ -2,9 +2,8 @@ import Icon from "./Icon";
 import { dateCleanup } from "../lib/date";
 import Link from "next/link";
 import { isCurrentlyBetweenTwoTimes, formatTimeDisplay } from "../lib/time";
-import { calculateDistance } from "../lib/location";
 
-export default function Place({ place, day, userLocation }) {
+export default function Place({ place, day }) {
   function filterDailySpecials() {
     if (place.day && day === "allDays") {
       return place.day.map((special) => (
@@ -66,18 +65,20 @@ export default function Place({ place, day, userLocation }) {
               {place.name}
             </Link>
           </h2>
-          <div className='text-purple-500 dark:text-purple-400'>
-            {place.address ? place.address.split("@")[0] : null} |{" "}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href={getGoogleMapsUrl(place)}
-            >
-              {place.address ? place.address.split("@")[1] : null}
-            </a>
-            { (userLocation && place.geo) && 
-              <div>{calculateDistance(userLocation, place.geo).toFixed(1)} miles</div>
+          <div className='text-purple-500 dark:text-purple-400 flex'>
+            <div>
+              {place.address ? place.address.split("@")[0] : null} |{" "}
+              <a
+                className='underline'
+                target='_blank'
+                rel='noreferrer'
+                href={getGoogleMapsUrl(place)}
+              >
+                {place.address ? place.address.split("@")[1] : null}
+              </a>
+            </div>
+            {(place.distance) &&
+              <div className="ml-4">{place.distance.toFixed(1)} miles</div>
             }
           </div>
         </div>
