@@ -33,7 +33,7 @@ export default function Place({ place, day }) {
 
   function getGoogleMapsUrl(placeInfo) {
     const placeAddress = placeInfo.address
-      ? placeInfo.address.split("@")[1]
+      ? placeInfo.address
       : null;
 
     return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
@@ -65,21 +65,22 @@ export default function Place({ place, day }) {
               {place.name}
             </Link>
           </h2>
-          <div className='text-purple-500 dark:text-purple-400 flex'>
+          <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row'>
             <div>
-              {place.address ? place.address.split("@")[0] : null} |{" "}
               <a
                 className='underline'
                 target='_blank'
                 rel='noreferrer'
                 href={getGoogleMapsUrl(place)}
               >
-                {place.address ? place.address.split("@")[1] : null}
+                {place.address ? place.address : null}
               </a>
             </div>
-            {(place.distance) &&
-              <div className="ml-4">{place.distance.toFixed(1)} miles</div>
-            }
+            <div className="md:ml-4">
+              {place.neighborhood ? place.neighborhood : null}
+              {(place.distance) &&
+                ` | ${place.distance.toFixed(1)} miles`}
+            </div>
           </div>
         </div>
         {dayInfo &&

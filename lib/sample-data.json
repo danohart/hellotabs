@@ -3,10 +3,10 @@
     {
       "_id": "619057c476b43483d5156219",
       "name": "Roscoe's Tavern",
-      "address": "Lakeview @ 3356 N Halsted St",
+      "address": "3356 N Halsted St",
       "geo": {
-        "latitude": 41.94342691078982,
-        "longitude": -87.64967450312803
+        "latitude": 41.94303979225621,
+        "longitude": -87.64944026798806
       },
       "alt_id": "173",
       "day": [
@@ -76,15 +76,16 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview"
     },
     {
       "_id": "619057c476b43483d515619e",
       "name": "Innjoy (Wicker Park)",
-      "address": "Wicker Park @ 2051 W Division St",
+      "address": "2051 W Division St",
       "geo": {
-        "latitude": 41.90298817123905,
-        "longitude": -87.679266567746
+        "latitude": 41.90311093542149,
+        "longitude": -87.67849943761735
       },
       "alt_id": "163",
       "day": [
@@ -154,15 +155,16 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Wicker Park"
     },
     {
       "_id": "619057c476b43483d51561ef",
       "name": "Emerald Loop",
-      "address": "Loop @ 216 N Wabash Ave",
+      "address": "216 N Wabash Ave",
       "geo": {
-        "latitude": 41.8863541966384,
-        "longitude": -87.62653646775539
+        "latitude": 41.88586250914893,
+        "longitude": -87.62636469571748
       },
       "alt_id": "42",
       "day": [
@@ -232,12 +234,13 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Loop"
     },
     {
       "_id": "619057c476b43483d5156223",
       "name": "LP’s T.A.P. House",
-      "address": "Lincoln Park @ 2251 N Lincoln Ave",
+      "address": "2251 N Lincoln Ave",
       "alt_id": "25",
       "day": [
         {
@@ -306,12 +309,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.9229502062916,
+        "longitude": -87.64516188127632
+      }
     },
     {
       "_id": "619057c476b43483d5156199",
       "name": "Galvin's Public House",
-      "address": "Portage Park @ 5901 W Lawrence Ave",
+      "address": "5901 W Lawrence Ave",
       "alt_id": "604",
       "day": [
         {
@@ -380,12 +388,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Portage Park",
+      "geo": {
+        "latitude": 41.96762635292902,
+        "longitude": -87.77490020008689
+      }
     },
     {
       "_id": "619057c476b43483d51561be",
       "name": "6 Degrees",
-      "address": "Bucktown @ 1935 N Damen Ave",
+      "address": "1935 N Damen Ave",
       "alt_id": "225",
       "day": [
         {
@@ -454,12 +467,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Bucktown",
+      "geo": {
+        "latitude": 41.91704667800767,
+        "longitude": -87.67752293683415
+      }
     },
     {
       "_id": "6193e90a0d4d1d732daa8333",
       "name": "Central Park Bar",
-      "address": "Avondale @ 2924 N Central Park Ave",
+      "address": "2924 N Central Park Ave",
       "day": [
         {
           "name": "Sunday",
@@ -527,12 +545,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2023-01-02T15:14:28.968Z"
+      "lastUpdated": "2023-01-02T15:14:28.968Z",
+      "neighborhood": "Avondale",
+      "geo": {
+        "latitude": 41.934268788904625,
+        "longitude": -87.71733109077552
+      }
     },
     {
       "_id": "61dc94f464203998fb95ff99",
       "name": "Reno",
-      "address": "Logan Square @ 2607 N Milwaukee Ave",
+      "address": "2607 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -600,12 +623,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.928918343100534,
+        "longitude": -87.70704276488595
+      }
     },
     {
       "_id": "620d63078aee7d15c822d871",
       "name": "Estelle's Cafe & Lounge",
-      "address": "Wicker Park @ 2013 W North Ave, Chicago, IL 60647",
+      "address": "2013 W North Ave, Chicago, IL 60647",
       "day": [
         {
           "name": "Sunday",
@@ -673,12 +701,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.91041484783195,
+        "longitude": -87.67797173277684
+      }
     },
     {
       "_id": "627428c46cedc832742a599b",
       "name": "Lonesome Rose",
-      "address": "Logan Square @ 2101 N California Ave",
+      "address": "2101 N California Ave",
       "day": [
         {
           "name": "Sunday",
@@ -746,12 +779,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.91964731991319,
+        "longitude": -87.697187427213
+      }
     },
     {
       "_id": "63321f6ad5b396b6e9a20170",
       "name": "Ludlow Liquors",
-      "address": "Avondale @ 2959 N California Ave",
+      "address": "2959 N California Ave",
       "day": [
         {
           "name": "Sunday",
@@ -819,12 +857,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Avondale",
+      "geo": {
+        "latitude": 41.93520951986881,
+        "longitude": -87.6976326383995
+      }
     },
     {
       "_id": "63b472c58949eaa54568f49a",
       "name": "Lula Cafe",
-      "address": "Logan Square @ 2537 N Kedzie Blvd",
+      "address": "2537 N Kedzie Blvd",
       "day": [
         {
           "name": "Sunday",
@@ -892,12 +935,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2023-01-02T15:14:28.962Z"
+      "lastUpdated": "2023-01-02T15:14:28.962Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92706033094495,
+        "longitude": -87.70721011071201
+      }
     },
     {
       "_id": "6528379dc11fea45b073e558",
       "name": "Revolution Brewing - Brewpub",
-      "address": "Logan Square @ 2323 N Milwaukee Ave, Chicago, IL 60647",
+      "address": "2323 N Milwaukee Ave, Chicago, IL 60647",
       "day": [
         {
           "name": "Sunday",
@@ -965,12 +1013,17 @@
       ],
       "enabled": true,
       "featured": true,
-      "lastUpdated": "2023-10-12T18:14:40.866Z"
+      "lastUpdated": "2023-10-12T18:14:40.866Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92346162897784,
+        "longitude": -87.69814040471532
+      }
     },
     {
       "_id": "619057c476b43483d5156174",
       "name": "Fairways",
-      "address": "Lincoln Park @ 1141 W Armitage Ave",
+      "address": "1141 W Armitage Ave",
       "alt_id": "558",
       "day": [
         {
@@ -1039,12 +1092,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.917992664783995,
+        "longitude": -87.65726763381952
+      }
     },
     {
       "_id": "619057c476b43483d5156172",
       "name": "Tuman's Tap & Grill",
-      "address": "Ukrainian Village @ 2159 W Chicago Ave",
+      "address": "2159 W Chicago Ave",
       "alt_id": "662",
       "day": [
         {
@@ -1113,12 +1171,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Ukrainian Village",
+      "geo": {
+        "latitude": 41.89578725341516,
+        "longitude": -87.68093516340855
+      }
     },
     {
       "_id": "619057c476b43483d515617a",
       "name": "Kasey's Tavern",
-      "address": "Printers Row @ 701 S Dearborn St",
+      "address": "701 S Dearborn St",
       "alt_id": "125",
       "day": [
         {
@@ -1187,12 +1250,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Printers Row",
+      "geo": {
+        "latitude": 41.87331826692456,
+        "longitude": -87.62909044975996
+      }
     },
     {
       "_id": "619057c476b43483d515617c",
       "name": "Kincade's Bar & Grill",
-      "address": "Lincoln Park @ 950 W Armitage Ave",
+      "address": "950 W Armitage Ave",
       "alt_id": "153",
       "day": [
         {
@@ -1261,12 +1329,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.918168566634165,
+        "longitude": -87.65285104188855
+      }
     },
     {
       "_id": "619057c476b43483d515617e",
       "name": "Will's Northwoods Inn",
-      "address": "Lakeview @ 3030 N Racine Ave",
+      "address": "3030 N Racine Ave",
       "alt_id": "77",
       "day": [
         {
@@ -1335,12 +1408,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.93720288500356,
+        "longitude": -87.65895129920891
+      }
     },
     {
       "_id": "619057c476b43483d5156186",
       "name": "Lokal Lincoln Park",
-      "address": "Lincoln Park @ 2500 N Ashland Ave",
+      "address": "2500 N Ashland Ave",
       "alt_id": "614",
       "day": [
         {
@@ -1409,12 +1487,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92701638688494,
+        "longitude": -87.66828962916493
+      }
     },
     {
       "_id": "619057c476b43483d5156188",
       "name": "Side Street Saloon",
-      "address": "Lakeview @ 1456 W George St",
+      "address": "1456 W George St",
       "alt_id": "187",
       "day": [
         {
@@ -1483,12 +1566,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.93433083327406,
+        "longitude": -87.66517182648768
+      }
     },
     {
       "_id": "619057c476b43483d515618a",
       "name": "80 Proof",
-      "address": "Old Town @ 1500 N Wells St",
+      "address": "1500 N Wells St",
       "alt_id": "660",
       "day": [
         {
@@ -1557,12 +1645,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Old Town",
+      "geo": {
+        "latitude": 41.909399005096866,
+        "longitude": -87.63473210636731
+      }
     },
     {
       "_id": "619057c476b43483d515618c",
       "name": "The Other Side Bar",
-      "address": "Lincoln Park @ 2436 N Clark St",
+      "address": "2436 N Clark St",
       "alt_id": "192",
       "day": [
         {
@@ -1631,12 +1724,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.926527287102,
+        "longitude": -87.64113818960894
+      }
     },
     {
       "_id": "619057c476b43483d515619b",
       "name": "AliveOne",
-      "address": "Lincoln Park @ 2683 N Halsted St",
+      "address": "2683 N Halsted St",
       "alt_id": "214",
       "day": [
         {
@@ -1705,12 +1803,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.93141943974636,
+        "longitude": -87.64888909933677
+      }
     },
     {
       "_id": "619057c476b43483d515619d",
       "name": "Gideon Welles",
-      "address": "Lincoln Square @ 4500 N Lincoln Ave",
+      "address": "4500 N Lincoln Ave",
       "alt_id": "603",
       "day": [
         {
@@ -1779,12 +1882,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lincoln Square",
+      "geo": {
+        "latitude": 41.963220424765474,
+        "longitude": -87.68510380171872
+      }
     },
     {
       "_id": "619057c476b43483d51561a3",
       "name": "The Hidden Shamrock",
-      "address": "Lincoln Park @ 2723 N Halsted St",
+      "address": "2723 N Halsted St",
       "alt_id": "336",
       "day": [
         {
@@ -1853,12 +1961,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.93184573248755,
+        "longitude": -87.64890318746794
+      }
     },
     {
       "_id": "619057c476b43483d51561a5",
       "name": "Lokal Wicker Park",
-      "address": "Wicker Park @ 1904 W North Ave",
+      "address": "1904 W North Ave",
       "alt_id": "471",
       "day": [
         {
@@ -1927,12 +2040,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.910574813480046,
+        "longitude": -87.67525453851692
+      }
     },
     {
       "_id": "619057c476b43483d51561ae",
       "name": "Reed's Local",
-      "address": "Avondale @ 3017 W Belmont Ave",
+      "address": "3017 W Belmont Ave",
       "alt_id": "585",
       "day": [
         {
@@ -2001,12 +2119,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Avondale",
+      "geo": {
+        "latitude": 41.93930484430586,
+        "longitude": -87.70337404500599
+      }
     },
     {
       "_id": "619057c476b43483d51561b4",
       "name": "Bar Cargo",
-      "address": "River North @ 605 N Wells St",
+      "address": "605 N Wells St",
       "alt_id": "696",
       "day": [
         {
@@ -2075,12 +2198,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "River North",
+      "geo": {
+        "latitude": 41.89255469181841,
+        "longitude": -87.63401996638405
+      }
     },
     {
       "_id": "619057c476b43483d51561b7",
       "name": "Scarlet Bar",
-      "address": "Lakeview @ 3320 N Halsted St",
+      "address": "3320 N Halsted St",
       "alt_id": "262",
       "day": [
         {
@@ -2149,12 +2277,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.942350165877286,
+        "longitude": -87.64942288900828
+      }
     },
     {
       "_id": "619057c476b43483d51561c1",
       "name": "Gaslight Bar & Grille",
-      "address": "Lincoln Park @ 2450 N Clark St",
+      "address": "2450 N Clark St",
       "alt_id": "358",
       "day": [
         {
@@ -2223,12 +2356,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92688842851468,
+        "longitude": -87.64134973098967
+      }
     },
     {
       "_id": "619057c476b43483d51561c9",
       "name": "Scot's Bar",
-      "address": "North Center @ 1829 W Montrose Ave",
+      "address": "1829 W Montrose Ave",
       "alt_id": "263",
       "day": [
         {
@@ -2297,12 +2435,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "North Center",
+      "geo": {
+        "latitude": 41.96144483895725,
+        "longitude": -87.675367346691
+      }
     },
     {
       "_id": "619057c476b43483d51561d6",
       "name": "Gallery Cabaret",
-      "address": "Bucktown @ 2020 N Oakley Ave",
+      "address": "2020 N Oakley Ave",
       "alt_id": "116",
       "day": [
         {
@@ -2371,12 +2514,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Bucktown",
+      "geo": {
+        "latitude": 41.91832460695827,
+        "longitude": -87.68505802681058
+      }
     },
     {
       "_id": "619057c476b43483d51561ea",
       "name": "Jake Melnick's Corner Tap",
-      "address": "Near North Side @ 41 E Superior St",
+      "address": "41 E Superior St",
       "alt_id": "311",
       "day": [
         {
@@ -2445,12 +2593,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.89564584750919,
+        "longitude": -87.62674777639732
+      }
     },
     {
       "_id": "619057c476b43483d51561f3",
       "name": "Goldie's",
-      "address": "North Center @ 3839 N Lincoln Ave",
+      "address": "3839 N Lincoln Ave",
       "alt_id": "122",
       "day": [
         {
@@ -2519,12 +2672,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "North Center",
+      "geo": {
+        "latitude": 41.95155190764592,
+        "longitude": -87.67685689674947
+      }
     },
     {
       "_id": "619057c476b43483d5156202",
       "name": "The Kerryman",
-      "address": "Near North Side @ 661 N Clark St",
+      "address": "661 N Clark St",
       "alt_id": "62",
       "day": [
         {
@@ -2593,12 +2751,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.894290614440905,
+        "longitude": -87.63111464628338
+      }
     },
     {
       "_id": "619057c476b43483d5156218",
       "name": "Easy Bar",
-      "address": "Wicker Park @ 1944 W Division St",
+      "address": "1944 W Division St",
       "alt_id": "215",
       "day": [
         {
@@ -2667,12 +2830,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.90326511294187,
+        "longitude": -87.67633927075867
+      }
     },
     {
       "_id": "619057c476b43483d5156228",
       "name": "Declan's Irish Pub",
-      "address": "Near North Side @ 1240 N Wells St",
+      "address": "1240 N Wells St",
       "alt_id": "365",
       "day": [
         {
@@ -2741,12 +2909,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.905045366706716,
+        "longitude": -87.63459950286709
+      }
     },
     {
       "_id": "619057c476b43483d515622f",
       "name": "The Albion Manor",
-      "address": "Lincoln Park @ 1480 W Webster Ave",
+      "address": "1480 W Webster Ave",
       "alt_id": "656",
       "day": [
         {
@@ -2815,12 +2988,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.921662436632154,
+        "longitude": -87.66591857167181
+      }
     },
     {
       "_id": "619057c476b43483d5156173",
       "name": "Lizard's Liquid Lounge",
-      "address": "Irving Park @ 3058 W Irving Park Rd",
+      "address": "3058 W Irving Park Rd",
       "alt_id": "98",
       "day": [
         {
@@ -2889,12 +3067,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Irving Park",
+      "geo": {
+        "latitude": 41.953999433274355,
+        "longitude": -87.70487096341691
+      }
     },
     {
       "_id": "619057c476b43483d5156178",
       "name": "Belford Tavern",
-      "address": "Irving Park @ 3200 N Pulaski Rd",
+      "address": "3200 N Pulaski Rd",
       "alt_id": "581",
       "day": [
         {
@@ -2963,12 +3146,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Irving Park",
+      "geo": {
+        "latitude": 41.939148413483196,
+        "longitude": -87.72726209257189
+      }
     },
     {
       "_id": "619057c476b43483d515618d",
       "name": "Berlin",
-      "address": "Lakeview @ 954 W Belmont Ave",
+      "address": "954 W Belmont Ave",
       "alt_id": "349",
       "day": [
         {
@@ -3037,12 +3225,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.9399774328113,
+        "longitude": -87.65359749917077
+      }
     },
     {
       "_id": "619057c476b43483d51561c0",
       "name": "Kelly's Pub",
-      "address": "Lincoln Park @ 949 W Webster Ave",
+      "address": "949 W Webster Ave",
       "alt_id": "28",
       "day": [
         {
@@ -3111,12 +3304,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.921690999343824,
+        "longitude": -87.6529299626185
+      }
     },
     {
       "_id": "619057c476b43483d51561da",
       "name": "Standard Bar & Grill",
-      "address": "Wicker Park @ 1332 N Milwaukee Ave",
+      "address": "1332 N Milwaukee Ave",
       "alt_id": "676",
       "day": [
         {
@@ -3185,12 +3383,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.905722935375785,
+        "longitude": -87.67030597624597
+      }
     },
     {
       "_id": "619057c476b43483d51561e9",
       "name": "Bobby Love's",
-      "address": "Lakeview @ 3729 N Halsted St",
+      "address": "3729 N Halsted St",
       "alt_id": "337",
       "day": [
         {
@@ -3259,12 +3462,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.95006180799765,
+        "longitude": -87.64949713994778
+      }
     },
     {
       "_id": "619057c476b43483d51561eb",
       "name": "Renaldi's After Dark",
-      "address": "Lakeview @ 2831 N Broadway St",
+      "address": "2831 N Broadway St",
       "alt_id": "504",
       "day": [
         {
@@ -3333,12 +3541,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.933136070822826,
+        "longitude": -87.64473016830442
+      }
     },
     {
       "_id": "619057c476b43483d51561ff",
       "name": "Tripoli Tap",
-      "address": "Lincoln Park @ 1147 W Armitage Ave",
+      "address": "1147 W Armitage Ave",
       "alt_id": "450",
       "day": [
         {
@@ -3407,12 +3620,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.917991539584506,
+        "longitude": -87.65735821277354
+      }
     },
     {
       "_id": "619057c476b43483d5156200",
       "name": "Lincoln Station",
-      "address": "Lincoln Park @ 2432 N Lincoln Ave",
+      "address": "2432 N Lincoln Ave",
       "alt_id": "248",
       "day": [
         {
@@ -3481,12 +3699,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.926378747592885,
+        "longitude": -87.6501823369112
+      }
     },
     {
       "_id": "619057c476b43483d515620f",
       "name": "Brickhouse Tavern",
-      "address": "Wrigleyville @ 3647 N Clark St",
+      "address": "3647 N Clark St",
       "alt_id": "681",
       "day": [
         {
@@ -3555,12 +3778,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94776647894649,
+        "longitude": -87.65687972209517
+      }
     },
     {
       "_id": "619057c476b43483d5156212",
       "name": "The Lodge",
-      "address": "Near North Side @ 21 W Division Street",
+      "address": "21 W Division Street",
       "alt_id": "68",
       "day": [
         {
@@ -3629,12 +3857,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.903875215177955,
+        "longitude": -87.62908064502427
+      }
     },
     {
       "_id": "619057c476b43483d515621b",
       "name": "Wild Goose Bar & Grill",
-      "address": "North Center @ 4265 N Lincoln Ave",
+      "address": "4265 N Lincoln Ave",
       "alt_id": "37",
       "day": [
         {
@@ -3703,12 +3936,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "North Center",
+      "geo": {
+        "latitude": 41.95934709925385,
+        "longitude": -87.68231164882889
+      }
     },
     {
       "_id": "619057c476b43483d5156187",
       "name": "Rockwood Place",
-      "address": "Wrigleyville @ 3466 N Clark St",
+      "address": "3466 N Clark St",
       "alt_id": "350",
       "day": [
         {
@@ -3777,12 +4015,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94507958580699,
+        "longitude": -87.65489373363802
+      }
     },
     {
       "_id": "619057c476b43483d5156191",
       "name": "Halligan Bar",
-      "address": "Lincoln Park @ 2274 N Lincoln Ave",
+      "address": "2274 N Lincoln Ave",
       "alt_id": "130",
       "day": [
         {
@@ -3851,12 +4094,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92320825001512,
+        "longitude": -87.64574113703267
+      }
     },
     {
       "_id": "619057c476b43483d5156196",
       "name": "Carbon Arc Bar & Board",
-      "address": "Lincoln Square @ 4614 N Lincoln Ave",
+      "address": "4614 N Lincoln Ave",
       "alt_id": "680",
       "day": [
         {
@@ -3925,12 +4173,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Square",
+      "geo": {
+        "latitude": 41.9653130280501,
+        "longitude": -87.68646497244741
+      }
     },
     {
       "_id": "619057c476b43483d51561a1",
       "name": "The Green Lady",
-      "address": "Lakeview @ 3328 N Lincoln Ave",
+      "address": "3328 N Lincoln Ave",
       "alt_id": "213",
       "day": [
         {
@@ -3999,12 +4252,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.942016642301056,
+        "longitude": -87.6703745255783
+      }
     },
     {
       "_id": "619057c476b43483d51561a8",
       "name": "Paddy Long's",
-      "address": "Lincoln Park @ 1028 W Diversey Ave",
+      "address": "1028 W Diversey Ave",
       "alt_id": "119",
       "day": [
         {
@@ -4073,12 +4331,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.93267462324602,
+        "longitude": -87.65503241238478
+      }
     },
     {
       "_id": "619057c476b43483d51561b2",
       "name": "Deuces & The Diamond Club",
-      "address": "Wrigleyville @ 3505 N Clark St",
+      "address": "3505 N Clark St",
       "alt_id": "408",
       "day": [
         {
@@ -4147,12 +4410,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.945822424311345,
+        "longitude": -87.65531779819216
+      }
     },
     {
       "_id": "619057c476b43483d51561c3",
       "name": "Mullen's Bar & Grill",
-      "address": "Rogers Park @ 7301 N Western Ave",
+      "address": "7301 N Western Ave",
       "alt_id": "460",
       "day": [
         {
@@ -4221,12 +4489,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Rogers Park",
+      "geo": {
+        "latitude": 42.01416344665716,
+        "longitude": -87.69015581171517
+      }
     },
     {
       "_id": "619057c476b43483d51561cc",
       "name": "Original Mother's",
-      "address": "Near North Side @ 26 W Division St",
+      "address": "26 W Division St",
       "alt_id": "69",
       "day": [
         {
@@ -4295,12 +4568,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.90398450580187,
+        "longitude": -87.62956147802427
+      }
     },
     {
       "_id": "619057c476b43483d51561dc",
       "name": "J & M Tap",
-      "address": "Ukrainian Village @ 957 N Leavitt St",
+      "address": "957 N Leavitt St",
       "alt_id": "540",
       "day": [
         {
@@ -4369,12 +4647,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Ukrainian Village",
+      "geo": {
+        "latitude": 41.89912695627649,
+        "longitude": -87.68196048347642
+      }
     },
     {
       "_id": "619057c476b43483d51561e1",
       "name": "The Monarch",
-      "address": "Wicker Park @ 1745 W North Ave",
+      "address": "1745 W North Ave",
       "alt_id": "367",
       "day": [
         {
@@ -4443,12 +4726,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.91051384747267,
+        "longitude": -87.67182829542135
+      }
     },
     {
       "_id": "619057c476b43483d51561ec",
       "name": "Harrigan's Pub",
-      "address": "Lakeview @ 2816 N Halsted St",
+      "address": "2816 N Halsted St",
       "alt_id": "648",
       "day": [
         {
@@ -4517,12 +4805,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.93297028688257,
+        "longitude": -87.64909796654852
+      }
     },
     {
       "_id": "619057c476b43483d51561f1",
       "name": "Flo & Santos",
-      "address": "South Loop @ 1310 S Wabash Ave",
+      "address": "1310 S Wabash Ave",
       "alt_id": "489",
       "day": [
         {
@@ -4591,12 +4884,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "South Loop",
+      "geo": {
+        "latitude": 41.86554102051308,
+        "longitude": -87.62587131545703
+      }
     },
     {
       "_id": "619057c476b43483d51561f2",
       "name": "Mia Francesca",
-      "address": "Lakeview @ 3311 N Clark St",
+      "address": "3311 N Clark St",
       "alt_id": "428",
       "day": [
         {
@@ -4665,12 +4963,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.963Z"
+      "lastUpdated": "2022-12-30T15:14:28.963Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.94203916460507,
+        "longitude": -87.65227438157197
+      }
     },
     {
       "_id": "619057c476b43483d51561f8",
       "name": "Fireside Restaurant & Lounge",
-      "address": "Edgewater @ 5739 N Ravenswood Ave",
+      "address": "5739 N Ravenswood Ave",
       "alt_id": "441",
       "day": [
         {
@@ -4739,12 +5042,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Edgewater",
+      "geo": {
+        "latitude": 41.98604384016754,
+        "longitude": -87.67460577467988
+      }
     },
     {
       "_id": "619057c476b43483d51561fd",
       "name": "Holiday Club",
-      "address": "Uptown @ 4000 N Sheridan Rd",
+      "address": "4000 N Sheridan Rd",
       "alt_id": "179",
       "day": [
         {
@@ -4813,12 +5121,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Uptown",
+      "geo": {
+        "latitude": 41.95454735542465,
+        "longitude": -87.65462319797754
+      }
     },
     {
       "_id": "619057c476b43483d5156204",
       "name": "Flagship Tavern & Grill",
-      "address": "Lakeview @ 1622 W Belmont Ave",
+      "address": "1622 W Belmont Ave",
       "alt_id": "552",
       "day": [
         {
@@ -4887,12 +5200,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.93974164248938,
+        "longitude": -87.66955245963209
+      }
     },
     {
       "_id": "619057c476b43483d515620c",
       "name": "Sports Corner Bar & Grill",
-      "address": "Wrigleyville @ 956 W Addison St",
+      "address": "956 W Addison St",
       "alt_id": "328",
       "day": [
         {
@@ -4961,12 +5279,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94730343157479,
+        "longitude": -87.65389812875439
+      }
     },
     {
       "_id": "619057c476b43483d5156214",
       "name": "Prohibition Pub & Grill",
-      "address": "Lincoln Park @ 2138 N Halsted Ave",
+      "address": "2138 N Halsted Ave",
       "alt_id": "564",
       "day": [
         {
@@ -5035,12 +5358,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92071399061081,
+        "longitude": -87.6486755643384
+      }
     },
     {
       "_id": "619057c476b43483d515621f",
       "name": "Ranalli's West Loop",
-      "address": "West Loop @ 1326 W Madison St",
+      "address": "1326 W Madison St",
       "alt_id": "11",
       "day": [
         {
@@ -5109,12 +5437,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2023-01-02T15:14:28.964Z"
+      "lastUpdated": "2023-01-02T15:14:28.964Z",
+      "neighborhood": "West Loop",
+      "geo": {
+        "latitude": 41.881648443197506,
+        "longitude": -87.66076458984354
+      }
     },
     {
       "_id": "619057c476b43483d5156229",
       "name": "Tai's Til 4",
-      "address": "Lakeview @ 3611 N Ashland Ave",
+      "address": "3611 N Ashland Ave",
       "alt_id": "549",
       "day": [
         {
@@ -5183,12 +5516,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.94722631419108,
+        "longitude": -87.66878798808195
+      }
     },
     {
       "_id": "619057c476b43483d515622b",
       "name": "Bootlegger's",
-      "address": "Near North Side @ 11 W Division St",
+      "address": "11 W Division St",
       "alt_id": "66",
       "day": [
         {
@@ -5257,12 +5595,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.903877497506215,
+        "longitude": -87.62891745792304
+      }
     },
     {
       "_id": "619057c476b43483d515622e",
       "name": "Higgins' Tavern",
-      "address": "Lakeview @ 3259 N Racine Ave",
+      "address": "3259 N Racine Ave",
       "alt_id": "17",
       "day": [
         {
@@ -5331,12 +5674,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.94112333163184,
+        "longitude": -87.65892927256212
+      }
     },
     {
       "_id": "619057c476b43483d5156231",
       "name": "Cork Lounge",
-      "address": "Lakeview @ 1822 W Addison St",
+      "address": "1822 W Addison St",
       "alt_id": "326",
       "day": [
         {
@@ -5405,12 +5753,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.946965484434145,
+        "longitude": -87.67490352624583
+      }
     },
     {
       "_id": "619057c476b43483d515616f",
       "name": "Twisted Shamrock",
-      "address": "Garfield Ridge @ 6462 S Central Ave",
+      "address": "6462 S Central Ave",
       "alt_id": "704",
       "day": [
         {
@@ -5479,12 +5832,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Garfield Ridge",
+      "geo": {
+        "latitude": 41.77489576569282,
+        "longitude": -87.76168042439298
+      }
     },
     {
       "_id": "619057c476b43483d515617b",
       "name": "State Restaurant",
-      "address": "Lincoln Park @ 935 W Webster Ave",
+      "address": "935 W Webster Ave",
       "alt_id": "229",
       "day": [
         {
@@ -5553,12 +5911,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92169184449134,
+        "longitude": -87.65266323475093
+      }
     },
     {
       "_id": "619057c476b43483d5156185",
       "name": "Small Bar Logan Square",
-      "address": "Logan Square @ 2956 N Albany Ave",
+      "address": "2956 N Albany Ave",
       "alt_id": "80",
       "day": [
         {
@@ -5627,12 +5990,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.93502102723004,
+        "longitude": -87.70513512284191
+      }
     },
     {
       "_id": "619057c476b43483d515619c",
       "name": "The Boss Bar",
-      "address": "River North @ 420 N Clark St",
+      "address": "420 N Clark St",
       "alt_id": "560",
       "day": [
         {
@@ -5701,12 +6069,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "River North",
+      "geo": {
+        "latitude": 41.88983699976054,
+        "longitude": -87.63115375590479
+      }
     },
     {
       "_id": "619057c476b43483d51561ab",
       "name": "O'Leary's Public House",
-      "address": "River North @ 541 N Wells St",
+      "address": "541 N Wells St",
       "alt_id": "361",
       "day": [
         {
@@ -5775,12 +6148,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "River North",
+      "geo": {
+        "latitude": 41.89174915229657,
+        "longitude": -87.63399738336834
+      }
     },
     {
       "_id": "619057c476b43483d51561b3",
       "name": "Streeter's Tavern",
-      "address": "Near North Side @ 50 E Chicago Ave",
+      "address": "50 E Chicago Ave",
       "alt_id": "72",
       "day": [
         {
@@ -5849,12 +6227,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.89676168855534,
+        "longitude": -87.62608942151701
+      }
     },
     {
       "_id": "619057c476b43483d51561b5",
       "name": "The Drinkingbird",
-      "address": "Lincoln Park @ 2201 N Clybourn Ave",
+      "address": "2201 N Clybourn Ave",
       "alt_id": "48",
       "day": [
         {
@@ -5923,12 +6306,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92169514945604,
+        "longitude": -87.66439764319222
+      }
     },
     {
       "_id": "619057c476b43483d51561b8",
       "name": "Irish Eyes",
-      "address": "Lincoln Park @ 2519 N Lincoln Ave",
+      "address": "2519 N Lincoln Ave",
       "alt_id": "339",
       "day": [
         {
@@ -5997,12 +6385,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.927800396175094,
+        "longitude": -87.65194671743534
+      }
     },
     {
       "_id": "619057c476b43483d51561c2",
       "name": "Matisse Tavern & Grill",
-      "address": "Lincoln Park @ 674 W Diversey Pkwy",
+      "address": "674 W Diversey Pkwy",
       "alt_id": "222",
       "day": [
         {
@@ -6071,12 +6464,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.93283190179308,
+        "longitude": -87.64622455645033
+      }
     },
     {
       "_id": "619057c476b43483d51561c6",
       "name": "Ravenswood Station Bar & Grill",
-      "address": "Lincoln Square @ 4709 N Damen Ave",
+      "address": "4709 N Damen Ave",
       "alt_id": "100",
       "day": [
         {
@@ -6145,12 +6543,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Square",
+      "geo": {
+        "latitude": 41.967226029342115,
+        "longitude": -87.67906427244783
+      }
     },
     {
       "_id": "619057c476b43483d51561f6",
       "name": "The Pony Inn",
-      "address": "Lakeview @ 1638 W Belmont Ave",
+      "address": "1638 W Belmont Ave",
       "alt_id": "275",
       "day": [
         {
@@ -6219,12 +6622,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.9397368886577,
+        "longitude": -87.66986145977343
+      }
     },
     {
       "_id": "619057c476b43483d51561fa",
       "name": "Taqueria & Bar",
-      "address": "Lincoln Park @ 1450 W Webster Ave",
+      "address": "1450 W Webster Ave",
       "alt_id": "565",
       "day": [
         {
@@ -6293,12 +6701,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92166778236989,
+        "longitude": -87.66502925221793
+      }
     },
     {
       "_id": "619057c476b43483d51561fb",
       "name": "Leader Bar",
-      "address": "Irving Park @ 3000 W Irving Park Rd",
+      "address": "3000 W Irving Park Rd",
       "alt_id": "381",
       "day": [
         {
@@ -6367,12 +6780,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Irving Park",
+      "geo": {
+        "latitude": 41.954008433179965,
+        "longitude": -87.70320826423016
+      }
     },
     {
       "_id": "619057c476b43483d5156209",
       "name": "Sluggers",
-      "address": "Wrigleyville @ 3540 N Clark St",
+      "address": "3540 N Clark St",
       "alt_id": "53",
       "day": [
         {
@@ -6441,12 +6859,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.9465099133729,
+        "longitude": -87.65604988373546
+      }
     },
     {
       "_id": "619057c476b43483d515620b",
       "name": "Vintage Lounge",
-      "address": "University Village @ 1449 W Taylor St",
+      "address": "1449 W Taylor St",
       "alt_id": "650",
       "day": [
         {
@@ -6515,12 +6938,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "University Village",
+      "geo": {
+        "latitude": 41.869256431794504,
+        "longitude": -87.66323037716576
+      }
     },
     {
       "_id": "619057c476b43483d515621d",
       "name": "Simone's Bar",
-      "address": "Pilsen @ 960 W 18th St",
+      "address": "960 W 18th St",
       "alt_id": "107",
       "day": [
         {
@@ -6589,12 +7017,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Pilsen",
+      "geo": {
+        "latitude": 41.858086446691416,
+        "longitude": -87.650967673528
+      }
     },
     {
       "_id": "619057c476b43483d515622a",
       "name": "Cortland's Garage",
-      "address": "Bucktown @ 1645 W Cortland St",
+      "address": "1645 W Cortland St",
       "alt_id": "60",
       "day": [
         {
@@ -6663,12 +7096,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Bucktown",
+      "geo": {
+        "latitude": 41.916027798481714,
+        "longitude": -87.66961020508815
+      }
     },
     {
       "_id": "619057c476b43483d515617d",
       "name": "Lizzie McNeill's Irish Pub",
-      "address": "Streeterville @ 400 N McClurg St",
+      "address": "400 N McClurg St",
       "alt_id": "477",
       "day": [
         {
@@ -6737,12 +7175,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Streeterville",
+      "geo": {
+        "latitude": 41.88915248966833,
+        "longitude": -87.61768664121111
+      }
     },
     {
       "_id": "619057c476b43483d5156180",
       "name": "G&L Fire Escape",
-      "address": "North Center @ 2157 W Grace St",
+      "address": "2157 W Grace St",
       "alt_id": "533",
       "day": [
         {
@@ -6811,12 +7254,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "North Center",
+      "geo": {
+        "latitude": 41.95039889166823,
+        "longitude": -87.68277602642056
+      }
     },
     {
       "_id": "619057c476b43483d5156189",
       "name": "Vines on Clark",
-      "address": "Wrigleyville @ 3554 N Clark St",
+      "address": "3554 N Clark St",
       "alt_id": "33",
       "day": [
         {
@@ -6885,12 +7333,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94665779316654,
+        "longitude": -87.65616874910438
+      }
     },
     {
       "_id": "619057c476b43483d515618b",
       "name": "O'Donovan's Pub",
-      "address": "North Center @ 2100 W Irving Park Rd",
+      "address": "2100 W Irving Park Rd",
       "alt_id": "157",
       "day": [
         {
@@ -6959,12 +7412,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "North Center",
+      "geo": {
+        "latitude": 41.95418843192396,
+        "longitude": -87.68126177089543
+      }
     },
     {
       "_id": "619057c476b43483d515619a",
       "name": "Toon's Bar & Grill",
-      "address": "Lakeview @ 3857 N Southport Ave",
+      "address": "3857 N Southport Ave",
       "alt_id": "203",
       "day": [
         {
@@ -7033,12 +7491,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.95220537602188,
+        "longitude": -87.6640838125526
+      }
     },
     {
       "_id": "619057c476b43483d51561a9",
       "name": "Gino's North",
-      "address": "Edgewater @ 1111 W Granville Ave",
+      "address": "1111 W Granville Ave",
       "alt_id": "238",
       "day": [
         {
@@ -7107,12 +7570,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Edgewater",
+      "geo": {
+        "latitude": 41.99451289574566,
+        "longitude": -87.65879845787921
+      }
     },
     {
       "_id": "619057c476b43483d51561b9",
       "name": "The Beetle Bar & Grill",
-      "address": "Humboldt Park @ 2532 W Chicago Ave",
+      "address": "2532 W Chicago Ave",
       "alt_id": "2",
       "day": [
         {
@@ -7181,12 +7649,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Humboldt Park",
+      "geo": {
+        "latitude": 41.895760442444406,
+        "longitude": -87.69064894033572
+      }
     },
     {
       "_id": "619057c476b43483d51561ca",
       "name": "Mac's Wood Grilled",
-      "address": "Wicker Park @ 1801 W Division St",
+      "address": "1801 W Division St",
       "alt_id": "631",
       "day": [
         {
@@ -7255,12 +7728,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.90320584875902,
+        "longitude": -87.67245971717698
+      }
     },
     {
       "_id": "619057c476b43483d51561d8",
       "name": "Jack & Gingers",
-      "address": "Bucktown @ 2048 W Armitage Ave",
+      "address": "2048 W Armitage Ave",
       "alt_id": "50",
       "day": [
         {
@@ -7329,12 +7807,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Bucktown",
+      "geo": {
+        "latitude": 41.917777936863565,
+        "longitude": -87.67943957189543
+      }
     },
     {
       "_id": "619057c476b43483d51561dd",
       "name": "Jefferson Tap & Grille",
-      "address": "Near West Side @ 325 N Jefferson St",
+      "address": "325 N Jefferson St",
       "alt_id": "302",
       "day": [
         {
@@ -7403,12 +7886,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Near West Side",
+      "geo": {
+        "latitude": 41.887529186670875,
+        "longitude": -87.64274574887618
+      }
     },
     {
       "_id": "619057c476b43483d51561e3",
       "name": "Bird's Nest",
-      "address": "Lincoln Park @ 2500 N Southport Ave",
+      "address": "2500 N Southport Ave",
       "alt_id": "6",
       "day": [
         {
@@ -7477,12 +7965,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92708836014789,
+        "longitude": -87.66346116494435
+      }
     },
     {
       "_id": "619057c476b43483d51561fc",
       "name": "Longman & Eagle",
-      "address": "Logan Square @ 2657 N Kedzie Ave",
+      "address": "2657 N Kedzie Ave",
       "alt_id": "348",
       "day": [
         {
@@ -7551,12 +8044,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.964Z"
+      "lastUpdated": "2022-12-30T15:14:28.964Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92957503145207,
+        "longitude": -87.70737629682044
+      }
     },
     {
       "_id": "619057c476b43483d5156213",
       "name": "Cleo's",
-      "address": "Ukrainian Village @ 1935 W Chicago Ave",
+      "address": "1935 W Chicago Ave",
       "alt_id": "49",
       "day": [
         {
@@ -7625,12 +8123,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.965Z"
+      "lastUpdated": "2022-12-30T15:14:28.965Z",
+      "neighborhood": "Ukrainian Village",
+      "geo": {
+        "latitude": 41.895870850207345,
+        "longitude": -87.67591120805045
+      }
     },
     {
       "_id": "619057c476b43483d515621e",
       "name": "Gio's Bar & Grill",
-      "address": "Lincoln Square @ 4857 N Damen Ave",
+      "address": "4857 N Damen Ave",
       "alt_id": "374",
       "day": [
         {
@@ -7699,12 +8202,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.965Z"
+      "lastUpdated": "2022-12-30T15:14:28.965Z",
+      "neighborhood": "Lincoln Square",
+      "geo": {
+        "latitude": 41.969904837898106,
+        "longitude": -87.67914163589622
+      }
     },
     {
       "_id": "619057c476b43483d515622d",
       "name": "Kroll's South Loop",
-      "address": "South Loop @ 1736 S Michigan Ave",
+      "address": "1736 S Michigan Ave",
       "alt_id": "146",
       "day": [
         {
@@ -7773,12 +8281,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.965Z"
+      "lastUpdated": "2022-12-30T15:14:28.965Z",
+      "neighborhood": "South Loop",
+      "geo": {
+        "latitude": 41.85860031155683,
+        "longitude": -87.62402661672083
+      }
     },
     {
       "_id": "619057c476b43483d5156170",
       "name": "Legno Italian Gastropub",
-      "address": "Portage Park @ 4250 N Central Ave",
+      "address": "4250 N Central Ave",
       "alt_id": "590",
       "day": [
         {
@@ -7847,12 +8360,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.965Z"
+      "lastUpdated": "2022-12-30T15:14:28.965Z",
+      "neighborhood": "Portage Park",
+      "geo": {
+        "latitude": 41.95729689407933,
+        "longitude": -87.76721664061695
+      }
     },
     {
       "_id": "619057c476b43483d5156171",
       "name": "Delilah's",
-      "address": "Lincoln Park @ 2771 N Lincoln Ave",
+      "address": "2771 N Lincoln Ave",
       "alt_id": "26",
       "day": [
         {
@@ -7921,12 +8439,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.965Z"
+      "lastUpdated": "2022-12-30T15:14:28.965Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.93207062179738,
+        "longitude": -87.65791744357566
+      }
     },
     {
       "_id": "619057c476b43483d5156176",
       "name": "Stretch Bar & Grill",
-      "address": "Wrigleyville @ 3485 N Clark St",
+      "address": "3485 N Clark St",
       "alt_id": "81",
       "day": [
         {
@@ -7995,12 +8518,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.965Z"
+      "lastUpdated": "2022-12-30T15:14:28.965Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.945687107089114,
+        "longitude": -87.65520434174407
+      }
     },
     {
       "_id": "619057c476b43483d5156192",
       "name": "Edgewater Mexican Cafe",
-      "address": "Edgewater @ 1055 W Bryn Mawr Ave",
+      "address": "1055 W Bryn Mawr Ave",
       "alt_id": "711",
       "day": [
         {
@@ -8069,12 +8597,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.965Z"
+      "lastUpdated": "2022-12-30T15:14:28.965Z",
+      "neighborhood": "Edgewater",
+      "geo": {
+        "latitude": 41.98362223191211,
+        "longitude": -87.65684422894694
+      }
     },
     {
       "_id": "619057c476b43483d51561aa",
       "name": "The Abbey Pub",
-      "address": "Irving Park @ 3420 W Grace St",
+      "address": "3420 W Grace St",
       "alt_id": "31",
       "day": [
         {
@@ -8143,12 +8676,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Irving Park",
+      "geo": {
+        "latitude": 41.95026443439882,
+        "longitude": -87.71357367181328
+      }
     },
     {
       "_id": "619057c476b43483d51561bc",
       "name": "Sheffield's",
-      "address": "Lakeview @ 3258 N Sheffield Ave",
+      "address": "3258 N Sheffield Ave",
       "alt_id": "54",
       "day": [
         {
@@ -8217,12 +8755,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.94098049867471,
+        "longitude": -87.65421724903237
+      }
     },
     {
       "_id": "619057c476b43483d51561c7",
       "name": "Northwoods Lounge",
-      "address": "Norwood Park @ 5342 N Cumberland Ave",
+      "address": "5342 N Cumberland Ave",
       "alt_id": "551",
       "day": [
         {
@@ -8291,12 +8834,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Norwood Park",
+      "geo": {
+        "latitude": 41.97675973628725,
+        "longitude": -87.83669175005262
+      }
     },
     {
       "_id": "619057c476b43483d51561c8",
       "name": "Redmond's Ale House",
-      "address": "Wrigleyville @ 3358 N Sheffield Ave",
+      "address": "3358 N Sheffield Ave",
       "alt_id": "20",
       "day": [
         {
@@ -8365,12 +8913,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94281301490049,
+        "longitude": -87.65427303359802
+      }
     },
     {
       "_id": "619057c476b43483d51561cd",
       "name": "The Grafton",
-      "address": "Lincoln Square @ 4530 N Lincoln Ave",
+      "address": "4530 N Lincoln Ave",
       "alt_id": "260",
       "day": [
         {
@@ -8439,12 +8992,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Lincoln Square",
+      "geo": {
+        "latitude": 41.96371460523748,
+        "longitude": -87.68542802791298
+      }
     },
     {
       "_id": "619057c476b43483d51561d2",
       "name": "Christina's Place",
-      "address": "Irving Park @ 3759 N Kedzie Ave",
+      "address": "3759 N Kedzie Ave",
       "alt_id": "235",
       "day": [
         {
@@ -8513,12 +9071,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Irving Park",
+      "geo": {
+        "latitude": 41.949524122980854,
+        "longitude": -87.70782183307651
+      }
     },
     {
       "_id": "619057c476b43483d51561d5",
       "name": "Pl-zen",
-      "address": "Pilsen @ 1519 W 18th St",
+      "address": "1519 W 18th St",
       "alt_id": "505",
       "day": [
         {
@@ -8587,12 +9150,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Pilsen",
+      "geo": {
+        "latitude": 41.857768847407,
+        "longitude": -87.66444687793347
+      }
     },
     {
       "_id": "619057c476b43483d51561e0",
       "name": "Fatpour Tap Works",
-      "address": "Wicker Park @ 2005 W Division St",
+      "address": "2005 W Division St",
       "alt_id": "459",
       "day": [
         {
@@ -8661,12 +9229,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.903130739645086,
+        "longitude": -87.67742474759629
+      }
     },
     {
       "_id": "619057c476b43483d51561f9",
       "name": "Crossroads Public House",
-      "address": "Lincoln Park @ 2630 N Clark St",
+      "address": "2630 N Clark St",
       "alt_id": "208",
       "day": [
         {
@@ -8735,12 +9308,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.930393530316124,
+        "longitude": -87.64379791865979
+      }
     },
     {
       "_id": "619057c476b43483d515620a",
       "name": "Butcher's Tap",
-      "address": "Lakeview @ 3553 N Southport Ave",
+      "address": "3553 N Southport Ave",
       "alt_id": "624",
       "day": [
         {
@@ -8809,12 +9387,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.94646032939445,
+        "longitude": -87.66392088501902
+      }
     },
     {
       "_id": "619057c476b43483d515620d",
       "name": "Highline Bar & Lounge",
-      "address": "River North @ 169 W Kinzie St",
+      "address": "169 W Kinzie St",
       "alt_id": "657",
       "day": [
         {
@@ -8883,12 +9466,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "River North",
+      "geo": {
+        "latitude": 41.889116313637906,
+        "longitude": -87.63336551738836
+      }
     },
     {
       "_id": "619057c476b43483d5156224",
       "name": "Subterranean Lounge",
-      "address": "Wicker Park @ 2011 W North Ave",
+      "address": "2011 W North Ave",
       "alt_id": "56",
       "day": [
         {
@@ -8957,12 +9545,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.966Z"
+      "lastUpdated": "2022-12-30T15:14:28.966Z",
+      "neighborhood": "Wicker Park",
+      "geo": {
+        "latitude": 41.91041484782847,
+        "longitude": -87.67790897817036
+      }
     },
     {
       "_id": "619057c476b43483d515622c",
       "name": "McCormick & Schmick's",
-      "address": "Near North Side @ 41 E Chestnut St",
+      "address": "41 E Chestnut St",
       "alt_id": "605",
       "day": [
         {
@@ -9031,12 +9624,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.89829184706009,
+        "longitude": -87.62682427292185
+      }
     },
     {
       "_id": "619057c476b43483d5156175",
       "name": "Duffy's Tavern",
-      "address": "Lincoln Park @ 422 W Diversey Ave",
+      "address": "422 W Diversey Ave",
       "alt_id": "23",
       "day": [
         {
@@ -9105,12 +9703,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.932966158212956,
+        "longitude": -87.63982292286052
+      }
     },
     {
       "_id": "619057c476b43483d5156181",
       "name": "Emerald Isle",
-      "address": "Edison Park @ 6686 N Northwest Hwy",
+      "address": "6686 N Northwest Hwy",
       "alt_id": "288",
       "day": [
         {
@@ -9179,12 +9782,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Edison Park",
+      "geo": {
+        "latitude": 42.00258557953771,
+        "longitude": -87.81596658465945
+      }
     },
     {
       "_id": "619057c476b43483d515618e",
       "name": "Leadway Bar & Grill",
-      "address": "Lincoln Square @ 5223 N Damen Ave",
+      "address": "5223 N Damen Ave",
       "alt_id": "375",
       "day": [
         {
@@ -9253,12 +9861,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lincoln Square",
+      "geo": {
+        "latitude": 41.97679145389125,
+        "longitude": -87.6793489996262
+      }
     },
     {
       "_id": "619057c476b43483d5156197",
       "name": "The Arrogant Frog Bar",
-      "address": "Lincoln Park @ 1365 W Fullerton Ave",
+      "address": "1365 W Fullerton Ave",
       "alt_id": "240",
       "day": [
         {
@@ -9327,12 +9940,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.925171198275486,
+        "longitude": -87.66264426458437
+      }
     },
     {
       "_id": "619057c476b43483d51561a0",
       "name": "Vaughans Pub Lakeview",
-      "address": "Lakeview @ 2917 N Sheffield Ave",
+      "address": "2917 N Sheffield Ave",
       "alt_id": "44",
       "day": [
         {
@@ -9401,12 +10019,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.93499914495657,
+        "longitude": -87.65386326073246
+      }
     },
     {
       "_id": "619057c476b43483d51561a4",
       "name": "The Fireplace Inn",
-      "address": "Old Town @ 1448 N Wells St",
+      "address": "1448 N Wells St",
       "alt_id": "442",
       "day": [
         {
@@ -9475,12 +10098,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Old Town",
+      "geo": {
+        "latitude": 41.908525851025225,
+        "longitude": -87.63470775847708
+      }
     },
     {
       "_id": "619057c476b43483d51561ad",
       "name": "Keenan O'Reilly's",
-      "address": "Lakeview @ 3916 N Ashland Ave",
+      "address": "3916 N Ashland Ave",
       "alt_id": "454",
       "day": [
         {
@@ -9549,12 +10177,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.95280052233382,
+        "longitude": -87.66908445577083
+      }
     },
     {
       "_id": "619057c476b43483d51561ba",
       "name": "Hangge-Uppe",
-      "address": "Near North Side @ 16 W Division St",
+      "address": "16 W Division St",
       "alt_id": "84",
       "day": [
         {
@@ -9623,12 +10256,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.90398750399192,
+        "longitude": -87.6292467248801
+      }
     },
     {
       "_id": "619057c476b43483d51561cb",
       "name": "Atmosphere",
-      "address": "Andersonville @ 5355 N Clark St",
+      "address": "5355 N Clark St",
       "alt_id": "96",
       "day": [
         {
@@ -9697,12 +10335,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Andersonville",
+      "geo": {
+        "latitude": 41.979270365612706,
+        "longitude": -87.6682196781012
+      }
     },
     {
       "_id": "619057c476b43483d51561ce",
       "name": "Lincoln Tap Room",
-      "address": "Lakeview @ 3010 N Lincoln Ave",
+      "address": "3010 N Lincoln Ave",
       "alt_id": "334",
       "day": [
         {
@@ -9771,12 +10414,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.936282853651555,
+        "longitude": -87.6640424152094
+      }
     },
     {
       "_id": "619057c476b43483d51561cf",
       "name": "McGee's Tavern",
-      "address": "Lincoln Park @ 950 W Webster Ave",
+      "address": "950 W Webster Ave",
       "alt_id": "21",
       "day": [
         {
@@ -9845,12 +10493,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.921804356712414,
+        "longitude": -87.65299373229436
+      }
     },
     {
       "_id": "619057c476b43483d51561d0",
       "name": "Hutch American Bistro",
-      "address": "Wrigleyville @ 3301 N Clark St",
+      "address": "3301 N Clark St",
       "alt_id": "596",
       "day": [
         {
@@ -9919,12 +10572,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94184346288673,
+        "longitude": -87.65211833940836
+      }
     },
     {
       "_id": "619057c476b43483d51561d3",
       "name": "Pippin's Tavern",
-      "address": "Near North Side @ 806 N Rush St",
+      "address": "806 N Rush St",
       "alt_id": "71",
       "day": [
         {
@@ -9993,12 +10651,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Near North Side",
+      "geo": {
+        "latitude": 41.89688561890889,
+        "longitude": -87.62576828930644
+      }
     },
     {
       "_id": "619057c476b43483d51561f7",
       "name": "Farraguts",
-      "address": "Andersonville @ 5240 N Clark St",
+      "address": "5240 N Clark St",
       "alt_id": "445",
       "day": [
         {
@@ -10067,12 +10730,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Andersonville",
+      "geo": {
+        "latitude": 41.97657707691349,
+        "longitude": -87.6684868537161
+      }
     },
     {
       "_id": "619057c476b43483d5156203",
       "name": "Bulldog Ale House (South Loop)",
-      "address": "South Loop @ 901 S State St",
+      "address": "901 S State St",
       "alt_id": "686",
       "day": [
         {
@@ -10141,12 +10809,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "South Loop",
+      "geo": {
+        "latitude": 41.870465515652455,
+        "longitude": -87.62734413781983
+      }
     },
     {
       "_id": "619057c476b43483d5156208",
       "name": "Dugan's on Halsted",
-      "address": "West Loop @ 128 S Halsted St",
+      "address": "128 S Halsted St",
       "alt_id": "424",
       "day": [
         {
@@ -10215,12 +10888,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "West Loop",
+      "geo": {
+        "latitude": 41.88013027769778,
+        "longitude": -87.64738675961358
+      }
     },
     {
       "_id": "619057c476b43483d5156215",
       "name": "Nola Gastropub",
-      "address": "Lakeview @ 3481 N Clark St",
+      "address": "3481 N Clark St",
       "alt_id": "642",
       "day": [
         {
@@ -10289,12 +10967,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.94555040241795,
+        "longitude": -87.65509224015766
+      }
     },
     {
       "_id": "619057c476b43483d5156233",
       "name": "Kirkwood Bar & Grill",
-      "address": "Lakeview @ 2934 N Sheffield Ave",
+      "address": "2934 N Sheffield Ave",
       "alt_id": "13",
       "day": [
         {
@@ -10363,12 +11046,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2019-12-30T15:14:28.967Z"
+      "lastUpdated": "2019-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.935437709410785,
+        "longitude": -87.65402978571883
+      }
     },
     {
       "_id": "619057c476b43483d5156177",
       "name": "J.P. Burke's Patio & Tap",
-      "address": "Lakeview @ 2913 N Lincoln Ave",
+      "address": "2913 N Lincoln Ave",
       "alt_id": "532",
       "day": [
         {
@@ -10437,12 +11125,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.93466755304254,
+        "longitude": -87.66155034507021
+      }
     },
     {
       "_id": "619057c476b43483d515617f",
       "name": "Country Club Bar",
-      "address": "Wrigleyville @ 3462 N Clark St",
+      "address": "3462 N Clark St",
       "alt_id": "207",
       "day": [
         {
@@ -10511,12 +11204,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94502326033639,
+        "longitude": -87.65484867327477
+      }
     },
     {
       "_id": "619057c476b43483d5156193",
       "name": "Taco Joint Lincoln Park",
-      "address": "Lincoln Park @ 1969 N Halsted St",
+      "address": "1969 N Halsted St",
       "alt_id": "541",
       "day": [
         {
@@ -10585,12 +11283,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.91747953910063,
+        "longitude": -87.64840343958157
+      }
     },
     {
       "_id": "619057c476b43483d51561a6",
       "name": "Spyners Pub",
-      "address": "Lincoln Square @ 4623 N Western Ave",
+      "address": "4623 N Western Ave",
       "alt_id": "97",
       "day": [
         {
@@ -10659,12 +11362,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lincoln Square",
+      "geo": {
+        "latitude": 41.965521380141546,
+        "longitude": -87.68873066686044
+      }
     },
     {
       "_id": "619057c476b43483d51561a7",
       "name": "Cary's Lounge",
-      "address": "West Rogers Park @ 2251 W Devon Ave",
+      "address": "2251 W Devon Ave",
       "alt_id": "287",
       "day": [
         {
@@ -10733,12 +11441,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "West Rogers Park",
+      "geo": {
+        "latitude": 41.99772822970269,
+        "longitude": -87.6866573907041
+      }
     },
     {
       "_id": "619057c476b43483d51561b1",
       "name": "Sherry's Bar",
-      "address": "West Rogers Park @ 5652 N Western Ave",
+      "address": "5652 N Western Ave",
       "alt_id": "645",
       "day": [
         {
@@ -10807,12 +11520,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "West Rogers Park",
+      "geo": {
+        "latitude": 41.984129729802504,
+        "longitude": -87.68953940763528
+      }
     },
     {
       "_id": "619057c476b43483d51561bf",
       "name": "Monsignor Murphy's",
-      "address": "Lakeview @ 3019 N Broadway St",
+      "address": "3019 N Broadway St",
       "alt_id": "246",
       "day": [
         {
@@ -10881,12 +11599,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.93714354319116,
+        "longitude": -87.64422723942432
+      }
     },
     {
       "_id": "619057c476b43483d51561d1",
       "name": "The Full Shilling",
-      "address": "Wrigleyville @ 3724 N Clark St",
+      "address": "3724 N Clark St",
       "alt_id": "623",
       "day": [
         {
@@ -10955,12 +11678,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.94960985477168,
+        "longitude": -87.65854200241077
+      }
     },
     {
       "_id": "619057c476b43483d51561d4",
       "name": "Yak-Zies Wrigleyville",
-      "address": "Wrigleyville @ 3710 N Clark St",
+      "address": "3710 N Clark St",
       "alt_id": "149",
       "day": [
         {
@@ -11029,12 +11757,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Wrigleyville",
+      "geo": {
+        "latitude": 41.949255358906825,
+        "longitude": -87.65826033100325
+      }
     },
     {
       "_id": "619057c476b43483d51561df",
       "name": "Black Rock Pub & Kitchen",
-      "address": "Lakeview @ 3614 N Damen Ave",
+      "address": "3614 N Damen Ave",
       "alt_id": "59",
       "day": [
         {
@@ -11103,12 +11836,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.947286565089534,
+        "longitude": -87.67864100844768
+      }
     },
     {
       "_id": "619057c476b43483d51561e4",
       "name": "Kelsey's",
-      "address": "Lincoln Park @ 2265 N Lincoln Ave",
+      "address": "2265 N Lincoln Ave",
       "alt_id": "154",
       "day": [
         {
@@ -11177,12 +11915,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Lincoln Park",
+      "geo": {
+        "latitude": 41.92316077068454,
+        "longitude": -87.64545395438684
+      }
     },
     {
       "_id": "619057c476b43483d5156205",
       "name": "Bulldog Ale House (Loyola)",
-      "address": "Rogers Park @ 6606 N Sheridan Rd",
+      "address": "6606 N Sheridan Rd",
       "alt_id": "663",
       "day": [
         {
@@ -11251,12 +11994,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Rogers Park",
+      "geo": {
+        "latitude": 42.00266101818239,
+        "longitude": -87.66086281833786
+      }
     },
     {
       "_id": "619057c476b43483d5156216",
       "name": "Four Treys Tavern",
-      "address": "Roscoe Village @ 3333 N Damen Ave",
+      "address": "3333 N Damen Ave",
       "alt_id": "78",
       "day": [
         {
@@ -11325,12 +12073,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.967Z"
+      "lastUpdated": "2022-12-30T15:14:28.967Z",
+      "neighborhood": "Roscoe Village",
+      "geo": {
+        "latitude": 41.94259719586398,
+        "longitude": -87.67835741164052
+      }
     },
     {
       "_id": "619057c476b43483d5156230",
       "name": "John Barleycorn River North",
-      "address": "River North @ 149 W Kinzie St",
+      "address": "149 W Kinzie St",
       "alt_id": "491",
       "day": [
         {
@@ -11399,12 +12152,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "River North",
+      "geo": {
+        "latitude": 41.88911974641708,
+        "longitude": -87.6330840282454
+      }
     },
     {
       "_id": "619414fb0d4d1d732daa833b",
       "name": "The Harding Tavern",
-      "address": "Logan Square @ 2732 N Milwaukee Ave",
+      "address": "2732 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11472,12 +12230,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.93082444655044,
+        "longitude": -87.71040812805104
+      }
     },
     {
       "_id": "6194159e0d4d1d732daa833d",
       "name": "The Walk In",
-      "address": "Logan Square @ 2727 N Milwaukee Ave",
+      "address": "2727 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11545,12 +12308,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.930774888517746,
+        "longitude": -87.71008347025901
+      }
     },
     {
       "_id": "61bb78a76f3c3c2d087c0527",
       "name": "Spilt Milk",
-      "address": "Logan Square @ 2758 W Fullerton Ave",
+      "address": "2758 W Fullerton Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11618,12 +12386,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92486972944741,
+        "longitude": -87.69690109198541
+      }
     },
     {
       "_id": "61dbe46fa9ddadcb5dbf49a8",
       "name": "SABA Italian Bar + Kitchen",
-      "address": "Logan Square @ 2715 N Milwaukee Ave",
+      "address": "2715 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11691,12 +12464,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.930589475055314,
+        "longitude": -87.70977886251198
+      }
     },
     {
       "_id": "61dbe556a9ddadcb5dbf49a9",
       "name": "Bungalow by Middle Brow",
-      "address": "Logan Square @ 2840 W Armitage Ave",
+      "address": "2840 W Armitage Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11764,12 +12542,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.917531439173956,
+        "longitude": -87.69883015874157
+      }
     },
     {
       "_id": "62423c2ee96dd776eb833950",
       "name": "BiXi Beer",
-      "address": "Logan Square @ 2515 N Milwaukee Ave",
+      "address": "2515 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11837,12 +12620,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92701334768075,
+        "longitude": -87.70392812519005
+      }
     },
     {
       "_id": "625ef0fe5d1b7aeef713d72f",
       "name": "The Old Plank",
-      "address": "Logan Square @ 2700 N Milwaukee Ave",
+      "address": "2700 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11910,12 +12698,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.9304080794769,
+        "longitude": -87.70972409661907
+      }
     },
     {
       "_id": "625ef3e82bd50a3d298cc7b0",
       "name": "Easy Does It",
-      "address": "Logan Square @ 2354 N Milwaukee Ave",
+      "address": "2354 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -11983,12 +12776,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92382007593778,
+        "longitude": -87.69897358851263
+      }
     },
     {
       "_id": "62695e47b2d8180a74a97e3b",
       "name": "The Giant Penny Whistle",
-      "address": "Pilsen @ 1854 S Blue Island Ave.",
+      "address": "1854 S Blue Island Ave.",
       "day": [
         {
           "name": "Sunday",
@@ -12056,12 +12854,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Pilsen",
+      "geo": {
+        "latitude": 41.856813601282774,
+        "longitude": -87.6621441614191
+      }
     },
     {
       "_id": "62695f87b2d8180a74a97e3c",
       "name": "Green Room Tap",
-      "address": "Pilsen @ 1802 S Allport St.",
+      "address": "1802 S Allport St.",
       "day": [
         {
           "name": "Sunday",
@@ -12129,12 +12932,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Pilsen",
+      "geo": {
+        "latitude": 41.85783721318057,
+        "longitude": -87.65772436132254
+      }
     },
     {
       "_id": "63a9e3f5ffd7f984c31dd964",
       "name": "Websters Wine Bar",
-      "address": "Logan Square @ 2601 N Milwaukee Ave",
+      "address": "2601 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -12202,12 +13010,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.968Z"
+      "lastUpdated": "2022-12-30T15:14:28.968Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92883165558626,
+        "longitude": -87.70689647980026
+      }
     },
     {
       "_id": "62a914ac686f9eb07a4eef1f",
       "name": "The Duplex",
-      "address": "Logan Square @ 3137 W Logan Blvd Chicago, IL",
+      "address": "3137 W Logan Blvd Chicago, IL",
       "day": [
         {
           "name": "Sunday",
@@ -12275,12 +13088,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2022-12-30T15:14:28.962Z"
+      "lastUpdated": "2022-12-30T15:14:28.962Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92792429335411,
+        "longitude": -87.70599243844589
+      }
     },
     {
       "_id": "63b46f918949eaa54568f496",
       "name": "TimeOut Market Chicago",
-      "address": "West Loop @ 916 W Fulton Market",
+      "address": "916 W Fulton Market",
       "day": [
         {
           "name": "Sunday",
@@ -12348,12 +13166,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2023-01-02T15:14:28.962Z"
+      "lastUpdated": "2023-01-02T15:14:28.962Z",
+      "neighborhood": "West Loop",
+      "geo": {
+        "latitude": 41.886818000847846,
+        "longitude": -87.65049857899858
+      }
     },
     {
       "_id": "64121142e9c443cea345cd9b",
       "name": "Hexe Coffee",
-      "address": "Lakeview @ 2000 W Diversey Pkwy",
+      "address": "2000 W Diversey Pkwy",
       "day": [
         {
           "name": "Sunday",
@@ -12421,12 +13244,17 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2023-03-15T18:41:03.448Z"
+      "lastUpdated": "2023-03-15T18:41:03.448Z",
+      "neighborhood": "Lakeview",
+      "geo": {
+        "latitude": 41.9323345273033,
+        "longitude": -87.67893772968617
+      }
     },
     {
       "_id": "6568f0388074a9796d93ae48",
       "name": "The Owl",
-      "address": "Logan Square @ undefined",
+      "address": "2521 N Milwaukee Ave",
       "day": [
         {
           "name": "Sunday",
@@ -12494,7 +13322,12 @@
       ],
       "enabled": true,
       "featured": false,
-      "lastUpdated": "2023-11-30T20:27:32.493Z"
+      "lastUpdated": "2023-11-30T20:27:32.493Z",
+      "neighborhood": "Logan Square",
+      "geo": {
+        "latitude": 41.92723889999999,
+        "longitude": -87.70412547301464
+      }
     }
   ],
   "success": true
