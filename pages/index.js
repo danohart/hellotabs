@@ -33,8 +33,19 @@ function Home() {
       }
     };
 
+    const handlePermissionChange = () => {
+      fetchUserLocation();
+    };
+    // on change event for if user disabled location and then enables it
+    navigator.permissions
+      .query({ name: "geolocation" })
+      .then((permissionStatus) => {
+        permissionStatus.onchange = handlePermissionChange;
+      });
+
+    // initial fetch
     fetchUserLocation();
-  }, [])
+  }, []);
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
   if (error) return <div>Failed to load</div>;
