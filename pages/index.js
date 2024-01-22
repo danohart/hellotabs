@@ -10,16 +10,31 @@ import fetcher from "../lib/fetcher";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
 import { hasActiveHappyHour } from "../lib/time";
-import { sortByDistance, calculateDistance } from "../lib/location";
+import { sortByDistance, calculateDistance, getUserLocation } from "../lib/location";
+import { useEffect } from "react";
 
 function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
-  const [userLocation, setUserLocation] = useState({ latitude: 41.95677595281482, longitude: -87.7274785236997 });
+  const [userLocation, setUserLocation] = useState(null);
   const day = getDay();
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces + 10));
   }
+
+
+  useEffect(() => {
+    const fetchUserLocation = async () => {
+      try {
+        const locationResult = await getUserLocation();
+        setUserLocation(locationResult);
+      } catch (error) {
+        console.error('Error fetching user location:', error.message);
+      }
+    };
+
+    fetchUserLocation();
+  }, [])
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
   if (error) return <div>Failed to load</div>;
@@ -28,7 +43,7 @@ function Home() {
   let places = data.places;
 
   // sort by distance
-  if(userLocation){
+  if (userLocation) {
     places = places.map(place => ({ ...place, distance: calculateDistance(userLocation, place.geo) }));
     places = sortByDistance(places);
   }
