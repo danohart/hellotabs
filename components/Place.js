@@ -39,6 +39,7 @@ export default function Place({ place, day }) {
   }
 
   function formatTimeDisplay(timeInt) {
+    if (timeInt == null) return "?";
     const hour = Math.floor(timeInt / 100);
     const minute = timeInt % 100;
 
