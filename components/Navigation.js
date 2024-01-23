@@ -3,7 +3,7 @@ import { useState } from "react";
 import neighborhoods from "../lib/neighborhoods";
 
 export default function Navigation() {
-  let [showNeighborhoods, setShowNeighborhoods] = useState(true);
+  let [showNeighborhoods, setShowNeighborhoods] = useState(false);
 
   return (
     <div>
@@ -12,7 +12,7 @@ export default function Navigation() {
           className='m-1 w-3/4 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'
           onClick={() => setShowNeighborhoods(!showNeighborhoods)}
         >
-          {showNeighborhoods ? "Hide Neighborhoods" : "Show Neighborhoods"}
+          {showNeighborhoods ? "Hide Neighborhoods" : "Find by Neighborhood"}
         </button>
       </div>
       <div
@@ -22,14 +22,18 @@ export default function Navigation() {
             : "hidden"
         }
       >
-        <h3 className='m-3'>What neighborhood are you going to?</h3>
-        {neighborhoods.sort().map((neighborhood) => (
-          <Link href={`/neighborhood/${neighborhood}`} key={neighborhood}>
-            <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
-              {neighborhood}
-            </button>
-          </Link>
-        ))}
+        <div className="flex flex-col items-center my-4">
+          <h3 className='my-3 mx-12 text-center'>What neighborhood are you going to?</h3>
+          <div className="flex flex-wrap justify-center">
+            {neighborhoods.sort().map((neighborhood) => (
+              <Link href={`/neighborhood/${neighborhood}`} key={neighborhood}>
+                <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
+                  {neighborhood}
+                </button>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
