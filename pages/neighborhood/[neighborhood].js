@@ -8,6 +8,7 @@ import { getDay } from "../../lib/date";
 import Loader from "../../components/Loader";
 import fetcher from "../../lib/fetcher";
 import Neighborhoods from "../../lib/neighborhoods";
+import { hasActiveHappyHour } from "../../lib/time";
 
 export default function Neighborhood(props) {
   const router = useRouter();
@@ -82,26 +83,4 @@ export async function getStaticProps({ params }) {
       description: `List of bars and restaurants in the ${params.neighborhood} neighborhood of Chicago that serve happy hour specials and deals.`,
     },
   };
-}
-
-//TODO refactor so these are in one spot, shared
-function getCurrentTime() {
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-
-  // Format the current time as "HHMM"
-  const currentTime = hours * 100 + minutes;
-  return currentTime;
-}
-
-function isBetweenTwoTimes(startTime, endTime) {
-  const currentTime = getCurrentTime();
-  return currentTime >= startTime && currentTime <= endTime;
-}
-
-function hasActiveHappyHour(place, day) {
-  const dayInfo = place.day.filter((specialDay) => specialDay.name == day)[0];
-  const isHappeningNow = isBetweenTwoTimes(dayInfo.timeOfDay.startTime, dayInfo.timeOfDay.endTime);
-  return isHappeningNow;
 }

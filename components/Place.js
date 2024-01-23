@@ -1,6 +1,7 @@
 import Icon from "./Icon";
 import { dateCleanup } from "../lib/date";
 import Link from "next/link";
+import { isCurrentlyBetweenTwoTimes, formatTimeDisplay } from "../lib/time";
 
 export default function Place({ place, day }) {
   function filterDailySpecials() {
@@ -31,47 +32,11 @@ export default function Place({ place, day }) {
   const dayInfo = place.day.filter((specialDay) => specialDay.name == day)[0];
 
   function getGoogleMapsUrl(placeInfo) {
-    const placeAddress = placeInfo.address
-      ? placeInfo.address.split("@")[1]
+    const placeAddress = placeInfo.street_address
+      ? placeInfo.street_address
       : null;
 
     return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
-  }
-
-  function formatTimeDisplay(timeInt) {
-    if (timeInt == null) return "?";
-    const hour = Math.floor(timeInt / 100);
-    const minute = timeInt % 100;
-
-    if (isNaN(hour) || isNaN(minute)) {
-      return "?";
-    }
-
-    const period = hour < 12 ? 'am' : 'pm';
-    const convertedHour = hour % 12 === 0 ? 12 : hour % 12;
-
-    if (minute) {
-      return `${convertedHour}:${minute}${period}`;
-    } else {
-      return `${convertedHour}${period}`;
-    }
-  }
-
-  function getCurrentTime() {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-
-    // Format the current time as "HHMM"
-    const currentTime = hours * 100 + minutes;
-
-    return currentTime;
-  }
-
-  function isBetweenTwoTimes(startTime, endTime) {
-    const currentTime = getCurrentTime();
-
-    return currentTime >= startTime && currentTime <= endTime;
   }
 
   let startTime;
@@ -80,7 +45,7 @@ export default function Place({ place, day }) {
   if (dayInfo) {
     startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
     endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
-    happeningNow = isBetweenTwoTimes(dayInfo.timeOfDay.startTime, dayInfo.timeOfDay.endTime);
+    happeningNow = isCurrentlyBetweenTwoTimes(dayInfo.timeOfDay.startTime, dayInfo.timeOfDay.endTime);
   }
 
   return (
@@ -100,23 +65,29 @@ export default function Place({ place, day }) {
               {place.name}
             </Link>
           </h2>
-          <div className='text-purple-500 dark:text-purple-400'>
-            {place.address ? place.address.split("@")[0] : null} |{" "}
-            <a
-              className='underline'
-              target='_blank'
-              rel='noreferrer'
-              href={getGoogleMapsUrl(place)}
-            >
-              {place.address ? place.address.split("@")[1] : null}
-            </a>
+          <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row'>
+            <div>
+              <a
+                className='underline'
+                target='_blank'
+                rel='noreferrer'
+                href={getGoogleMapsUrl(place)}
+              >
+                {place.street_address ? place.street_address : null}
+              </a>
+            </div>
+            <div className="md:ml-2">
+              {place.neighborhood ? place.neighborhood : null}
+              {(place.distance) &&
+                ` | ${place.distance.toFixed(1)} miles`}
+            </div>
           </div>
         </div>
         {dayInfo &&
           <div className="flex flex-col justify-start items-center">
-            <div className="text-xl ml-4 whitespace-nowrap">{startTime} - {endTime}</div>
+            <div className="text-xl whitespace-nowrap">{startTime} - {endTime}</div>
             {happeningNow &&
-              <div className="font-bold tracking-wider text-xs mt-2 bg-orange-300 py-1 px-3 rounded-md">Now</div>
+              <div className="font-bold tracking-wider text-xs mt-2 bg-orange-300 py-1 px-3 rounded-md dark:text-orange-900">Now</div>
             }
           </div>
         }
