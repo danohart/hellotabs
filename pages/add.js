@@ -45,7 +45,8 @@ export default function AddPlace() {
   const submitData = () => {
     setFormattedData({
       name: formData.name,
-      address: formData.neighborhood + " @ " + formData.address,
+      street_address: formData.street_address,
+      neighborhood: formData.neighborhood,
       day: daysObj(),
       enabled: formData.enabled || false,
       featured: false,
@@ -81,8 +82,8 @@ export default function AddPlace() {
           className='text-black'
           type='text'
           name='address'
-          placeholder={formData.address}
-          value={formData.address}
+          placeholder={formData.street_address}
+          value={formData.street_address}
           onChange={handleChange}
         />
 
