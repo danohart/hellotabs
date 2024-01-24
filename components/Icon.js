@@ -1,17 +1,20 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  HomeIcon,
-  ArrowLeftIcon,
-  TagIcon,
-  CurrencyDollarIcon,
-} from "@heroicons/react/24/solid";
+  faGlassWhiskey,
+  faArrowLeft,
+  faHome,
+  faBowlFood,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Icon({ icon }) {
-  const classStyles = "h-5 w-5 text-purple-800 dark:text-purple-400";
-  if (icon === "HomeIcon") return <HomeIcon className={classStyles} />;
+  const classStyles = "h-5 w-5 mr-2 text-purple-800 dark:text-purple-400";
+  if (icon === "HomeIcon")
+    return <FontAwesomeIcon icon={faHome} className={classStyles} />;
   if (icon === "ArrowLeftIcon")
-    return <ArrowLeftIcon className={classStyles} />;
-  if (icon === "TagIcon") return <TagIcon className={classStyles} />;
+    return <FontAwesomeIcon icon={faArrowLeft} className={classStyles} />;
+  if (icon === "TagIcon")
+    return <FontAwesomeIcon icon={faGlassWhiskey} className={classStyles} />;
   if (icon === "CurrencyDollarIcon")
-    return <CurrencyDollarIcon className={classStyles} />;
+    return <FontAwesomeIcon icon={faBowlFood} className={classStyles} />;
   return;
 }

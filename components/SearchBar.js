@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export default function SearchBar(props) {
   const router = useRouter();
@@ -21,7 +22,10 @@ export default function SearchBar(props) {
   return (
     <div className='w-3/4 mx-auto py-4 flex items-center'>
       <div className='w-4'>
-        <MagnifyingGlassIcon className='h-5 w-5 text-gray-500' />
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          className='h-5 w-5 text-gray-500'
+        />
       </div>
       <div className='w-full pl-2'>
         <form onSubmit={submitSearchQuery}>
