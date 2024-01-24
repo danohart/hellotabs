@@ -10,7 +10,11 @@
     "seed": "node -r dotenv/config ./scripts/seed.js"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.13",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@tailwindcss/forms": "^0.4.0",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
