@@ -9,8 +9,12 @@ import fetcher from "../lib/fetcher";
 
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
-import { hasActiveHappyHour } from "../lib/time";
-import { sortByDistance, calculateDistance, getUserLocation } from "../lib/location";
+import { hasActiveHappyHour, isCurrentlyBetweenTwoTimes } from "../lib/time";
+import {
+  sortByDistance,
+  calculateDistance,
+  getUserLocation,
+} from "../lib/location";
 import { useEffect } from "react";
 
 function Home() {
@@ -19,9 +23,8 @@ function Home() {
   const day = getDay();
 
   function showMorePlaces() {
-    setAmountOfPlaces((amountOfPlaces + 10));
+    setAmountOfPlaces(amountOfPlaces + 10);
   }
-
 
   useEffect(() => {
     const fetchUserLocation = async () => {
@@ -29,7 +32,7 @@ function Home() {
         const locationResult = await getUserLocation();
         setUserLocation(locationResult);
       } catch (error) {
-        console.error('Error fetching user location:', error.message);
+        console.error("Error fetching user location:", error.message);
       }
     };
 
@@ -55,26 +58,30 @@ function Home() {
 
   // sort by distance
   if (userLocation) {
-    places = places.map(place => ({ ...place, distance: calculateDistance(userLocation, place.geo) }));
+    places = places.map((place) => ({
+      ...place,
+      distance: calculateDistance(userLocation, place.geo),
+    }));
     places = sortByDistance(places);
   }
 
   // sort so active happy hours are first
-  let activeSpecialsPlaces = places.filter((place) => hasActiveHappyHour(place, day));
+  let activeSpecialsPlaces = places.filter((place) =>
+    hasActiveHappyHour(place, day)
+  );
   let otherPlaces = places.filter((place) => !hasActiveHappyHour(place, day));
   places = [...activeSpecialsPlaces, ...otherPlaces];
-
 
   function happyHoursRightNow() {
     const currentTime = new Date();
     const currentDay = currentTime.getDay();
-    let currentHour = currentTime.getHours() + "00";
 
     const todayPlace = places.filter(
       (p) =>
-        p.day[currentDay].timeOfDay.startTime < currentHour &&
-        p.day[currentDay].timeOfDay.endTime > currentHour &&
-        p.day[currentDay].drink_specials !== "None"
+        isCurrentlyBetweenTwoTimes(
+          p.day[currentDay].timeOfDay.startTime,
+          p.day[currentDay].timeOfDay.endTime
+        ) && p.day[currentDay].drink_specials !== "None"
     );
 
     return todayPlace.length;
@@ -97,8 +104,8 @@ function Home() {
     <div>
       <Meta />
       <Header title={`${day} Specials`} />
-      <div className="flex flex-col items-center">
-        <div className="flex flex-col md:w-1/2">
+      <div className='flex flex-col items-center'>
+        <div className='flex flex-col md:w-1/2'>
           <div className='mt-6 mx-10 text-center'>
             {determineCurrentHappyHourVerbiage()}
           </div>

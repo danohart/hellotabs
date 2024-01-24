@@ -81,7 +81,7 @@ export default function AddPlace() {
         <input
           className='text-black'
           type='text'
-          name='address'
+          name='street_address'
           placeholder={formData.street_address}
           value={formData.street_address}
           onChange={handleChange}
