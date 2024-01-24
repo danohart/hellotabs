@@ -17,12 +17,16 @@ export default function Place({ place, day }) {
         return (
           <div key={special.name}>
             <div className='flex flex-row pt-4 items-center'>
-              <Icon icon='TagIcon' />
-              {special.drink_specials}
+              <div className='flex '>
+                <Icon icon='TagIcon' />
+              </div>
+              <div className='flex '>{special.drink_specials}</div>
             </div>
             <div className='flex flex-row py-4 items-center'>
-              <Icon icon='CurrencyDollarIcon' />
-              {special.food_specials}
+              <div>
+                <Icon icon='CurrencyDollarIcon' />
+              </div>
+              <div>{special.food_specials}</div>
             </div>
           </div>
         );
@@ -45,7 +49,10 @@ export default function Place({ place, day }) {
   if (dayInfo) {
     startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
     endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
-    happeningNow = isCurrentlyBetweenTwoTimes(dayInfo.timeOfDay.startTime, dayInfo.timeOfDay.endTime);
+    happeningNow = isCurrentlyBetweenTwoTimes(
+      dayInfo.timeOfDay.startTime,
+      dayInfo.timeOfDay.endTime
+    );
   }
 
   return (
@@ -53,8 +60,8 @@ export default function Place({ place, day }) {
       className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500'
       key={place.name}
     >
-      <div className="flex justify-between">
-        <div className="flex flex-col justify-start">
+      <div className='flex justify-between'>
+        <div className='flex flex-col justify-start'>
           <h2 className='text-3xl md:text-4xl font-bold'>
             <Link
               href={{
@@ -76,25 +83,26 @@ export default function Place({ place, day }) {
                 {place.street_address ? place.street_address : null}
               </a>
             </div>
-            <div className="md:ml-2">
+            <div className='md:ml-2'>
               {place.neighborhood ? place.neighborhood : null}
-              {(place.distance) &&
-                ` | ${place.distance.toFixed(1)} miles`}
+              {place.distance && ` | ${place.distance.toFixed(1)} miles`}
             </div>
           </div>
         </div>
-        {dayInfo &&
-          <div className="flex flex-col justify-start items-center">
-            <div className="text-xl whitespace-nowrap">{startTime} - {endTime}</div>
-            {happeningNow &&
-              <div className="font-bold tracking-wider text-xs mt-2 bg-orange-300 py-1 px-3 rounded-md dark:text-orange-900">Now</div>
-            }
+        {dayInfo && (
+          <div className='flex flex-col justify-start items-center'>
+            <div className='text-xl whitespace-nowrap'>
+              {startTime} - {endTime}
+            </div>
+            {happeningNow && (
+              <div className='font-bold tracking-wider text-xs mt-2 bg-orange-300 py-1 px-3 rounded-md dark:text-orange-900'>
+                Now
+              </div>
+            )}
           </div>
-        }
+        )}
       </div>
-      <div>
-        {place.day ? filterDailySpecials() : null}
-      </div>
+      <div>{place.day ? filterDailySpecials() : null}</div>
       {place.lastUpdated ? (
         <div className='font-semibold text-sm text-slate-400'>
           Last Updated: {dateCleanup(place.lastUpdated)}
