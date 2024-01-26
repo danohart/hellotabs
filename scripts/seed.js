@@ -1,18 +1,36 @@
-const { connectToDatabase } = require('../lib/mongodb.js'); 
-const sampleData = require('./sample_data.json');
+const fs = require('fs');
+const { MongoClient, ObjectId } = require('mongodb');
 
-async function seedDatabase() {
+async function importData() {
+
+    // TODO load dotenv variables instead of hardcoding uri
+    const uri = 'mongodb://localhost:27017/hellotabs';
+    const client = new MongoClient(uri);
+
     try {
-        const { client, db } = await connectToDatabase(); 
+        await client.connect();
 
-        await db.collection('places').insertMany(sampleData.places);
+        const database = client.db('hellotabs');
+        const collection = database.collection('places');
 
-        console.log('Data seeded successfully.');
+        const rawData = fs.readFileSync('lib/sample-data.json');
+        const data = JSON.parse(rawData);
+
+        const modifiedData = data.places.map(doc => ({
+            ...doc,
+            _id: new ObjectId(doc._id)
+        }));
+
+        const result = await collection.insertMany(modifiedData);
+
+        console.log(`Inserted ${result.insertedCount} documents into the collection`);
     } catch (error) {
-        console.error('Error seeding data:', error);
+        console.error('Error during import:', error);
     } finally {
+        // Close the connection
         await client.close();
     }
 }
 
-seedDatabase();
+// Run the import function
+importData();
