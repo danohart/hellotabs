@@ -86,8 +86,82 @@ function convertSpecials(specials, type) {
     });
 }
 
+
+// functions for pre-processing old format to group specials
+
+function combineSimilarSpecials(inputData) {
+    const combinedData = { places: [] };
+
+    inputData.places.forEach(place => {
+        const combinedPlace = { ...place, day: [] };
+
+        // Group events by unique specials
+        const groupedEvents = groupEventsBySpecials(place.day);
+
+        // Create combined events
+        groupedEvents.forEach(group => {
+            const combinedEvent = {
+                drink_specials: group.drink_specials,
+                food_specials: group.food_specials,
+                timeOfDay: group.timeOfDay,
+                days: group.days,
+            };
+            combinedPlace.day.push(combinedEvent);
+        });
+
+        combinedData.places.push(combinedPlace);
+    });
+
+    return combinedData;
+}
+
+function groupEventsBySpecials(events) {
+    const groupedEvents = [];
+
+    events.forEach(event => {
+        const existingGroup = groupedEvents.find((group) => {
+            return areSpecialsEqual(event, group) &&
+                areTimeOfDayEqual(group.timeOfDay, event.timeOfDay);
+        }
+        );
+
+        if (existingGroup) {
+            // Add day to existing group
+            existingGroup.days.push(event.name);
+        } else {
+            // Create a new group
+            groupedEvents.push({
+                drink_specials: event.drink_specials,
+                food_specials: event.food_specials,
+                timeOfDay: { startTime: event.timeOfDay.startTime, endTime: event.timeOfDay.endTime },
+                days: [event.name],
+            });
+        }
+    });
+
+    return groupedEvents;
+}
+
+function areSpecialsEqual(day1, day2) {
+    return day1.drink_specials === day2.drink_specials &&
+        day1.food_specials === day2.food_specials;
+}
+
+function areTimeOfDayEqual(timeOfDay1, timeOfDay2) {
+    return (
+        timeOfDay1.startTime === timeOfDay2.startTime &&
+        timeOfDay1.endTime === timeOfDay2.endTime
+    );
+}
+
+
+
+// code execution
+
+const groupedSpecialsData = combineSimilarSpecials(inputPlacesData);
+
 // Convert each place in the original data to the new format
-const convertedPlaces = inputPlacesData.places.map(place => ({
+const convertedPlaces = groupedSpecialsData.places.map(place => ({
     _id: place._id,
     alt_id: place.alt_id,
     name: place.name,
@@ -101,7 +175,7 @@ const convertedPlaces = inputPlacesData.places.map(place => ({
     events: place.day.map(day => ({
         keywords: "happyHour",
         eventSchedule: [{
-            byDay: convertDayName(day.name),
+            byDay: day.days.map(day => convertDayName(day)),
             startTime: `${day.timeOfDay.startTime}`,
             endTime: `${day.timeOfDay.endTime}`
         }],
@@ -118,5 +192,4 @@ const convertedPlaces = inputPlacesData.places.map(place => ({
 
 // Resulting converted data
 const convertedData = { places: convertedPlaces };
-
 console.log(JSON.stringify(convertedData, null, 2));
