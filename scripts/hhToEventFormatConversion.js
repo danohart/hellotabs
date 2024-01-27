@@ -62,7 +62,13 @@ function convertSpecials(specials, type) {
 
     return specials.split(',').map(item => {
 
-        if (item.includes("$")) {
+        if (item.toLowerCase().includes("off")) {
+            // discount rate or $ off. Storing as is for now
+            return {
+                name: item,
+            }
+        }
+        else if (item.trim().startsWith("$")) {
             const parts = item.trim().split(' ');
             const price = parts.length > 1 ? parseFloat(parts[0].substring(1)) : null;
             const name = parts.slice(1).join(' ');

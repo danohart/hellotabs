@@ -81,6 +81,7 @@ export enum RepeatFrequency {
 export type MenuItem = {
     name: string;
     category?: 'Drink' | 'Food';
-    price?: string;
-    discountRate?: number;
+    price?: number;
+    discountRate?: number; // 0.50 for 50% off
+    discountPriceBy?: number; // 2 for $2 off
 };
