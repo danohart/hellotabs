@@ -13,7 +13,7 @@ async function importData() {
         const database = client.db('hellotabs');
         const collection = database.collection('places');
 
-        const rawData = fs.readFileSync('lib/sample-data.json');
+        const rawData = fs.readFileSync('lib/sample-data_newFormat.json');
         const data = JSON.parse(rawData);
 
         const modifiedData = data.places.map(doc => ({
