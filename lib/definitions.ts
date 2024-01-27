@@ -1,27 +1,87 @@
 
 export type Place = {
     _id: string;
+    alt_id: number;
     name: string;
-    address: string;
-    geo: {
+    location?: Address
+    events: Event[];
+    enabled: boolean;
+    featured: boolean;
+    neighborhood: string;
+    lastUpdated: Date;
+    urls: Urls;
+};
+
+export type Address = {
+    // "@type": "PostalAddress",
+    streetAddress: string;
+    city: string, //addressRegion in official schema.org schema
+    state: string, //addressLocality in official schema.org schema
+    postalCode: number;
+    geo?: {
         latitude: number;
         longitude: number;
     };
-    alt_id: number;
-    day: dailySpecial[];
-    enabled: boolean;
-    featured: boolean;
-    lastUpdated: Date;
-    neighborhood: string;
-}
+};
 
+export type Urls = {
+    homepage: string;
+    eventListings: string;
+    specials: string;
+};
 
-export type dailySpecial = {
+export type Event = {
     name: string;
-    drink_specials: string;
-    food_specials: string;
-    timeOfDay: {
-        startTime: number,
-        endTime: number
-    };
-}
+    description?: string;
+    keywords?: string | string[];
+    startDate?: Date;
+    endDate?: Date;
+    allDay?: boolean;
+    eventSchedule?: Schedule[];
+    location?: Address; // use if event is off-site
+    price?: number;
+    url?: string;
+    menu?: MenuItem[];
+};
+
+type Schedule = {
+    // '@context'?: string;
+    // '@type': 'Schedule';
+    byDay?: DayOfWeek | DayOfWeek[];
+    byMonth?: number | number[]; 
+    byMonthDay?: number | number[]; 
+    byMonthWeek?: number | number[];
+    duration?: string; // ISO 8601 duration format (e.g., 'PT1H' for 1 hour)
+    exceptDate?: string | string[];
+    repeatCount?: number;
+    repeatFrequency?: RepeatFrequency;
+    startTime?: string;
+    startDate?: string;
+    endTime?: string;
+    endDate?: Date;
+};
+
+export enum DayOfWeek {
+    Monday = 'MO',
+    Tuesday = 'TU',
+    Wednesday = 'WE',
+    Thursday = 'TH',
+    Friday = 'FR',
+    Saturday = 'SA',
+    Sunday = 'SU',
+};
+
+export enum RepeatFrequency {
+    NoRepeat = 'P0Y',
+    Yearly = 'P1Y',
+    Monthly = 'P1M',
+    Weekly = 'P1W',
+    Daily = 'P1D',
+};
+
+type MenuItem = {
+    name: string;
+    category?: 'Drink' | 'Food';
+    price?: string;
+    discountRate?: number;
+};
