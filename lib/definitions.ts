@@ -9,7 +9,7 @@ export type Place = {
     featured: boolean;
     neighborhood: string;
     lastUpdated: Date;
-    urls: Urls;
+    urls?: Urls;
 };
 
 export type Address = {
@@ -44,21 +44,20 @@ export type Event = {
     menu?: MenuItem[];
 };
 
-type Schedule = {
+export type Schedule = {
     // '@context'?: string;
     // '@type': 'Schedule';
+    startTime?: number;
+    endTime?: number;
     byDay?: DayOfWeek | DayOfWeek[];
     byMonth?: number | number[]; 
     byMonthDay?: number | number[]; 
     byMonthWeek?: number | number[];
-    duration?: string; // ISO 8601 duration format (e.g., 'PT1H' for 1 hour)
-    exceptDate?: string | string[];
-    repeatCount?: number;
     repeatFrequency?: RepeatFrequency;
-    startTime?: string;
+    repeatCount?: number;
     startDate?: string;
-    endTime?: string;
     endDate?: Date;
+    exceptDate?: string | string[];
 };
 
 export enum DayOfWeek {
@@ -79,7 +78,7 @@ export enum RepeatFrequency {
     Daily = 'P1D',
 };
 
-type MenuItem = {
+export type MenuItem = {
     name: string;
     category?: 'Drink' | 'Food';
     price?: string;
