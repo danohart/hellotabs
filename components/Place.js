@@ -49,10 +49,11 @@ export default function Place({ place, day }) {
           </div>
         </div>
       </div>
-
-      {
-        place.events.map((event) => <Event event={event} key={event} />)
-      }
+      <div className="mb-12">
+        {
+          place.events.map((event) => <Event event={event} key={event} />)
+        }
+      </div>
 
       {place.lastUpdated && (
         <div className='font-semibold text-sm text-slate-400'>
@@ -78,30 +79,35 @@ function Event({ event }) {
           </div>
         )} */}
 
-  // let happeningNow = false;
-  // if (dayInfo) {
-  //   startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
-  //   endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
-  //   happeningNow = isCurrentlyBetweenTwoTimes(
-  //     dayInfo.timeOfDay.startTime,
-  //     dayInfo.timeOfDay.endTime
-  //   );
-  // }
+
+  let happeningNow = isCurrentlyBetweenTwoTimes(
+    event.eventSchedule[0].startTime,
+    event.eventSchedule[0].endTime
+  );
 
   let drinkSpecials = event.menu.filter((item) => item.category == "Drink");
   let foodSpecials = event.menu.filter((item) => item.category == "Food");
 
-  const drinkSpecialsText = drinkSpecials.map(item => `$${item.price} ${item.name}`).join(', ');
-  const foodSpecialsText = foodSpecials.map(item => `$${item.price} ${item.name}`).join(', ');
+  const drinkSpecialsText = drinkSpecials.map(item => menuItemToString(item)).join(', ');
+  const foodSpecialsText = foodSpecials.map(item => menuItemToString(item)).join(', ');
 
   const startTime = formatTimeDisplay(event.eventSchedule[0].startTime);
   const endTime = formatTimeDisplay(event.eventSchedule[0].endTime);
 
   return (
-    <div className="my-4"> 
-      <div className="font-bold">{`${startTime}-${endTime}`}</div>
+    <div className="mt-4 mb-8">
+      <div className='flex flex-row justify-start items-baseline'>
+        <div className='font-bold whitespace-nowrap'>
+          {startTime} - {endTime}
+        </div>
+        {happeningNow && (
+          <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
+            Now
+          </div>
+        )}
+      </div>
       {drinkSpecialsText &&
-        <div className='flex flex-row pt-4 items-center'>
+        <div className='flex flex-row pt-2 items-center'>
           <div className='flex '>
             <Icon icon='TagIcon' />
           </div>
@@ -119,4 +125,29 @@ function Event({ event }) {
     </div>
   );
 
+}
+
+function menuItemToString(item) {
+  if (item.price) {
+    let dollarValue = formatAsDollarAmount(item.price);
+    return `$${dollarValue} ${item.name}`;
+  }
+  else if (item.discountPriceBy) {
+    let dollarValue = formatAsDollarAmount(item.discountPriceBy);
+    return `${dollarValue} off ${item.name}`
+  }
+  else if (item.discountRate) {
+    return `${item.discountRate}% off ${item.name}`
+  }
+  else {
+    return item.name;
+  }
+}
+
+function formatAsDollarAmount(number) {
+  if (Number.isInteger(number)) {
+    return `${number}`;
+  } else {
+    return `${number.toFixed(2)}`;
+  }
 }
