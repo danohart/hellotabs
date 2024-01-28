@@ -1,10 +1,10 @@
 import Icon from "./Icon";
-import { dateCleanup } from "../lib/date";
+import { convertDayCodeToString, dateCleanup } from "../lib/date";
 import Link from "next/link";
 import { isCurrentlyBetweenTwoTimes, formatTimeDisplay } from "../lib/time";
-import { convertDayName } from "../lib/date";
 
-export default function Place({ place, day }) {
+
+export default function Place({ place, day, showDays = false }) {
 
   function getGoogleMapsUrl(placeInfo) {
     const placeAddress = placeInfo.location.streetAddress
@@ -51,7 +51,7 @@ export default function Place({ place, day }) {
       </div>
       <div className="mb-12">
         {
-          place.events.map((event) => <Event event={event} key={event} />)
+          place.events.map((event) => <Event event={event} key={event} showDays={showDays} />)
         }
       </div>
 
@@ -64,7 +64,7 @@ export default function Place({ place, day }) {
   );
 }
 
-function Event({ event }) {
+function Event({ event, showDays }) {
 
   {/* {dayInfo && (
           <div className='flex flex-col justify-start items-center'>
@@ -95,8 +95,13 @@ function Event({ event }) {
   const endTime = formatTimeDisplay(event.eventSchedule[0].endTime);
 
   return (
-    <div className="mt-4 mb-8">
-      <div className='flex flex-row justify-start items-baseline'>
+    <div className="mt-4 mb-12">
+      <div className='flex flex-row justify-start items-baseline mb-2'>
+        {showDays &&
+          <div className="font-bold mr-6">
+            {event.eventSchedule[0].byDay.map((day)=> convertDayCodeToString(day)).join(", ")}
+          </div>
+        }
         <div className='font-bold whitespace-nowrap'>
           {startTime} - {endTime}
         </div>
