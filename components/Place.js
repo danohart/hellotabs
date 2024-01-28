@@ -1,5 +1,5 @@
 import Icon from "./Icon";
-import { convertDayCodeToString, dateCleanup } from "../lib/date";
+import { formatDaysOfWeek, dateCleanup } from "../lib/date";
 import Link from "next/link";
 import { isCurrentlyBetweenTwoTimes, formatTimeDisplay } from "../lib/time";
 
@@ -98,12 +98,12 @@ function Event({ event, showDays }) {
     <div className="mt-4 mb-12">
       <div className='flex flex-row justify-start items-baseline mb-2'>
         {showDays &&
-          <div className="font-bold mr-6">
-            {event.eventSchedule[0].byDay.map((day)=> convertDayCodeToString(day)).join(", ")}
+          <div className="font-bold mr-3">
+            {formatDaysOfWeek(event.eventSchedule[0].byDay)}
           </div>
         }
         <div className='font-bold whitespace-nowrap'>
-          {startTime} - {endTime}
+          {startTime}-{endTime}
         </div>
         {happeningNow && (
           <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
