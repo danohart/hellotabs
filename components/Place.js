@@ -1,7 +1,7 @@
 import Icon from "./Icon";
 import { formatDaysOfWeek, dateCleanup } from "../lib/date";
 import Link from "next/link";
-import { isCurrentlyBetweenTwoTimes, formatTimeDisplay } from "../lib/time";
+import { isCurrentlyBetweenTwoTimes, formatTimeDisplay, isHappeningNow } from "../lib/time";
 
 
 export default function Place({ place, day, showDays = false }) {
@@ -80,14 +80,10 @@ function Event({ event, showDays }) {
         )} */}
 
 
-  let happeningNow = isCurrentlyBetweenTwoTimes(
-    event.eventSchedule[0].startTime,
-    event.eventSchedule[0].endTime
-  );
+  let happeningNow = isHappeningNow(event.eventSchedule[0]);
 
   let drinkSpecials = event.menu.filter((item) => item.category == "Drink");
   let foodSpecials = event.menu.filter((item) => item.category == "Food");
-
   const drinkSpecialsText = drinkSpecials.map(item => menuItemToString(item)).join(', ');
   const foodSpecialsText = foodSpecials.map(item => menuItemToString(item)).join(', ');
 
