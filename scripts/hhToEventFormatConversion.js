@@ -93,12 +93,14 @@ function groupEventsBySpecials(events) {
             existingGroup.days.push(event.name);
         } else {
             // Create a new group
-            groupedEvents.push({
-                drink_specials: event.drink_specials,
-                food_specials: event.food_specials,
-                timeOfDay: { startTime: event.timeOfDay.startTime, endTime: event.timeOfDay.endTime },
-                days: [event.name],
-            });
+            if (event.drink_specials != "None" || event.food_specials != "None") {
+                groupedEvents.push({
+                    drink_specials: event.drink_specials,
+                    food_specials: event.food_specials,
+                    timeOfDay: { startTime: event.timeOfDay.startTime, endTime: event.timeOfDay.endTime },
+                    days: [event.name],
+                });
+            }
         }
     });
 

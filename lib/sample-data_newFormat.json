@@ -524,20 +524,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO"
               ],
               "startTime": "1500",
@@ -826,19 +812,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "MO"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "TU"
               ],
               "startTime": "1600",
@@ -1018,20 +991,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -1068,21 +1027,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -1162,19 +1106,6 @@
               "name": " 4pm - 6pm"
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Wicker Park",
@@ -1196,20 +1127,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -1283,20 +1200,6 @@
               "price": 9
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Avondale",
@@ -1344,20 +1247,6 @@
               "name": " beers & snacks"
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "TU",
-                "WE"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Logan Square",
@@ -1379,20 +1268,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -1454,21 +1329,6 @@
               "price": 25
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "MO",
-                "WE",
-                "FR"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -2218,20 +2078,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "MO"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "TU"
               ],
               "startTime": "1600",
@@ -2552,19 +2398,6 @@
               "price": 40
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "MO"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -3322,20 +3155,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "MO"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "TU"
               ],
               "startTime": "1600",
@@ -3625,20 +3444,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "MO",
-                "TU"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "WE",
                 "TH",
                 "FR"
@@ -3737,19 +3542,6 @@
               "price": 3
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "MO"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -4306,20 +4098,6 @@
               "price": 8
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "FR",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Bucktown",
@@ -4409,19 +4187,6 @@
               "price": 5.5
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "WE"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -6254,19 +6019,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "FR"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "SA"
               ],
               "startTime": "1600",
@@ -7096,23 +6848,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "MO",
-                "TU",
-                "WE",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -8368,22 +8103,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "MO",
-                "TU",
-                "FR",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "WE"
               ],
               "startTime": "1600",
@@ -8618,20 +8337,6 @@
               "price": 4
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "MO",
-                "TU"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -9398,19 +9103,6 @@
               "price": 6
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "FR"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Wicker Park",
@@ -9876,19 +9568,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "FR"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "SA"
               ],
               "startTime": "1200",
@@ -10047,19 +9726,6 @@
               "name": "Complimentary Happy Hour Buffet"
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Edgewater",
@@ -10888,19 +10554,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "WE",
                 "TH"
@@ -10983,19 +10636,6 @@
               "name": "Half-Price Apps"
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "West Loop",
@@ -11018,19 +10658,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -11914,19 +11541,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO"
               ],
               "startTime": "1600",
@@ -12168,19 +11782,6 @@
               "price": 24
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "MO"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -16986,20 +16587,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO"
               ],
               "startTime": "1600",
@@ -17623,22 +17210,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "MO",
-                "TU",
-                "WE",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "TH"
               ],
               "startTime": "1600",
@@ -17715,19 +17286,6 @@
               "name": "Brunch Served from 10am-3pm"
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "MO"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -18033,22 +17591,6 @@
               "price": 5
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "MO",
-                "TU",
-                "WE",
-                "FR"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
         },
         {
           "keywords": "happyHour",
@@ -19379,20 +18921,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "MO",
-                "FR"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "TU"
               ],
               "startTime": "1600",
@@ -19992,20 +19520,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO"
               ],
               "startTime": "1100",
@@ -20122,21 +19636,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "MO",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -20464,20 +19963,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -20537,20 +20022,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -20921,22 +20392,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "MO",
-                "TU",
-                "WE"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -21888,19 +21343,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "MO"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "TU"
               ],
               "startTime": "1600",
@@ -22593,19 +22035,6 @@
               "price": 4
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "FR"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Wrigleyville",
@@ -24147,19 +23576,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "MO"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "TU"
               ],
               "startTime": "1600",
@@ -24966,21 +24382,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "TU",
-                "WE"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TH",
                 "FR",
@@ -25024,20 +24425,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -25154,22 +24541,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "MO",
-                "TU",
-                "WE"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -26292,20 +25663,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -26375,19 +25732,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU"
-              ],
-              "startTime": "1600",
-              "endTime": "1900"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -26405,19 +25749,6 @@
               "price": 6
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Logan Square",
@@ -26439,21 +25770,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -26502,21 +25818,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -26552,22 +25853,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "MO",
-                "TU",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -26610,23 +25895,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "MO",
-                "TU",
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -26689,21 +25957,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -26805,21 +26058,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "MO",
-                "TU"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "WE",
                 "TH",
                 "FR",
@@ -26907,20 +26145,6 @@
               "price": 8
             }
           ]
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
         }
       ],
       "neighborhood": "Pilsen",
@@ -27013,21 +26237,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "FR",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -27073,21 +26282,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "MO",
-                "SA"
-              ],
-              "startTime": "1600",
-              "endTime": "1800"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
@@ -27165,20 +26359,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "1100",
-              "endTime": "1500"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -27232,20 +26412,6 @@
           "eventSchedule": [
             {
               "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
                 "MO",
                 "TU",
                 "WE",
@@ -27294,20 +26460,6 @@
         }
       },
       "events": [
-        {
-          "keywords": "happyHour",
-          "eventSchedule": [
-            {
-              "byDay": [
-                "SU",
-                "SA"
-              ],
-              "startTime": "0",
-              "endTime": "0"
-            }
-          ],
-          "menu": []
-        },
         {
           "keywords": "happyHour",
           "eventSchedule": [
