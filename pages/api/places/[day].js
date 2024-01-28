@@ -7,7 +7,8 @@ export default async function handler(req, res) {
 
   try {
     let { db } = await connectToDatabase();
-    let places = await db.collection("places")
+    let places = await db
+      .collection("places")
       .aggregate([
         {
           $match: {

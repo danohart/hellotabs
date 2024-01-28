@@ -17,7 +17,7 @@ export default function Neighborhood(props) {
   const day = getDay();
   const neighborhood = router.query.neighborhood;
 
-  const { data, error } = useSWR("/api/neighborhood/" + neighborhood, fetcher);
+  const { data, error } = useSWR(`/api/neighborhood/${neighborhood}?day=${day}`, fetcher);
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));
