@@ -2,57 +2,16 @@ import Icon from "./Icon";
 import { dateCleanup } from "../lib/date";
 import Link from "next/link";
 import { isCurrentlyBetweenTwoTimes, formatTimeDisplay } from "../lib/time";
+import { convertDayName } from "../lib/date";
 
 export default function Place({ place, day }) {
-  function filterDailySpecials() {
-    if (place.day && day === "allDays") {
-      return place.day.map((special) => (
-        <div className='border-b-2 py-4' key={special.name}>
-          {special.name + ": " + special.drink_specials}
-        </div>
-      ));
-    }
-    return place.day.map((special) => {
-      if (special.name === day)
-        return (
-          <div key={special.name}>
-            <div className='flex flex-row pt-4 items-center'>
-              <div className='flex '>
-                <Icon icon='TagIcon' />
-              </div>
-              <div className='flex '>{special.drink_specials}</div>
-            </div>
-            <div className='flex flex-row py-4 items-center'>
-              <div>
-                <Icon icon='CurrencyDollarIcon' />
-              </div>
-              <div>{special.food_specials}</div>
-            </div>
-          </div>
-        );
-    });
-  }
-
-  const dayInfo = place.day.filter((specialDay) => specialDay.name == day)[0];
 
   function getGoogleMapsUrl(placeInfo) {
-    const placeAddress = placeInfo.street_address
-      ? placeInfo.street_address
+    const placeAddress = placeInfo.location.streetAddress
+      ? placeInfo.location.streetAddress
       : null;
 
     return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
-  }
-
-  let startTime;
-  let endTime;
-  let happeningNow = false;
-  if (dayInfo) {
-    startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
-    endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
-    happeningNow = isCurrentlyBetweenTwoTimes(
-      dayInfo.timeOfDay.startTime,
-      dayInfo.timeOfDay.endTime
-    );
   }
 
   return (
@@ -80,7 +39,7 @@ export default function Place({ place, day }) {
                 rel='noreferrer'
                 href={getGoogleMapsUrl(place)}
               >
-                {place.street_address ? place.street_address : null}
+                {place.location.streetAddress ? place.location.streetAddress : null}
               </a>
             </div>
             <div className='md:ml-2'>
@@ -89,7 +48,24 @@ export default function Place({ place, day }) {
             </div>
           </div>
         </div>
-        {dayInfo && (
+      </div>
+
+      {
+        place.events.map((event) => <Event event={event} key={event} />)
+      }
+
+      {place.lastUpdated && (
+        <div className='font-semibold text-sm text-slate-400'>
+          Last Updated: {dateCleanup(place.lastUpdated)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Event({ event }) {
+
+  {/* {dayInfo && (
           <div className='flex flex-col justify-start items-center'>
             <div className='text-xl whitespace-nowrap'>
               {startTime} - {endTime}
@@ -100,14 +76,47 @@ export default function Place({ place, day }) {
               </div>
             )}
           </div>
-        )}
-      </div>
-      <div>{place.day ? filterDailySpecials() : null}</div>
-      {place.lastUpdated ? (
-        <div className='font-semibold text-sm text-slate-400'>
-          Last Updated: {dateCleanup(place.lastUpdated)}
+        )} */}
+
+  // let happeningNow = false;
+  // if (dayInfo) {
+  //   startTime = formatTimeDisplay(dayInfo.timeOfDay.startTime);
+  //   endTime = formatTimeDisplay(dayInfo.timeOfDay.endTime);
+  //   happeningNow = isCurrentlyBetweenTwoTimes(
+  //     dayInfo.timeOfDay.startTime,
+  //     dayInfo.timeOfDay.endTime
+  //   );
+  // }
+
+  let drinkSpecials = event.menu.filter((item) => item.category == "Drink");
+  let foodSpecials = event.menu.filter((item) => item.category == "Food");
+
+  const drinkSpecialsText = drinkSpecials.map(item => `$${item.price} ${item.name}`).join(', ');
+  const foodSpecialsText = foodSpecials.map(item => `$${item.price} ${item.name}`).join(', ');
+
+  const startTime = formatTimeDisplay(event.eventSchedule[0].startTime);
+  const endTime = formatTimeDisplay(event.eventSchedule[0].endTime);
+
+  return (
+    <div className="my-4"> 
+      <div className="font-bold">{`${startTime}-${endTime}`}</div>
+      {drinkSpecialsText &&
+        <div className='flex flex-row pt-4 items-center'>
+          <div className='flex '>
+            <Icon icon='TagIcon' />
+          </div>
+          <div className='flex '>{drinkSpecialsText}</div>
         </div>
-      ) : null}
+      }
+      {foodSpecialsText &&
+        <div className='flex flex-row py-4 items-center'>
+          <div>
+            <Icon icon='CurrencyDollarIcon' />
+          </div>
+          <div>{foodSpecialsText}</div>
+        </div>
+      }
     </div>
   );
+
 }
