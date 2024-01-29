@@ -78,35 +78,38 @@ function Event({ event, showDays }) {
             )}
           </div>
         )} */}
-
-
-  let happeningNow = isHappeningNow(event.eventSchedule[0]);
-
   let drinkSpecials = event.menu.filter((item) => item.category == "Drink");
   let foodSpecials = event.menu.filter((item) => item.category == "Food");
   const drinkSpecialsText = drinkSpecials.map(item => menuItemToString(item)).join(', ');
   const foodSpecialsText = foodSpecials.map(item => menuItemToString(item)).join(', ');
 
-  const startTime = formatTimeDisplay(event.eventSchedule[0].startTime);
-  const endTime = formatTimeDisplay(event.eventSchedule[0].endTime);
-
   return (
     <div className="mt-4 mb-12">
-      <div className='flex flex-row justify-start items-baseline mb-2'>
-        {showDays &&
-          <div className="font-bold mr-3">
-            {formatDaysOfWeek(event.eventSchedule[0].byDay)}
-          </div>
+        
+        {event.eventSchedule.map((schedule) => {
+          let happeningNow = isHappeningNow(schedule);
+          const startTime = formatTimeDisplay(schedule.startTime);
+          const endTime = formatTimeDisplay(schedule.endTime);
+          return (
+            <div className='flex flex-row justify-start items-baseline mb-2' key={schedule}>
+              {showDays &&
+                <div className="font-bold mr-3">
+                  {formatDaysOfWeek(schedule.byDay)}
+                </div>
+              }
+              <div className='font-bold whitespace-nowrap'>
+                {startTime}-{endTime}
+              </div>
+              {happeningNow && (
+                <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
+                  Now
+                </div>
+              )}
+            </div>
+          );
+        })
         }
-        <div className='font-bold whitespace-nowrap'>
-          {startTime}-{endTime}
-        </div>
-        {happeningNow && (
-          <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
-            Now
-          </div>
-        )}
-      </div>
+
       {drinkSpecialsText &&
         <div className='flex flex-row pt-2 items-center'>
           <div className='flex '>
