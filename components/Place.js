@@ -88,8 +88,6 @@ function Event({ event, showDays }) {
         
         {event.eventSchedule.map((schedule) => {
           let happeningNow = isHappeningNow(schedule);
-          const startTime = formatTimeDisplay(schedule.startTime);
-          const endTime = formatTimeDisplay(schedule.endTime);
           return (
             <div className='flex flex-row justify-start items-baseline mb-2' key={schedule}>
               {showDays &&
@@ -98,7 +96,7 @@ function Event({ event, showDays }) {
                 </div>
               }
               <div className='font-bold whitespace-nowrap'>
-                {startTime}-{endTime}
+                {formatTimeDisplay(schedule)}
               </div>
               {happeningNow && (
                 <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
