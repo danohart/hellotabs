@@ -1,5 +1,5 @@
 import Icon from "./Icon";
-import { formatDaysOfWeek, dateCleanup } from "../lib/date";
+import { formatDaysOfWeek, dateCleanup, formatDateDisplay } from "../lib/date";
 import Link from "next/link";
 import { isCurrentlyBetweenTwoTimes, formatTimeDisplay, isHappeningNow } from "../lib/time";
 
@@ -13,6 +13,8 @@ export default function Place({ place, day, showDays = false }) {
 
     return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
   }
+
+  const lastUpdated = findMostRecentUpdate(place.events);
 
   return (
     <div
@@ -55,9 +57,9 @@ export default function Place({ place, day, showDays = false }) {
         }
       </div>
 
-      {place.lastUpdated && (
+      {lastUpdated && (
         <div className='font-semibold text-sm text-slate-400'>
-          Last Updated: {dateCleanup(place.lastUpdated)}
+          Last updated {formatDateDisplay(lastUpdated)} {place.lastUpdatedBy ? `by ${place.lastUpdatedBy}`: ""}
         </div>
       )}
     </div>
@@ -85,28 +87,33 @@ function Event({ event, showDays }) {
 
   return (
     <div className="mt-4 mb-12">
-        
-        {event.eventSchedule.map((schedule) => {
-          let happeningNow = isHappeningNow(schedule);
-          return (
-            <div className='flex flex-row justify-start items-baseline mb-2' key={schedule}>
-              {showDays &&
-                <div className="font-bold mr-3">
-                  {formatDaysOfWeek(schedule.byDay)}
-                </div>
-              }
-              <div className='font-bold whitespace-nowrap'>
-                {formatTimeDisplay(schedule)}
+
+      {event.eventSchedule.map((schedule) => {
+        let happeningNow = isHappeningNow(schedule);
+        return (
+          <div className='flex flex-row justify-start items-baseline mb-2' key={schedule}>
+            {showDays &&
+              <div className="font-bold whitespace-nowrap">
+                {formatDaysOfWeek(schedule.byDay)}
               </div>
-              {happeningNow && (
-                <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
-                  Now
-                </div>
-              )}
+            }
+            {showDays &&
+              <div className="mx-2 font-extrabold">
+                &#183;
+              </div>
+            }
+            <div className='font-bold '>
+              {formatTimeDisplay(schedule)}
             </div>
-          );
-        })
-        }
+            {happeningNow && (
+              <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
+                Now
+              </div>
+            )}
+          </div>
+        );
+      })
+      }
 
       {drinkSpecialsText &&
         <div className='flex flex-row pt-2 items-center'>
@@ -152,4 +159,17 @@ function formatAsDollarAmount(number) {
   } else {
     return `${number.toFixed(2)}`;
   }
+}
+
+export function findMostRecentUpdate(events){
+  if (events.length === 0) {
+    return null; // Return null if the array is empty
+  }
+
+  // Use reduce to find the event with the latest lastUpdated date
+  const mostRecentEvent = events.reduce((currentMostRecent, event) => {
+    return event.lastUpdated > currentMostRecent.lastUpdated ? event : currentMostRecent;
+  }, events[0]);
+
+  return mostRecentEvent.lastUpdated;
 }

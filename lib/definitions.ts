@@ -37,11 +37,13 @@ export type Event = {
     startDate?: Date;
     endDate?: Date;
     allDay?: boolean;
-    eventSchedule?: Schedule[];
+    eventSchedule?: Schedule[]; // null for non-recurring events; add separate isRecurring field?
     location?: Address; // use if event is off-site
     price?: number;
     url?: string;
     menu?: MenuItem[];
+    lastUpdated: Date;
+    lastUpdatedBy: string;
 };
 
 export type Schedule = {

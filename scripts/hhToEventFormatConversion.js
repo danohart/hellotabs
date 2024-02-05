@@ -139,6 +139,7 @@ const convertedPlaces = groupedSpecialsData.places.map(place => ({
     },
     events: place.day.map(day => ({
         keywords: "happyHour",
+        lastUpdated: new Date(place.lastUpdated),
         eventSchedule: [{
             byDay: day.days.map(day => convertDayName(day)),
             startTime: `${day.timeOfDay.startTime}`,
@@ -152,7 +153,6 @@ const convertedPlaces = groupedSpecialsData.places.map(place => ({
     neighborhood: place.neighborhood,
     enabled: place.enabled,
     featured: place.featured,
-    lastUpdated: new Date(place.lastUpdated),
 }));
 
 // Resulting converted data
