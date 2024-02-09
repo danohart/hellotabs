@@ -1,5 +1,5 @@
 import Icon from "./Icon";
-import { formatDaysOfWeek, dateCleanup, formatDateDisplay } from "../lib/date";
+import { formatDaysOfWeek, dateCleanup, formatDateDisplay, sortEvents } from "../lib/date";
 import Link from "next/link";
 import { isCurrentlyBetweenTwoTimes, formatTimeDisplay, isHappeningNow } from "../lib/time";
 
@@ -15,6 +15,8 @@ export default function Place({ place, day, showDays = false }) {
   }
 
   const lastUpdated = findMostRecentUpdate(place.events);
+
+  let events = sortEvents(place.events);
 
   return (
     <div
@@ -53,7 +55,7 @@ export default function Place({ place, day, showDays = false }) {
       </div>
       <div className="mb-12">
         {
-          place.events.map((event) => <Event event={event} key={event} showDays={showDays} />)
+          events.map((event) => <Event event={event} key={event} showDays={showDays} />)
         }
       </div>
 
