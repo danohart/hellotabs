@@ -29,7 +29,7 @@ async function getPlaces(req, res) {
   try {
     let { db } = await connectToDatabase();
     let places = await db
-      .collection("places")
+      .collection("eventPlaces")
       .find({ enabled: { $eq: true } }, { skipSessions: true })
       .toArray();
     return res.json({
@@ -50,7 +50,7 @@ async function addPlace(req, res) {
 
     const parsedBody = JSON.parse(req.body);
 
-    await db.collection("places").insertOne(parsedBody);
+    await db.collection("eventPlaces").insertOne(parsedBody);
 
     return res.json({
       message: "Added place successfully",

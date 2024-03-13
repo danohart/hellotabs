@@ -60,7 +60,7 @@ function Home() {
   if (userLocation) {
     places = places.map((place) => ({
       ...place,
-      distance: calculateDistance(userLocation, place.geo),
+      distance: calculateDistance(userLocation, place.location.geo),
     }));
     places = sortByDistance(places);
   }
@@ -77,11 +77,7 @@ function Home() {
     const currentDay = currentTime.getDay();
 
     const todayPlace = places.filter(
-      (p) =>
-        isCurrentlyBetweenTwoTimes(
-          p.day[currentDay].timeOfDay.startTime,
-          p.day[currentDay].timeOfDay.endTime
-        ) && p.day[currentDay].drink_specials !== "None"
+      (place) => hasActiveHappyHour(place, day)
     );
 
     return todayPlace.length;

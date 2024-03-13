@@ -23,7 +23,11 @@ export default function SinglePlace() {
     <>
       <Meta title={`${data.place.name} Daily Specials`} />
       <Header title='Everyday Specials' />
-      <Place place={data.place} day='allDays' />
+      <div className='flex flex-col items-center'>
+        <div className="md:w-1/2">
+          <Place place={data.place} day='allDays' showDays={true} />
+        </div>
+      </div>
     </>
   );
 }
