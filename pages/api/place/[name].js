@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     let { db } = await connectToDatabase();
     let place = await db
-      .collection("places")
+      .collection("eventPlaces")
       .findOne({ _id: new ObjectId(placeId) });
     return res.json({
       place: JSON.parse(JSON.stringify(place)),

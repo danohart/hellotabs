@@ -29,7 +29,7 @@ async function getPlaces(req, res) {
   try {
     let { db } = await connectToDatabase();
     let places = await db
-      .collection("places")
+      .collection("eventPlaces")
       .find({ enabled: { $eq: true } })
       .toArray();
     return res.json({

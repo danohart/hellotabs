@@ -4,7 +4,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 async function importData() {
 
     // TODO load dotenv variables instead of hardcoding uri
-    const uri = 'mongodb://localhost:27017/hellotabs';
+    const uri = 'mongodb://0.0.0.0:27017/littletabs';
     const client = new MongoClient(uri);
 
     try {

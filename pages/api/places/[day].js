@@ -1,14 +1,13 @@
 const { connectToDatabase } = require("../../../lib/mongodb");
 import { convertDayName } from "../../../lib/date";
 
-
 export default async function handler(req, res) {
   let dayOfWeek = convertDayName(req.query.day);
 
   try {
     let { db } = await connectToDatabase();
     let places = await db
-      .collection("places")
+      .collection("eventPlaces")
       .aggregate([
         {
           $match: {
@@ -41,13 +40,13 @@ export default async function handler(req, res) {
                             $filter: {
                               input: "$$event.eventSchedule",
                               as: "schedule",
-                              cond: { $in: [dayOfWeek, "$$schedule.byDay"] }
-                            }
-                          }
+                              cond: { $in: [dayOfWeek, "$$schedule.byDay"] },
+                            },
+                          },
                         },
-                        0
-                      ]
-                    }
+                        0,
+                      ],
+                    },
                   ],
                 },
               },
