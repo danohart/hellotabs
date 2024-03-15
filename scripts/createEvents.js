@@ -23,9 +23,12 @@ async function aggregateAndImportEvents(
     await cursor.forEach(async (doc) => {
       if (doc.events.length > 0) {
         if (!eventsMap.has(doc.name)) {
-          eventsMap.set(doc.name, []);
+          eventsMap.set(doc.name, {
+            placeId: doc._id, // Store the place id
+            events: [],
+          });
         }
-        eventsMap.get(doc.name).push(...doc.events);
+        eventsMap.get(doc.name).events.push(...doc.events);
         delete doc.events;
 
         console.log(`Events from ${doc.name} aggregated.`);
@@ -33,17 +36,14 @@ async function aggregateAndImportEvents(
     });
 
     // Insert aggregated events into the target collection
-    for (const [name, events] of eventsMap) {
+    for (const [{ placeId, events }] of eventsMap) {
       await targetCollection.insertOne({
-        name: name,
+        placeId: placeId,
         events: events,
       });
-      console.log(
-        `Aggregated events for ${name} imported to ${targetCollectionName} collection.`
-      );
     }
 
-    if (eventsMap.length === 0) {
+    if (eventsMap.size === 0) {
       console.log("No events found to import.");
     } else {
       await Promise.all(eventsMap);
@@ -52,7 +52,7 @@ async function aggregateAndImportEvents(
         { $unset: { events: "" } }
       );
       console.log(
-        `Events along with names removed from documents and imported to ${targetCollectionName} collection.`
+        `Events along with names and place IDs imported to ${targetCollectionName} collection.`
       );
     }
 
