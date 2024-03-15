@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     let { db } = await connectToDatabase();
     let places = await db
       // .find({ enabled: { $eq: true }, neighborhood: { $regex: neighborhood } })
-      .collection("eventPlaces")
+      .collection("places")
       .aggregate([
         {
           $match: {
