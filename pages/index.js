@@ -76,9 +76,7 @@ function Home() {
     const currentTime = new Date();
     const currentDay = currentTime.getDay();
 
-    const todayPlace = places.filter(
-      (place) => hasActiveHappyHour(place, day)
-    );
+    const todayPlace = places.filter((place) => hasActiveHappyHour(place, day));
 
     return todayPlace.length;
   }

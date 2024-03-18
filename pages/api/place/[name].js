@@ -6,16 +6,50 @@ export default async function handler(req, res) {
 
   try {
     let { db } = await connectToDatabase();
-    let place = await db
+
+    // Lookup the corresponding event from the events collection
+    let placeWithEvent = await db
       .collection("places")
-      .findOne({ _id: new ObjectId(placeId) });
+      .aggregate([
+        {
+          $match: {
+            _id: new ObjectId(placeId),
+          },
+        },
+        {
+          $lookup: {
+            from: "events",
+            localField: "_id",
+            foreignField: "placeId",
+            as: "matchedEvents",
+          },
+        },
+        {
+          $unwind: "$matchedEvents",
+        },
+        {
+          $project: {
+            _id: 1,
+            alt_id: 1,
+            name: 1,
+            location: 1,
+            enabled: 1,
+            featured: 1,
+            neighborhood: 1,
+            lastUpdated: 1,
+            matchedEvents: 1, // Include other fields if needed
+          },
+        },
+      ])
+      .toArray();
+
     return res.json({
-      place: JSON.parse(JSON.stringify(place)),
+      place: JSON.parse(JSON.stringify(placeWithEvent[0])),
       success: true,
     });
   } catch (error) {
     return res.json({
-      place: new Error(error).message,
+      placeWithEvent: new Error(error).message,
       success: false,
     });
   }

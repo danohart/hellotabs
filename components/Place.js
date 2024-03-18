@@ -1,11 +1,14 @@
 import Icon from "./Icon";
-import { formatDaysOfWeek, dateCleanup, formatDateDisplay, sortEvents } from "../lib/date";
+import {
+  formatDaysOfWeek,
+  formatDateDisplay,
+  sortEvents,
+  convertDayName,
+} from "../lib/date";
 import Link from "next/link";
-import { isCurrentlyBetweenTwoTimes, formatTimeDisplay, isHappeningNow } from "../lib/time";
+import { formatTimeDisplay, isHappeningNow } from "../lib/time";
 
-
-export default function Place({ place, day, showDays = false }) {
-
+export default function Place({ place, day, showDays }) {
   function getGoogleMapsUrl(placeInfo) {
     const placeAddress = placeInfo.location.streetAddress
       ? placeInfo.location.streetAddress
@@ -14,14 +17,17 @@ export default function Place({ place, day, showDays = false }) {
     return `https://maps.google.com/?q=${placeInfo.name} ${placeAddress}`;
   }
 
-  const lastUpdated = findMostRecentUpdate(place.events);
+  let events =
+    place.matchedEvents.events.length > 0
+      ? sortEvents(place.matchedEvents.events)
+      : place.matchedEvents.events;
 
-  let events = sortEvents(place.events);
+  const lastUpdated = findMostRecentUpdate(events);
 
   return (
     <div
       className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500'
-      key={place.name}
+      key={place.id}
     >
       <div className='flex justify-between'>
         <div className='flex flex-col justify-start'>
@@ -43,7 +49,9 @@ export default function Place({ place, day, showDays = false }) {
                 rel='noreferrer'
                 href={getGoogleMapsUrl(place)}
               >
-                {place.location.streetAddress ? place.location.streetAddress : null}
+                {place.location.streetAddress
+                  ? place.location.streetAddress
+                  : null}
               </a>
             </div>
             <div className='md:ml-2'>
@@ -53,60 +61,59 @@ export default function Place({ place, day, showDays = false }) {
           </div>
         </div>
       </div>
-      <div className="mb-12">
-        {
-          events.map((event) => <Event event={event} key={event} showDays={showDays} />)
-        }
+      <div className='mb-12'>
+        {events.map((event) => (
+          <Event event={event} key={event.id} showDays={showDays} day={day} />
+        ))}
       </div>
 
       {lastUpdated && (
         <div className='font-semibold text-sm text-slate-400'>
-          Last updated {formatDateDisplay(lastUpdated)} {place.lastUpdatedBy ? `by ${place.lastUpdatedBy}`: ""}
+          Last updated {formatDateDisplay(lastUpdated)}{" "}
+          {place.lastUpdatedBy ? `by ${place.lastUpdatedBy}` : ""}
         </div>
       )}
     </div>
   );
 }
 
-function Event({ event, showDays }) {
+function Event({ event, showDays, day }) {
+  // Filter eventSchedule by the current day of the week
+  const currentDay = convertDayName(day);
+  const filteredEventSchedule = event.eventSchedule.filter((schedule) => {
+    return schedule.byDay.includes(currentDay);
+  });
 
-  {/* {dayInfo && (
-          <div className='flex flex-col justify-start items-center'>
-            <div className='text-xl whitespace-nowrap'>
-              {startTime} - {endTime}
-            </div>
-            {happeningNow && (
-              <div className='font-bold tracking-wider text-xs mt-2 bg-orange-300 py-1 px-3 rounded-md dark:text-orange-900'>
-                Now
-              </div>
-            )}
-          </div>
-        )} */}
-  let drinkSpecials = event.menu.filter((item) => item.category == "Drink");
-  let foodSpecials = event.menu.filter((item) => item.category == "Food");
-  const drinkSpecialsText = drinkSpecials.map(item => menuItemToString(item)).join(', ');
-  const foodSpecialsText = foodSpecials.map(item => menuItemToString(item)).join(', ');
+  // Return early if no event matches the current day
+  if (filteredEventSchedule.length === 0 && !showDays) {
+    return null;
+  }
+
+  let drinkSpecials = event.menu.filter((item) => item.category === "Drink");
+  let foodSpecials = event.menu.filter((item) => item.category === "Food");
+  const drinkSpecialsText = drinkSpecials
+    .map((item) => menuItemToString(item))
+    .join(", ");
+  const foodSpecialsText = foodSpecials
+    .map((item) => menuItemToString(item))
+    .join(", ");
 
   return (
-    <div className="mt-4 mb-12">
-
+    <div className='mt-4 mb-12'>
       {event.eventSchedule.map((schedule) => {
         let happeningNow = isHappeningNow(schedule);
         return (
-          <div className='flex flex-row justify-start items-baseline mb-2' key={schedule}>
-            {showDays &&
-              <div className="font-bold whitespace-nowrap">
+          <div
+            className='flex flex-row justify-start items-baseline mb-2'
+            key={schedule}
+          >
+            {showDays && (
+              <div className='font-bold whitespace-nowrap'>
                 {formatDaysOfWeek(schedule.byDay)}
               </div>
-            }
-            {showDays &&
-              <div className="mx-2 font-extrabold">
-                &#183;
-              </div>
-            }
-            <div className='font-bold '>
-              {formatTimeDisplay(schedule)}
-            </div>
+            )}
+            {showDays && <div className='mx-2 font-extrabold'>&#183;</div>}
+            <div className='font-bold '>{formatTimeDisplay(schedule)}</div>
             {happeningNow && (
               <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>
                 Now
@@ -114,43 +121,38 @@ function Event({ event, showDays }) {
             )}
           </div>
         );
-      })
-      }
+      })}
 
-      {drinkSpecialsText &&
+      {drinkSpecialsText && (
         <div className='flex flex-row pt-2 items-center'>
           <div className='flex '>
             <Icon icon='TagIcon' />
           </div>
           <div className='flex '>{drinkSpecialsText}</div>
         </div>
-      }
-      {foodSpecialsText &&
+      )}
+      {foodSpecialsText && (
         <div className='flex flex-row py-4 items-center'>
           <div>
             <Icon icon='CurrencyDollarIcon' />
           </div>
           <div>{foodSpecialsText}</div>
         </div>
-      }
+      )}
     </div>
   );
-
 }
 
 function menuItemToString(item) {
   if (item.price) {
     let dollarValue = formatAsDollarAmount(item.price);
     return `$${dollarValue} ${item.name}`;
-  }
-  else if (item.discountPriceBy) {
+  } else if (item.discountPriceBy) {
     let dollarValue = formatAsDollarAmount(item.discountPriceBy);
-    return `${dollarValue} off ${item.name}`
-  }
-  else if (item.discountRate) {
-    return `${item.discountRate}% off ${item.name}`
-  }
-  else {
+    return `${dollarValue} off ${item.name}`;
+  } else if (item.discountRate) {
+    return `${item.discountRate}% off ${item.name}`;
+  } else {
     return item.name;
   }
 }
@@ -163,14 +165,16 @@ function formatAsDollarAmount(number) {
   }
 }
 
-export function findMostRecentUpdate(events){
+export function findMostRecentUpdate(events) {
   if (events.length === 0) {
     return null; // Return null if the array is empty
   }
 
   // Use reduce to find the event with the latest lastUpdated date
   const mostRecentEvent = events.reduce((currentMostRecent, event) => {
-    return event.lastUpdated > currentMostRecent.lastUpdated ? event : currentMostRecent;
+    return event.lastUpdated > currentMostRecent.lastUpdated
+      ? event
+      : currentMostRecent;
   }, events[0]);
 
   return mostRecentEvent.lastUpdated;
