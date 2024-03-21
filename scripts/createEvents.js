@@ -22,21 +22,21 @@ async function aggregateAndImportEvents(
 
     await cursor.forEach(async (doc) => {
       if (doc.events.length > 0) {
-        if (!eventsMap.has(doc.name)) {
-          eventsMap.set(doc.name, {
+        if (!eventsMap.has(doc._id)) {
+          eventsMap.set(doc._id, {
             placeId: doc._id, // Store the place id
             events: [],
           });
         }
-        eventsMap.get(doc.name).events.push(...doc.events);
+        eventsMap.get(doc._id).events.push(...doc.events);
         delete doc.events;
 
-        console.log(`Events from ${doc.name} aggregated.`);
+        console.log(`Events from ${doc._id} aggregated.`);
       }
     });
 
     // Insert aggregated events into the target collection
-    for (const [{ placeId, events }] of eventsMap) {
+    for (const [placeId, { events }] of eventsMap) {
       await targetCollection.insertOne({
         placeId: placeId,
         events: events,
@@ -51,6 +51,7 @@ async function aggregateAndImportEvents(
         { events: { $exists: true } },
         { $unset: { events: "" } }
       );
+
       console.log(
         `Events along with names and place IDs imported to ${targetCollectionName} collection.`
       );
