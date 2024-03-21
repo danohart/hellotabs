@@ -12,8 +12,6 @@ export default function SinglePlace() {
     ? router.query.id
     : router.asPath.split("=")[1];
 
-  console.log("router", router.asPath.split("=")[1]);
-
   const { data, error } = useSWR("/api/place/" + placeId, fetcher);
 
   if (error) return <div>Failed to load</div>;
@@ -24,7 +22,7 @@ export default function SinglePlace() {
       <Meta title={`${data.place.name} Daily Specials`} />
       <Header title='Everyday Specials' />
       <div className='flex flex-col items-center'>
-        <div className="md:w-1/2">
+        <div className='md:w-1/2'>
           <Place place={data.place} day='allDays' showDays={true} />
         </div>
       </div>

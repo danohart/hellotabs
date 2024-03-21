@@ -29,8 +29,6 @@ export default function SearchIndex() {
 
   const bars = places.slice(0, amountOfPlaces);
 
-  console.log(places);
-
   return (
     <div className='m-2'>
       <Meta title='Hello Chicago - Search' />
@@ -47,7 +45,12 @@ export default function SearchIndex() {
               </div>
             ) : (
               bars.map((bar) => (
-                <Place place={bar} day={"allDays"} showDays={true} key={bar._id} />
+                <Place
+                  place={bar}
+                  day={"allDays"}
+                  showDays={true}
+                  key={bar._id}
+                />
               ))
             )}
             {bars && bars.length >= 10 && bars.length !== places.length ? (

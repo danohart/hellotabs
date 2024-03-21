@@ -6,18 +6,30 @@ export default async function handler(req, res) {
 
   try {
     let { db } = await connectToDatabase();
-    let places = await db
-      .collection("eventPlaces")
+
+    // Retrieve places with events for the specified day of the week
+    let placesWithEvents = await db
+      .collection("places")
       .aggregate([
         {
           $match: {
             enabled: true,
-            events: {
-              $elemMatch: {
-                keywords: "happyHour",
-                "eventSchedule.byDay": dayOfWeek,
-              },
-            },
+          },
+        },
+        {
+          $lookup: {
+            from: "events",
+            localField: "_id",
+            foreignField: "placeId",
+            as: "matchedEvents",
+          },
+        },
+        {
+          $unwind: "$matchedEvents",
+        },
+        {
+          $match: {
+            "matchedEvents.events.eventSchedule.byDay": dayOfWeek,
           },
         },
         {
@@ -26,35 +38,11 @@ export default async function handler(req, res) {
             alt_id: 1,
             name: 1,
             location: 1,
-            events: {
-              $filter: {
-                input: "$events",
-                as: "event",
-                cond: {
-                  $and: [
-                    { $eq: ["$$event.keywords", "happyHour"] },
-                    {
-                      $gt: [
-                        {
-                          $size: {
-                            $filter: {
-                              input: "$$event.eventSchedule",
-                              as: "schedule",
-                              cond: { $in: [dayOfWeek, "$$schedule.byDay"] },
-                            },
-                          },
-                        },
-                        0,
-                      ],
-                    },
-                  ],
-                },
-              },
-            },
             enabled: 1,
             featured: 1,
             neighborhood: 1,
             lastUpdated: 1,
+            matchedEvents: 1, // Include other fields if needed
           },
         },
         {
@@ -62,11 +50,13 @@ export default async function handler(req, res) {
         },
       ])
       .toArray();
+
     return res.json({
-      places: JSON.parse(JSON.stringify(places)),
+      places: JSON.parse(JSON.stringify(placesWithEvents)),
       success: true,
     });
   } catch (error) {
+    console.error("Error:", error);
     return res.json({
       places: new Error(error).message,
       success: false,
