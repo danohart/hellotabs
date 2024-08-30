@@ -9,7 +9,7 @@ import fetcher from "../lib/fetcher";
 
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
-import { hasActiveHappyHour, isCurrentlyBetweenTwoTimes } from "../lib/time";
+import { hasActiveHappyHour } from "../lib/time";
 import {
   sortByDistance,
   calculateDistance,
@@ -73,12 +73,7 @@ function Home() {
   places = [...activeSpecialsPlaces, ...otherPlaces];
 
   function happyHoursRightNow() {
-    const currentTime = new Date();
-    const currentDay = currentTime.getDay();
-
-    const todayPlace = places.filter(
-      (place) => hasActiveHappyHour(place, day)
-    );
+    const todayPlace = places.filter((place) => hasActiveHappyHour(place, day));
 
     return todayPlace.length;
   }
@@ -108,17 +103,6 @@ function Home() {
           <SearchBar />
           <Navigation />
           <main>
-            <div className='flex flex-wrap justify-items-center mt-6'>
-              {/* {daysOfTheWeek.map((theDay) => (
-            <button
-              className='w-1/5 px-4'
-              onClick={() => setNavigationDay(theDay)}
-              key={theDay}
-            >
-              {theDay}
-            </button>
-          ))} */}
-            </div>
             <div className='flex flex-wrap w-full'>
               {bars.map((bar) => (
                 <Place place={bar} day={day} key={bar._id} />
