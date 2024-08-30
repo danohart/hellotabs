@@ -1,6 +1,4 @@
 const { connectToDatabase } = require("../../lib/mongodb");
-const ObjectId = require("mongodb").ObjectId;
-import axios from "axios";
 
 const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_KEY;
 
