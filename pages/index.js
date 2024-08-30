@@ -8,6 +8,7 @@ import { getDay } from "../lib/date";
 import fetcher from "../lib/fetcher";
 
 import Navigation from "../components/Navigation";
+import Pagination from "../components/Pagination";
 import Loader from "../components/Loader";
 import { getCurrentTime, hasActiveHappyHour } from "../lib/time";
 import {
@@ -19,13 +20,10 @@ import determineCurrentHappyHourVerbiage from "../components/TotalHappyHours";
 import { useEffect } from "react";
 
 function Home() {
-  const [amountOfPlaces, setAmountOfPlaces] = useState(10);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [userLocation, setUserLocation] = useState(null);
   const day = getDay();
-
-  function showMorePlaces() {
-    setAmountOfPlaces(amountOfPlaces + 10);
-  }
 
   useEffect(() => {
     const fetchUserLocation = async () => {
@@ -51,8 +49,9 @@ function Home() {
     fetchUserLocation();
   }, []);
 
-  let page = 1;
-  let limit = 10;
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   const { data, error } = useSWR(
     `/api/places/${day}?page=${page}&limit=${limit}&currentTime=${getCurrentTime()}`,
@@ -62,6 +61,7 @@ function Home() {
   if (!data) return <Loader />;
   if (!data.success) return <div>Failed to load</div>;
   let places = data.places;
+  let totalPlaces = data.totalPlaces;
 
   // sort by distance
   if (userLocation) {
@@ -85,8 +85,6 @@ function Home() {
     return todayPlace.length;
   }
 
-  const bars = places.slice(0, amountOfPlaces);
-
   return (
     <div>
       <Meta />
@@ -100,19 +98,15 @@ function Home() {
           <Navigation />
           <main>
             <div className='flex flex-wrap w-full'>
-              {bars.map((bar) => (
+              {places.map((bar) => (
                 <Place place={bar} day={day} key={bar._id} />
               ))}
-              {places.length <= amountOfPlaces ? null : (
-                <div className='flex justify-center w-full'>
-                  <button
-                    className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
-                    onClick={showMorePlaces}
-                  >
-                    See More
-                  </button>
-                </div>
-              )}
+              <Pagination
+                page={page}
+                limit={limit}
+                totalPlaces={totalPlaces}
+                onPageChange={handlePageChange}
+              />
             </div>
           </main>
         </div>
