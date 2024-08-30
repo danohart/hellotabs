@@ -7,14 +7,14 @@ const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_KEY;
 // Function to get latitude and longitude for a given address
 async function getLatLon(address) {
   const baseUrl = "https://maps.googleapis.com/maps/api/geocode/json";
-  const response = await axios.get(baseUrl, {
-    params: {
-      address: address,
-      key: GOOGLE_MAPS_API_KEY,
-    },
-  });
+  const url = `${baseUrl}?address=${encodeURIComponent(
+    address
+  )}&key=${GOOGLE_MAPS_API_KEY}`;
 
-  const results = response.data.results;
+  const response = await fetch(url);
+  const data = await response.json();
+
+  const results = data.results;
 
   if (results.length > 0) {
     const location = results[0].geometry.location;
