@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   }
 }
 
-// Getting all posts.
+// Getting all places.
 async function getPlaces(req, res) {
   try {
     let { db } = await connectToDatabase();
