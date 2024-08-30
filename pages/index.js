@@ -9,7 +9,7 @@ import fetcher from "../lib/fetcher";
 
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
-import { hasActiveHappyHour } from "../lib/time";
+import { getCurrentTime, hasActiveHappyHour } from "../lib/time";
 import {
   sortByDistance,
   calculateDistance,
@@ -50,7 +50,13 @@ function Home() {
     fetchUserLocation();
   }, []);
 
-  const { data, error } = useSWR("/api/places/" + day, fetcher);
+  let page = 1;
+  let limit = 10;
+
+  const { data, error } = useSWR(
+    `/api/places/${day}?page=${page}&limit=${limit}&currentTime=${getCurrentTime()}`,
+    fetcher
+  );
   if (error) return <div>Failed to load</div>;
   if (!data) return <Loader />;
   if (!data.success) return <div>Failed to load</div>;
