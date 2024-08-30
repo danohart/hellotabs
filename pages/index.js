@@ -15,6 +15,7 @@ import {
   calculateDistance,
   getUserLocation,
 } from "../lib/location";
+import determineCurrentHappyHourVerbiage from "../components/TotalHappyHours";
 import { useEffect } from "react";
 
 function Home() {
@@ -84,17 +85,6 @@ function Home() {
     return todayPlace.length;
   }
 
-  function determineCurrentHappyHourVerbiage() {
-    if (happyHoursRightNow() > 1)
-      return `There are ${happyHoursRightNow()} happy hours happening right now. Get on
-    it!`;
-    if (happyHoursRightNow() === 1)
-      return `There's only ${happyHoursRightNow()} happy hour happening right now. Get on
-    it!`;
-
-    return `There are ${happyHoursRightNow()} happy hours happening right now.`;
-  }
-
   const bars = places.slice(0, amountOfPlaces);
 
   return (
@@ -104,7 +94,7 @@ function Home() {
       <div className='flex flex-col items-center'>
         <div className='flex flex-col md:w-1/2'>
           <div className='mt-6 mx-10 text-center'>
-            {determineCurrentHappyHourVerbiage()}
+            {determineCurrentHappyHourVerbiage(happyHoursRightNow())}
           </div>
           <SearchBar />
           <Navigation />
