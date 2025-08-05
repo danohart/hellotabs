@@ -1,4 +1,3 @@
-// components/Place.js
 import Icon from "./Icon";
 import { formatDaysOfWeek, formatDateDisplay, sortEvents } from "../lib/date";
 import Link from "next/link";
@@ -31,7 +30,7 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
   const handleUpdateComplete = () => {
     setShowEditModal(false);
     if (onUpdate) {
-      onUpdate(); // Trigger data refresh in parent component
+      onUpdate();
     }
   };
 
@@ -41,7 +40,6 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
         className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500 relative'
         key={place.name}
       >
-        {/* Edit Button - Only visible when authenticated */}
         {isAuthenticated && (
           <button
             onClick={handleEditClick}
@@ -82,7 +80,6 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
               </div>
             </div>
 
-            {/* Show enabled/disabled status for admins */}
             {isAuthenticated && (
               <div className='mt-2'>
                 <span
@@ -133,8 +130,42 @@ function Event({ event, showDays, day }) {
     .map((item) => menuItemToString(item))
     .join(", ");
 
+  const getEventDisplayName = (event) => {
+    if (event.name && event.name.trim() !== "") {
+      return event.name;
+    }
+
+    if (event.keywords) {
+      const keyword = Array.isArray(event.keywords)
+        ? event.keywords[0]
+        : event.keywords;
+      return keyword
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (str) => str.toUpperCase())
+        .trim();
+    }
+
+    return "Special Event";
+  };
+
+  const eventDisplayName = getEventDisplayName(event);
+
   return (
     <div className='mt-4 mb-12'>
+      {/* Event Name/Title */}
+      {eventDisplayName && (
+        <div className='mb-3'>
+          <h3 className='text-lg font-semibold text-purple-600 dark:text-purple-400'>
+            {eventDisplayName}
+          </h3>
+          {event.description && (
+            <p className='text-sm text-gray-600 dark:text-gray-300 mt-1'>
+              {event.description}
+            </p>
+          )}
+        </div>
+      )}
+
       {event.eventSchedule.map((schedule, index) => {
         const eventStatus = getEventStatus(schedule);
 
