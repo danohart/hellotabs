@@ -507,7 +507,8 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
 
                   {event.menu.length === 0 && (
                     <p className='text-gray-500 text-sm italic'>
-                      No menu items yet. Click "Add Item" to get started.
+                      No menu items yet. Click &quot;Add Item&quot; to get
+                      started.
                     </p>
                   )}
                 </div>
