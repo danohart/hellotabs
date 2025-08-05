@@ -1,15 +1,13 @@
 const { connectToDatabase } = require("../../../lib/mongodb");
 
-// Simple function to generate fuzzy regex patterns for common typos
 function createFuzzyPattern(term) {
-  // Handle common character substitutions and missing characters
   return term
     .toLowerCase()
-    .replace(/[aeiou]/g, "[aeiou]?") // Vowel substitutions
-    .replace(/[bp]/g, "[bp]?") // b/p confusion
-    .replace(/[dt]/g, "[dt]?") // d/t confusion
-    .replace(/[kg]/g, "[kg]?") // k/g confusion
-    .replace(/./g, "$&.?"); // Allow for extra characters
+    .replace(/[aeiou]/g, "[aeiou]?")
+    .replace(/[bp]/g, "[bp]?")
+    .replace(/[dt]/g, "[dt]?")
+    .replace(/[kg]/g, "[kg]?")
+    .replace(/./g, "$&.?");
 }
 
 export default async function handler(req, res) {
@@ -18,7 +16,6 @@ export default async function handler(req, res) {
   try {
     let { db } = await connectToDatabase();
 
-    // Strategy 1: Exact text search
     let places = await db
       .collection("eventPlaces")
       .find({
@@ -27,7 +24,6 @@ export default async function handler(req, res) {
       })
       .toArray();
 
-    // Strategy 2: If no exact matches, try fuzzy regex search
     if (places.length === 0) {
       const fuzzyPattern = createFuzzyPattern(search);
       places = await db
@@ -42,11 +38,10 @@ export default async function handler(req, res) {
           ],
           enabled: { $eq: true },
         })
-        .limit(20) // Limit fuzzy results since they can be noisy
+        .limit(20)
         .toArray();
     }
 
-    // Strategy 3: If still no matches, try partial word matching
     if (places.length === 0) {
       const words = search.split(" ");
       const wordRegexes = words.map((word) => ({
