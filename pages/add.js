@@ -411,7 +411,14 @@ export default function AddPlace() {
                   <input
                     className='text-black w-full p-2 border rounded'
                     type='time'
-                    value={event.startTime}
+                    value={
+                      event.startTime
+                        ? `${event.startTime.slice(
+                            0,
+                            2
+                          )}:${event.startTime.slice(2, 4)}`
+                        : ""
+                    }
                     onChange={(e) =>
                       updateEvent(
                         event.id,
@@ -426,7 +433,14 @@ export default function AddPlace() {
                   <input
                     className='text-black w-full p-2 border rounded'
                     type='time'
-                    value={event.endTime}
+                    value={
+                      event.endTime
+                        ? `${event.endTime.slice(0, 2)}:${event.endTime.slice(
+                            2,
+                            4
+                          )}`
+                        : ""
+                    }
                     onChange={(e) =>
                       updateEvent(
                         event.id,
