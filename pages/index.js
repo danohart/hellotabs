@@ -17,7 +17,25 @@ import {
 } from "../lib/location";
 import { useEffect } from "react";
 
-function Home() {
+export async function getStaticProps() {
+  // const res = await fetch(
+  //   process.env.NODE_ENV === "production"
+  //     ? process.env.PROD_URL
+  //     : process.env.DEV_URL + "/api/places/monday"
+  // );
+  // const data = await res.json();
+
+  return {
+    props: {
+      // data,
+      title: "Hello Chicago | Daily Happy Hour Specials in Chicago",
+      description:
+        "Happy Hour in Chicago every day specials throughout the city.",
+    },
+  };
+}
+
+export default function Home({ data }) {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const [userLocation, setUserLocation] = useState(null);
   const day = getDay();
@@ -50,11 +68,11 @@ function Home() {
     fetchUserLocation();
   }, []);
 
-  const { data, error } = useSWR("/api/places/" + day, fetcher);
+  const { data: swrData, error } = useSWR("/api/places/" + day, fetcher);
   if (error) return <div>Failed to load</div>;
-  if (!data) return <Loader />;
-  if (!data.success) return <div>Failed to load</div>;
-  let places = data.places;
+  if (!swrData) return <Loader />;
+  if (!swrData.success) return <div>Failed to load</div>;
+  let places = swrData.places;
 
   // sort by distance
   if (userLocation) {
@@ -76,9 +94,7 @@ function Home() {
     const currentTime = new Date();
     const currentDay = currentTime.getDay();
 
-    const todayPlace = places.filter(
-      (place) => hasActiveHappyHour(place, day)
-    );
+    const todayPlace = places.filter((place) => hasActiveHappyHour(place, day));
 
     return todayPlace.length;
   }
@@ -140,5 +156,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

@@ -10,11 +10,16 @@
     "seed": "node ./scripts/seed.js"
   },
   "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/cli": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/ios": "^6.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@googlemaps/google-maps-services-js": "^3.4.0",
     "@tailwindcss/forms": "^0.4.0",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
