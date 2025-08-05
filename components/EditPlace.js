@@ -30,13 +30,7 @@ const daysOfTheWeek = [
   "Saturday",
 ];
 
-export default function EditPlaceModal({
-  isOpen,
-  onClose,
-  place,
-  token,
-  onUpdate,
-}) {
+export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
   const [editData, setEditData] = useState({ events: [], enabled: false });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

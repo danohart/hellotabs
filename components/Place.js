@@ -4,7 +4,7 @@ import { formatDaysOfWeek, formatDateDisplay, sortEvents } from "../lib/date";
 import Link from "next/link";
 import { formatTimeDisplay, getEventStatus } from "../lib/time";
 import { useState } from "react";
-import EditPlaceModal from "./EditPlaceModal";
+import EditPlace from "./EditPlace";
 import { useAuth } from "../hooks/useAuth";
 
 export default function Place({ place, day, showDays = false, onUpdate }) {
@@ -112,8 +112,7 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
         )}
       </div>
 
-      {/* Edit Modal */}
-      <EditPlaceModal
+      <EditPlace
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
         place={place}
