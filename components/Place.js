@@ -1,9 +1,16 @@
+// components/Place.js
 import Icon from "./Icon";
 import { formatDaysOfWeek, formatDateDisplay, sortEvents } from "../lib/date";
 import Link from "next/link";
 import { formatTimeDisplay, getEventStatus } from "../lib/time";
+import { useState } from "react";
+import EditPlaceModal from "./EditPlaceModal";
+import { useAuth } from "../hooks/useAuth";
 
-export default function Place({ place, day, showDays = false }) {
+export default function Place({ place, day, showDays = false, onUpdate }) {
+  const { isAuthenticated, token } = useAuth();
+  const [showEditModal, setShowEditModal] = useState(false);
+
   function getGoogleMapsUrl(placeInfo) {
     const placeAddress = placeInfo.location.streetAddress
       ? placeInfo.location.streetAddress
@@ -13,59 +20,107 @@ export default function Place({ place, day, showDays = false }) {
   }
 
   const lastUpdated = findMostRecentUpdate(place.events);
-
   let events = sortEvents(place.events);
 
+  const handleEditClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowEditModal(true);
+  };
+
+  const handleUpdateComplete = () => {
+    setShowEditModal(false);
+    if (onUpdate) {
+      onUpdate(); // Trigger data refresh in parent component
+    }
+  };
+
   return (
-    <div
-      className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500'
-      key={place.name}
-    >
-      <div className='flex justify-between'>
-        <div className='flex flex-col justify-start'>
-          <h2 className='text-3xl md:text-4xl font-bold'>
-            <Link
-              href={{
-                pathname: "/place",
-                query: { id: place._id },
-              }}
-            >
-              {place.name}
-            </Link>
-          </h2>
-          <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row'>
-            <div>
-              <a
-                className='underline'
-                target='_blank'
-                rel='noreferrer'
-                href={getGoogleMapsUrl(place)}
+    <>
+      <div
+        className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500 relative'
+        key={place.name}
+      >
+        {/* Edit Button - Only visible when authenticated */}
+        {isAuthenticated && (
+          <button
+            onClick={handleEditClick}
+            className='absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 z-10'
+          >
+            Edit
+          </button>
+        )}
+
+        <div className='flex justify-between'>
+          <div className='flex flex-col justify-start'>
+            <h2 className='text-3xl md:text-4xl font-bold'>
+              <Link
+                href={{
+                  pathname: "/place",
+                  query: { id: place._id },
+                }}
               >
-                {place.location.streetAddress
-                  ? place.location.streetAddress
-                  : null}
-              </a>
+                {place.name}
+              </Link>
+            </h2>
+            <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row'>
+              <div>
+                <a
+                  className='underline'
+                  target='_blank'
+                  rel='noreferrer'
+                  href={getGoogleMapsUrl(place)}
+                >
+                  {place.location.streetAddress
+                    ? place.location.streetAddress
+                    : null}
+                </a>
+              </div>
+              <div className='md:ml-2'>
+                {place.neighborhood ? place.neighborhood : null}
+                {place.distance && ` | ${place.distance.toFixed(1)} miles`}
+              </div>
             </div>
-            <div className='md:ml-2'>
-              {place.neighborhood ? place.neighborhood : null}
-              {place.distance && ` | ${place.distance.toFixed(1)} miles`}
-            </div>
+
+            {/* Show enabled/disabled status for admins */}
+            {isAuthenticated && (
+              <div className='mt-2'>
+                <span
+                  className={`text-xs px-2 py-1 rounded ${
+                    place.enabled
+                      ? "bg-green-100 text-green-800"
+                      : "bg-red-100 text-red-800"
+                  }`}
+                >
+                  {place.enabled ? "Enabled" : "Disabled"}
+                </span>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-      <div className='mb-12'>
-        {events.map((event) => (
-          <Event event={event} key={event} showDays={showDays} day={day} />
-        ))}
+
+        <div className='mb-12'>
+          {events.map((event, index) => (
+            <Event event={event} key={index} showDays={showDays} day={day} />
+          ))}
+        </div>
+
+        {lastUpdated && (
+          <div className='font-semibold text-sm text-slate-400'>
+            Last updated {formatDateDisplay(lastUpdated)}
+          </div>
+        )}
       </div>
 
-      {lastUpdated && (
-        <div className='font-semibold text-sm text-slate-400'>
-          Last updated {formatDateDisplay(lastUpdated)}{" "}
-          {place.lastUpdatedBy ? `by ${place.lastUpdatedBy}` : ""}
-        </div>
-      )}
-    </div>
+      {/* Edit Modal */}
+      <EditPlaceModal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        place={place}
+        token={token}
+        onUpdate={handleUpdateComplete}
+      />
+    </>
   );
 }
 
@@ -81,13 +136,13 @@ function Event({ event, showDays, day }) {
 
   return (
     <div className='mt-4 mb-12'>
-      {event.eventSchedule.map((schedule) => {
+      {event.eventSchedule.map((schedule, index) => {
         const eventStatus = getEventStatus(schedule);
 
         return (
           <div
             className='flex flex-row justify-start items-baseline mb-2'
-            key={schedule}
+            key={index}
           >
             {showDays && (
               <div className='font-bold whitespace-nowrap'>
@@ -151,10 +206,9 @@ function formatAsDollarAmount(number) {
 
 export function findMostRecentUpdate(events) {
   if (events.length === 0) {
-    return null; // Return null if the array is empty
+    return null;
   }
 
-  // Use reduce to find the event with the latest lastUpdated date
   const mostRecentEvent = events.reduce((currentMostRecent, event) => {
     return event.lastUpdated > currentMostRecent.lastUpdated
       ? event

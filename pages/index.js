@@ -1,3 +1,4 @@
+// pages/index.js
 import { useState } from "react";
 import useSWR from "swr";
 import Meta from "../components/Meta";
@@ -50,10 +51,12 @@ function Home() {
     fetchUserLocation();
   }, []);
 
-  const { data, error } = useSWR("/api/places/" + day, fetcher);
+  const { data, error, mutate } = useSWR("/api/places/" + day, fetcher);
+
   if (error) return <div>Failed to load</div>;
   if (!data) return <Loader />;
   if (!data.success) return <div>Failed to load</div>;
+
   let places = data.places;
 
   // sort by distance
@@ -76,25 +79,26 @@ function Home() {
     const currentTime = new Date();
     const currentDay = currentTime.getDay();
 
-    const todayPlace = places.filter(
-      (place) => hasActiveHappyHour(place, day)
-    );
+    const todayPlace = places.filter((place) => hasActiveHappyHour(place, day));
 
     return todayPlace.length;
   }
 
   function determineCurrentHappyHourVerbiage() {
     if (happyHoursRightNow() > 1)
-      return `There are ${happyHoursRightNow()} happy hours happening right now. Get on
-    it!`;
+      return `There are ${happyHoursRightNow()} happy hours happening right now. Get on it!`;
     if (happyHoursRightNow() === 1)
-      return `There's only ${happyHoursRightNow()} happy hour happening right now. Get on
-    it!`;
+      return `There's only ${happyHoursRightNow()} happy hour happening right now. Get on it!`;
 
     return `There are ${happyHoursRightNow()} happy hours happening right now.`;
   }
 
   const bars = places.slice(0, amountOfPlaces);
+
+  // Function to refresh data after updates
+  const handleDataUpdate = () => {
+    mutate(); // This will refresh the SWR data
+  };
 
   return (
     <div>
@@ -109,19 +113,16 @@ function Home() {
           <Navigation />
           <main>
             <div className='flex flex-wrap justify-items-center mt-6'>
-              {/* {daysOfTheWeek.map((theDay) => (
-            <button
-              className='w-1/5 px-4'
-              onClick={() => setNavigationDay(theDay)}
-              key={theDay}
-            >
-              {theDay}
-            </button>
-          ))} */}
+              {/* Navigation controls if needed */}
             </div>
             <div className='flex flex-wrap w-full'>
               {bars.map((bar) => (
-                <Place place={bar} day={day} key={bar._id} />
+                <Place
+                  place={bar}
+                  day={day}
+                  key={bar._id}
+                  onUpdate={handleDataUpdate}
+                />
               ))}
               {places.length <= amountOfPlaces ? null : (
                 <div className='flex justify-center w-full'>
