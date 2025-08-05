@@ -157,14 +157,6 @@ export default function AddPlace() {
   const submitPlace = async () => {
     const formattedData = formatDataForSubmission();
 
-    // Debug: Log the formatted data
-    console.log(
-      "Formatted data for submission:",
-      JSON.stringify(formattedData, null, 2)
-    );
-    console.log("Events state:", events);
-    console.log("Form data state:", formData);
-
     try {
       await fetcher("/api/places/", {
         method: "POST",
