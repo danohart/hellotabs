@@ -5,8 +5,7 @@ export default async function handler(req, res) {
 
   const { password } = req.body;
 
-  // Server-side password check (NEXT_PUBLIC_PASS is accessible on server)
-  if (password === process.env.NEXT_PUBLIC_PASS) {
+  if (password === process.env.IS_ADMIN_PASSWORD) {
     // Generate a simple session token
     const token = Buffer.from(`${Date.now()}-${Math.random()}`).toString(
       "base64"
