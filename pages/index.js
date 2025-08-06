@@ -123,14 +123,14 @@ function Home() {
           </div>
           <SearchBar />
 
-          <div className='w-100 mx-auto py-4'>
+          <div className='w-3/4 mx-auto py-4'>
             <h3 className='text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3'>
               What kind of deals?
             </h3>
-            <div className='flex justify-center gap-2'>
+            <div className='flex justify-center gap-2 text-sm'>
               <button
                 onClick={() => setDealTypeFilter("all")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full font-medium transition-colors ${
                   dealTypeFilter === "all"
                     ? "bg-purple-500 text-white dark:bg-purple-800"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-slate-600"
