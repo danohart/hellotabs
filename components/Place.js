@@ -37,7 +37,7 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
   return (
     <>
       <div
-        className='p-6 w-full border-2 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500 relative'
+        className='p-6 w-full border-2 border-purple-300 rounded mb-2 bg-white dark:bg-slate-600 dark:text-slate-300 dark:border-slate-500 relative'
         key={place.name}
       >
         {isAuthenticated && (

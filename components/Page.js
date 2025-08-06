@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === "production") {
 function Page(props) {
   return (
     <>
-      <div className='main m-2'>{props.children}</div>
+      <div className='main m-4'>{props.children}</div>
       <Footer />
     </>
   );

@@ -22,6 +22,28 @@ function AuthProvider({ children }) {
 
 function App({ Component, pageProps }) {
   useEffect(() => {
+    const initializeTheme = () => {
+      const savedTheme = localStorage.getItem("theme") || "system";
+      const root = document.documentElement;
+
+      if (savedTheme === "system") {
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (systemPrefersDark) {
+          root.classList.add("dark");
+        } else {
+          root.classList.remove("dark");
+        }
+      } else if (savedTheme === "dark") {
+        root.classList.add("dark");
+      } else {
+        root.classList.remove("dark");
+      }
+    };
+
+    initializeTheme();
+
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
         navigator.serviceWorker.register("/sw.js").then(

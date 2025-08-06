@@ -1,5 +1,29 @@
-@tailwind base;
-@tailwind components;
+/* styles/styles.css - Updated for Tailwind CSS v4.x */
+@import "tailwindcss";
+
+@theme {
+  /* Custom theme variables for your app */
+  --color-primary-100: #7D5EBF;
+  --color-primary-500: #6C51A6;
+  --color-primary-800: oklch(29.1% .149 302.717);
+  
+  /* Light mode colors */
+  --color-bg-base: #EEF2FF;
+  --color-text-primary: oklch(29.1% .149 302.717);
+  
+  /* You can define other custom colors here */
+}
+
+/* Configure dark mode variant */
+@variant dark (&:is(.dark *));
+
+@layer theme {
+  .dark {
+    /* Dark mode color overrides */
+    --color-bg-base: #1e293b;
+    --color-text-primary: #f1f5f9;
+  }
+}
 
 @layer base {
   h1 {
@@ -11,18 +35,16 @@
   h3 {
     @apply text-2xl;
   }
-}
-
-@tailwind utilities;
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    
-  background-color:#EEF2FF;
+  
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+  }
 }
 
 a {
@@ -32,11 +54,4 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html, body {
-    background-color: #1e293b;
-    color: #f1f5f9;
-  }
 }
