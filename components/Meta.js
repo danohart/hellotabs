@@ -15,7 +15,7 @@ export default function Meta(props) {
   return (
     <Head>
       <title>{metaTitle}</title>
-      <meta name='description' content='Happy Hour in Chicago' />
+      <meta name='description' content={metaDescription} />
       <link rel='icon' href='/favicon.ico' />
 
       <meta property='og:type' content='website' />

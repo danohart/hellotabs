@@ -40,6 +40,18 @@ module.exports = withPWA({
         permanent: true,
         destination: "/neighborhood/:neighborhood",
       },
+      {
+        source: "/place",
+        has: [
+          {
+            type: "query",
+            key: "id",
+            value: "(?<id>.*)",
+          },
+        ],
+        permanent: true,
+        destination: "/place/:id",
+      },
     ];
   },
 });

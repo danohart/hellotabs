@@ -1,19 +1,90 @@
 const { connectToDatabase } = require("../../../lib/mongodb");
 import { convertDayName } from "../../../lib/date";
 
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
+}
+
+function unslugify(slug) {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+const neighborhoods = [
+  "Garfield Ridge",
+  "Lincoln Park",
+  "Ukrainian Village",
+  "Irving Park",
+  "Lakeview",
+  "Near North Side",
+  "Printers Row",
+  "Streeterville",
+  "North Center",
+  "Edison Park",
+  "West Loop",
+  "West Town",
+  "Wicker Park",
+  "Logan Square",
+  "Wrigleyville",
+  "Lincoln Square",
+  "Edgewater",
+  "Portage Park",
+  "Old Town",
+  "West Rogers Park",
+  "River North",
+  "Avondale",
+  "Humboldt Park",
+  "South Loop",
+  "Bucktown",
+  "Rogers Park",
+  "Norwood Park",
+  "Near West Side",
+  "Bridgeport",
+  "Loop",
+  "Noble Square",
+  "Andersonville",
+  "Uptown",
+  "University Village",
+  "Roscoe Village",
+  "Pilsen",
+];
+
+// Create slug-to-neighborhood mapping
+const slugToNeighborhood = neighborhoods.reduce((acc, neighborhood) => {
+  acc[slugify(neighborhood)] = neighborhood;
+  return acc;
+}, {});
+
 export default async function handler(req, res) {
-  let { neighborhood } = req.query;
+  let { neighborhood: neighborhoodParam } = req.query;
   let dayOfWeek = convertDayName(req.query.day);
 
+  // Convert slug back to neighborhood name for database lookup
+  let neighborhood = slugToNeighborhood[neighborhoodParam] || neighborhoodParam;
+
+  // Handle legacy capitalization
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  neighborhood = capitalizeFirstLetter(neighborhood);
+
+  // If it's not already in our mapping, try capitalizing (legacy support)
+  if (!neighborhoods.includes(neighborhood)) {
+    neighborhood = capitalizeFirstLetter(neighborhoodParam);
+  }
 
   try {
     let { db } = await connectToDatabase();
     let places = await db
-      // .find({ enabled: { $eq: true }, neighborhood: { $regex: neighborhood } })
       .collection("eventPlaces")
       .aggregate([
         {

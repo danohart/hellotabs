@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import neighborhoods from "../lib/neighborhoods";
+import neighborhoods, { neighborhoodToSlug } from "../lib/neighborhoods";
 
 export default function Navigation() {
   let [showNeighborhoods, setShowNeighborhoods] = useState(false);
@@ -22,11 +22,16 @@ export default function Navigation() {
             : "hidden"
         }
       >
-        <div className="flex flex-col items-center my-4">
-          <h3 className='my-3 mx-12 text-center'>What neighborhood are you going to?</h3>
-          <div className="flex flex-wrap justify-center">
+        <div className='flex flex-col items-center my-4'>
+          <h3 className='my-3 mx-12 text-center'>
+            What neighborhood are you going to?
+          </h3>
+          <div className='flex flex-wrap justify-center'>
             {neighborhoods.sort().map((neighborhood) => (
-              <Link href={`/neighborhood/${neighborhood}`} key={neighborhood}>
+              <Link
+                href={`/neighborhood/${neighborhoodToSlug[neighborhood]}`}
+                key={neighborhood}
+              >
                 <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
                   {neighborhood}
                 </button>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Meta from "../../components/Meta";
@@ -10,12 +10,50 @@ import fetcher from "../../lib/fetcher";
 import Neighborhoods from "../../lib/neighborhoods";
 import { hasActiveHappyHour } from "../../lib/time";
 
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
+}
+
+const slugToNeighborhood = Neighborhoods.reduce((acc, neighborhood) => {
+  acc[slugify(neighborhood)] = neighborhood;
+  return acc;
+}, {});
+
+const neighborhoodToSlug = Neighborhoods.reduce((acc, neighborhood) => {
+  acc[neighborhood] = slugify(neighborhood);
+  return acc;
+}, {});
+
 export default function Neighborhood(props) {
   const router = useRouter();
 
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
-  const neighborhood = router.query.neighborhood;
+  const neighborhoodParam = router.query.neighborhood;
+
+  const neighborhood =
+    slugToNeighborhood[neighborhoodParam] || neighborhoodParam;
+  const slug = neighborhoodToSlug[neighborhood] || slugify(neighborhood);
+
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      neighborhood &&
+      neighborhoodParam !== slug
+    ) {
+      if (Neighborhoods.includes(neighborhood) && neighborhoodParam !== slug) {
+        router.replace(`/neighborhood/${slug}`, undefined, { shallow: true });
+      }
+    }
+  }, [neighborhood, neighborhoodParam, slug, router]);
 
   const { data, error } = useSWR(
     `/api/neighborhood/${neighborhood}?day=${day}`,
@@ -30,7 +68,6 @@ export default function Neighborhood(props) {
   if (!data) return <Loader pageInfo={props} />;
   let places = data.places;
 
-  // sort so active happy hours are first
   let activeSpecialsPlaces = places.filter((place) =>
     hasActiveHappyHour(place, day)
   );
@@ -75,17 +112,31 @@ export default function Neighborhood(props) {
 
 export async function getStaticPaths() {
   const paths = Neighborhoods.map((neighb) => ({
-    params: { neighborhood: neighb },
+    params: { neighborhood: slugify(neighb) },
   }));
 
-  return { paths, fallback: "blocking" };
+  return {
+    paths,
+    fallback: "blocking",
+  };
 }
 
 export async function getStaticProps({ params }) {
+  const neighborhood =
+    slugToNeighborhood[params.neighborhood] || params.neighborhood;
+
+  if (!Neighborhoods.includes(neighborhood)) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      title: `Best Happy Hours in ${params.neighborhood}, Chicago // Hello Chicago`,
-      description: `List of bars and restaurants in the ${params.neighborhood} neighborhood of Chicago that serve happy hour specials and deals.`,
+      title: `Best Happy Hours in ${neighborhood}, // Hello Chicago`,
+      description: `List of bars and restaurants in the ${neighborhood} neighborhood of Chicago that serve happy hour specials and deals.`,
+      neighborhood,
+      slug: slugify(neighborhood),
     },
   };
 }
