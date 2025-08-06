@@ -17,7 +17,10 @@ export default function Neighborhood(props) {
   const day = getDay();
   const neighborhood = router.query.neighborhood;
 
-  const { data, error } = useSWR(`/api/neighborhood/${neighborhood}?day=${day}`, fetcher);
+  const { data, error } = useSWR(
+    `/api/neighborhood/${neighborhood}?day=${day}`,
+    fetcher
+  );
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));
@@ -28,7 +31,9 @@ export default function Neighborhood(props) {
   let places = data.places;
 
   // sort so active happy hours are first
-  let activeSpecialsPlaces = places.filter((place) => hasActiveHappyHour(place, day));
+  let activeSpecialsPlaces = places.filter((place) =>
+    hasActiveHappyHour(place, day)
+  );
   let otherPlaces = places.filter((place) => !hasActiveHappyHour(place, day));
   places = [...activeSpecialsPlaces, ...otherPlaces];
 
@@ -39,14 +44,14 @@ export default function Neighborhood(props) {
       <Meta title={props.title} description={props.description} />
       <Header />
       <main>
-        <div className="text-center text-2xl italic mb-8 mt-4">{`Today's ${neighborhood} Specials`}</div>
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col md:w-1/2">
+        <div className='text-center text-2xl italic mb-8 mt-4'>{`Today's ${neighborhood} Specials`}</div>
+        <div className='flex flex-col items-center'>
+          <div className='flex flex-col md:w-1/2'>
             {bars.length === 0 ? (
               <div className='w-full text-center py-12 text-4xl'>
                 No neighborhood{" "}
-                <span className='font-bold'>&quot;{neighborhood}&quot;</span> has
-                been found. Please go back and search again.
+                <span className='font-bold'>&quot;{neighborhood}&quot;</span>{" "}
+                has been found. Please go back and search again.
               </div>
             ) : (
               bars.map((bar) => <Place place={bar} day={day} key={bar._id} />)
