@@ -52,7 +52,7 @@ function Home() {
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
   if (error) return <div>Failed to load</div>;
-  if (!data) return <Loader />;
+  if (!data) return <Loader pageInfo={data} day={day} />;
   if (!data.success) return <div>Failed to load</div>;
   let places = data.places;
 
