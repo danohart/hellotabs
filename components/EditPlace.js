@@ -283,7 +283,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                       Event Name
                     </label>
                     <input
-                      className='text-black w-full p-2 border rounded'
+                      className='text-black w-full p-2 border rounded dark:text-gray-200'
                       type='text'
                       placeholder='e.g., Happy Hour, Brunch Special'
                       value={event.name || ""}
@@ -297,7 +297,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                       Keywords
                     </label>
                     <input
-                      className='text-black w-full p-2 border rounded'
+                      className='text-black w-full p-2 border rounded dark:text-gray-200'
                       type='text'
                       placeholder='e.g., happyHour, brunch, liveMusic'
                       value={event.keywords || ""}
@@ -313,7 +313,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                     Description
                   </label>
                   <textarea
-                    className='text-black w-full p-2 border rounded'
+                    className='text-black w-full p-2 border rounded dark:text-gray-200'
                     rows='2'
                     placeholder='Optional event description'
                     value={event.description || ""}
@@ -392,7 +392,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                             Start Time
                           </label>
                           <input
-                            className='text-black w-full p-2 border rounded'
+                            className='text-black w-full p-2 border rounded dark:text-gray-200'
                             type='time'
                             value={schedule.startTime || ""}
                             onChange={(e) =>
@@ -410,7 +410,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                             End Time
                           </label>
                           <input
-                            className='text-black w-full p-2 border rounded'
+                            className='text-black w-full p-2 border rounded dark:text-gray-200'
                             type='time'
                             value={schedule.endTime || ""}
                             onChange={(e) =>
@@ -447,7 +447,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                     <div key={itemIndex} className='flex gap-2 mb-2 items-end'>
                       <div className='flex-1'>
                         <input
-                          className='text-black w-full p-2 border rounded'
+                          className='text-black w-full p-2 border rounded dark:text-gray-200'
                           type='text'
                           placeholder='Item name'
                           value={item.name || ""}
@@ -463,7 +463,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                       </div>
                       <div className='w-24'>
                         <select
-                          className='text-black w-full p-2 border rounded'
+                          className='text-black w-full p-2 border rounded dark:text-gray-200'
                           value={item.category || "Drink"}
                           onChange={(e) =>
                             updateMenuItem(
@@ -480,7 +480,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                       </div>
                       <div className='w-20'>
                         <input
-                          className='text-black w-full p-2 border rounded'
+                          className='text-black w-full p-2 border rounded dark:text-gray-200'
                           type='number'
                           step='0.01'
                           placeholder='Price'

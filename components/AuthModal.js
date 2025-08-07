@@ -31,7 +31,7 @@ export default function AuthModal({ isOpen, onClose, onLogin }) {
           <h3 className='text-lg font-semibold'>Admin Login</h3>
           <button
             onClick={onClose}
-            className='text-gray-500 hover:text-gray-700 text-xl'
+            className='text-gray-500 hover:text-gray-700 text-xl dark:text-gray-300'
           >
             ×
           </button>
@@ -44,7 +44,7 @@ export default function AuthModal({ isOpen, onClose, onLogin }) {
               type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className='w-full p-3 border border-gray-300 rounded text-black text-lg'
+              className='w-full p-3 border border-gray-300 rounded text-black text-lg dark:text-gray-200'
               placeholder='Enter admin password'
               autoFocus
             />
