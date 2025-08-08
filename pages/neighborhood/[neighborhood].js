@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Meta from "../../components/Meta";
@@ -10,67 +10,38 @@ import fetcher from "../../lib/fetcher";
 import Neighborhoods from "../../lib/neighborhoods";
 import { hasActiveHappyHour } from "../../lib/time";
 
-function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w\-]+/g, "")
-    .replace(/\-\-+/g, "-")
-    .replace(/^-+/, "")
-    .replace(/-+$/, "");
-}
-
-const slugToNeighborhood = Neighborhoods.reduce((acc, neighborhood) => {
-  acc[slugify(neighborhood)] = neighborhood;
-  return acc;
-}, {});
-
-const neighborhoodToSlug = Neighborhoods.reduce((acc, neighborhood) => {
-  acc[neighborhood] = slugify(neighborhood);
-  return acc;
-}, {});
-
 export default function Neighborhood(props) {
   const router = useRouter();
 
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const day = getDay();
-  const neighborhoodParam = router.query.neighborhood;
+  const neighborhood = router.query.neighborhood;
 
-  const neighborhood =
-    slugToNeighborhood[neighborhoodParam] || neighborhoodParam;
-  const slug = neighborhoodToSlug[neighborhood] || slugify(neighborhood);
-
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      neighborhood &&
-      neighborhoodParam !== slug
-    ) {
-      if (Neighborhoods.includes(neighborhood) && neighborhoodParam !== slug) {
-        router.replace(`/neighborhood/${slug}`, undefined, { shallow: true });
-      }
-    }
-  }, [neighborhood, neighborhoodParam, slug, router]);
-
-  const { data, error } = useSWR(
-    `/api/neighborhood/${neighborhood}?day=${day}`,
-    fetcher
-  );
+  const { data, error } = useSWR(`/api/neighborhood/${neighborhood}?day=${day}`, fetcher);
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));
   }
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <Loader pageInfo={props} />;
+  // Move Meta outside of conditional rendering so it's always rendered first
+  if (error) return (
+    <>
+      <Meta title={props.title} description={props.description} />
+      <div>Failed to load</div>
+    </>
+  );
+  
+  if (!data) return (
+    <>
+      <Meta title={props.title} description={props.description} />
+      <Loader pageInfo={props} />
+    </>
+  );
+
   let places = data.places;
 
-  let activeSpecialsPlaces = places.filter((place) =>
-    hasActiveHappyHour(place, day)
-  );
+  // sort so active happy hours are first
+  let activeSpecialsPlaces = places.filter((place) => hasActiveHappyHour(place, day));
   let otherPlaces = places.filter((place) => !hasActiveHappyHour(place, day));
   places = [...activeSpecialsPlaces, ...otherPlaces];
 
@@ -81,14 +52,14 @@ export default function Neighborhood(props) {
       <Meta title={props.title} description={props.description} />
       <Header />
       <main>
-        <div className='text-center text-2xl italic mb-8 mt-4'>{`Today's ${neighborhood} Specials`}</div>
-        <div className='flex flex-col items-center'>
-          <div className='flex flex-col md:w-1/2'>
+        <div className="text-center text-2xl italic mb-8 mt-4">{`Today's ${neighborhood} Specials`}</div>
+        <div className="flex flex-col items-center">
+          <div className="flex flex-col md:w-1/2">
             {bars.length === 0 ? (
               <div className='w-full text-center py-12 text-4xl'>
                 No neighborhood{" "}
-                <span className='font-bold'>&quot;{neighborhood}&quot;</span>{" "}
-                has been found. Please go back and search again.
+                <span className='font-bold'>&quot;{neighborhood}&quot;</span> has
+                been found. Please go back and search again.
               </div>
             ) : (
               bars.map((bar) => <Place place={bar} day={day} key={bar._id} />)
@@ -112,31 +83,21 @@ export default function Neighborhood(props) {
 
 export async function getStaticPaths() {
   const paths = Neighborhoods.map((neighb) => ({
-    params: { neighborhood: slugify(neighb) },
+    params: { neighborhood: neighb },
   }));
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
+  return { paths, fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
-  const neighborhood =
-    slugToNeighborhood[params.neighborhood] || params.neighborhood;
-
-  if (!Neighborhoods.includes(neighborhood)) {
-    return {
-      notFound: true,
-    };
-  }
-
+  const neighborhood = params.neighborhood;
+  
   return {
     props: {
-      title: `Best Happy Hours in ${neighborhood}, // Hello Chicago`,
-      description: `List of bars and restaurants in the ${neighborhood} neighborhood of Chicago that serve happy hour specials and deals.`,
-      neighborhood,
-      slug: slugify(neighborhood),
+      title: `Best Happy Hours in ${neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1)}, Chicago // Hello Chicago`,
+      description: `List of bars and restaurants in the ${neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1)} neighborhood of Chicago that serve happy hour specials and deals.`,
+      neighborhood: neighborhood,
+      slug: neighborhood
     },
   };
 }
