@@ -1,41 +1,64 @@
 import Place from "../../components/Place";
-import useSWR from "swr";
-import { useRouter } from "next/router";
 import Loader from "../../components/Loader";
-import fetcher from "../../lib/fetcher";
 import Header from "../../components/Header";
 import Meta from "../../components/Meta";
+import { connectToDatabase } from "../../lib/mongodb";
+import { ObjectId } from "mongodb";
+import { isValidObjectId } from "../../lib/slugify";
 
-export default function SinglePlace() {
-  const router = useRouter();
-  const { id } = router.query;
+export async function getServerSideProps({ params, res }) {
+  const { id } = params;
+  const { db } = await connectToDatabase();
 
-  const { data, error } = useSWR(id ? "/api/place/" + id : null, fetcher);
+  let place;
 
-  if (!router.isReady || !id) {
+  if (isValidObjectId(id)) {
+    place = await db
+      .collection("eventPlaces")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (place && place.slug) {
+      return {
+        redirect: {
+          destination: `/place/${place.slug}`,
+          permanent: true,
+        },
+      };
+    }
+  } else {
+    place = await db.collection("eventPlaces").findOne({ slug: id });
+  }
+
+  if (!place) {
+    return { notFound: true };
+  }
+
+  return {
+    props: {
+      place: JSON.parse(JSON.stringify(place)),
+    },
+  };
+}
+
+export default function SinglePlace({ place }) {
+  if (!place) {
     return <Loader />;
   }
 
-  if (error) {
-    console.error("Error loading place:", error);
-    return <div>Failed to load place. Please try again.</div>;
-  }
-
-  if (!data) {
-    return <Loader />;
-  }
-
-  if (!data.success || !data.place) {
-    return <div>Place not found.</div>;
-  }
+  const metaDescription = place.neighborhood
+    ? `Happy hour specials at ${place.name} in ${place.neighborhood}, Chicago. View daily drink and food deals.`
+    : `Happy hour specials at ${place.name} in Chicago. View daily drink and food deals.`;
 
   return (
     <>
-      <Meta title={`${data.place.name} Daily Specials`} />
+      <Meta
+        title={`${place.name} Happy Hour Specials | ${place.neighborhood || "Chicago"}`}
+        description={metaDescription}
+      />
       <Header title='Everyday Specials' />
       <div className='flex flex-col items-center'>
         <div className='md:w-1/2'>
-          <Place place={data.place} day='allDays' showDays={true} />
+          <Place place={place} day='allDays' showDays={true} />
         </div>
       </div>
     </>

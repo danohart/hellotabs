@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const { connectToDatabase } = require("../../../lib/mongodb");
 const ObjectId = require("mongodb").ObjectId;
+const { generatePlaceSlug } = require("../../../lib/slugify");
 
 export default async function handler(req, res) {
   // switch the methods
@@ -49,6 +50,26 @@ async function addPlace(req, res) {
     let { db } = await connectToDatabase();
 
     const parsedBody = JSON.parse(req.body);
+
+    if (!parsedBody.slug && parsedBody.name) {
+      const baseSlug = generatePlaceSlug(
+        parsedBody.name,
+        parsedBody.neighborhood || "chicago"
+      );
+
+      const existingWithSlug = await db
+        .collection("eventPlaces")
+        .findOne({ slug: { $regex: `^${baseSlug}(-\\d+)?$` } });
+
+      if (existingWithSlug) {
+        const count = await db
+          .collection("eventPlaces")
+          .countDocuments({ slug: { $regex: `^${baseSlug}(-\\d+)?$` } });
+        parsedBody.slug = `${baseSlug}-${count}`;
+      } else {
+        parsedBody.slug = baseSlug;
+      }
+    }
 
     await db.collection("eventPlaces").insertOne(parsedBody);
 

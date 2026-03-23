@@ -3,6 +3,7 @@ export type Place = {
     _id: string;
     alt_id: number;
     name: string;
+    slug: string;
     location?: Address
     events: Event[];
     enabled: boolean;

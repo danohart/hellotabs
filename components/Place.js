@@ -52,7 +52,7 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
         <div className='flex justify-between'>
           <div className='flex flex-col justify-start'>
             <h2 className='text-3xl md:text-4xl font-bold'>
-              <Link href={`/place/${place._id}`}>{place.name}</Link>
+              <Link href={`/place/${place.slug || place._id}`}>{place.name}</Link>
             </h2>
             <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row'>
               <div>
