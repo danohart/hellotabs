@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import Place from "../../components/Place";
@@ -6,9 +7,9 @@ import { NeighborhoodJsonLd } from "../../components/JsonLd";
 import { getDay, convertDayName } from "../../lib/date";
 import { hasActiveHappyHour } from "../../lib/time";
 import { connectToDatabase } from "../../lib/mongodb";
-import { slugToNeighborhood } from "../../lib/neighborhoods";
+import { slugToNeighborhood, getRelatedNeighborhoods, neighborhoodToSlug } from "../../lib/neighborhoods";
 
-export default function Neighborhood({ title, description, neighborhood, places: initialPlaces, day }) {
+export default function Neighborhood({ title, description, neighborhood, places: initialPlaces, day, relatedNeighborhoods }) {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
 
   function showMorePlaces() {
@@ -33,9 +34,8 @@ export default function Neighborhood({ title, description, neighborhood, places:
           <div className="flex flex-col md:w-1/2">
             {bars.length === 0 ? (
               <div className='w-full text-center py-12 text-4xl'>
-                No neighborhood{" "}
-                <span className='font-bold'>&quot;{neighborhood}&quot;</span> has
-                been found. Please go back and search again.
+                No happy hours found in{" "}
+                <span className='font-bold'>{neighborhood}</span> today.
               </div>
             ) : (
               bars.map((bar) => <Place place={bar} day={day} key={bar._id} />)
@@ -50,6 +50,25 @@ export default function Neighborhood({ title, description, neighborhood, places:
                 </button>
               </div>
             ) : null}
+
+            {relatedNeighborhoods && relatedNeighborhoods.length > 0 && (
+              <div className='mt-8 p-4 border-t border-gray-200 dark:border-gray-600'>
+                <h2 className='text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300'>
+                  Nearby Neighborhoods
+                </h2>
+                <div className='flex flex-wrap gap-2'>
+                  {relatedNeighborhoods.map((related) => (
+                    <Link
+                      key={related.name}
+                      href={`/neighborhood/${related.slug}`}
+                      className='px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors'
+                    >
+                      {related.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -126,6 +145,11 @@ export async function getServerSideProps({ params }) {
     ])
     .toArray();
 
+  const related = getRelatedNeighborhoods(neighborhood).map((name) => ({
+    name,
+    slug: neighborhoodToSlug[name],
+  }));
+
   return {
     props: {
       title: `Best Happy Hours in ${displayName}, Chicago // Hello Chicago`,
@@ -133,6 +157,7 @@ export async function getServerSideProps({ params }) {
       neighborhood: neighborhood,
       places: JSON.parse(JSON.stringify(places)),
       day: day,
+      relatedNeighborhoods: related,
     },
   };
 }

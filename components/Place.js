@@ -5,6 +5,7 @@ import { formatTimeDisplay, getEventStatus } from "../lib/time";
 import { useState } from "react";
 import EditPlace from "./EditPlace";
 import { useAuth } from "../hooks/useAuth";
+import { slugify } from "../lib/slugify";
 
 export default function Place({ place, day, showDays = false, onUpdate }) {
   const { isAuthenticated, token } = useAuth();
@@ -68,7 +69,14 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
                 </a>
               </div>
               <div className='md:ml-2'>
-                {place.neighborhood ? place.neighborhood : null}
+                {place.neighborhood && (
+                  <Link
+                    href={`/neighborhood/${slugify(place.neighborhood)}`}
+                    className='hover:underline'
+                  >
+                    {place.neighborhood}
+                  </Link>
+                )}
                 {place.distance && ` | ${place.distance.toFixed(1)} miles`}
               </div>
             </div>
