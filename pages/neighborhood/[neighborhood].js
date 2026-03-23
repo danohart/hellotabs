@@ -1,55 +1,31 @@
 import { useState } from "react";
-import useSWR from "swr";
-import { useRouter } from "next/router";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import Place from "../../components/Place";
-import { getDay } from "../../lib/date";
-import Loader from "../../components/Loader";
-import fetcher from "../../lib/fetcher";
-import Neighborhoods from "../../lib/neighborhoods";
+import { NeighborhoodJsonLd } from "../../components/JsonLd";
+import { getDay, convertDayName } from "../../lib/date";
 import { hasActiveHappyHour } from "../../lib/time";
+import { connectToDatabase } from "../../lib/mongodb";
+import { slugToNeighborhood } from "../../lib/neighborhoods";
 
-export default function Neighborhood(props) {
-  const router = useRouter();
-
+export default function Neighborhood({ title, description, neighborhood, places: initialPlaces, day }) {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
-  const day = getDay();
-  const neighborhood = router.query.neighborhood;
-
-  const { data, error } = useSWR(`/api/neighborhood/${neighborhood}?day=${day}`, fetcher);
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));
   }
 
-  // Move Meta outside of conditional rendering so it's always rendered first
-  if (error) return (
-    <>
-      <Meta title={props.title} description={props.description} />
-      <div>Failed to load</div>
-    </>
-  );
-  
-  if (!data) return (
-    <>
-      <Meta title={props.title} description={props.description} />
-      <Loader pageInfo={props} />
-    </>
-  );
-
-  let places = data.places;
-
   // sort so active happy hours are first
-  let activeSpecialsPlaces = places.filter((place) => hasActiveHappyHour(place, day));
-  let otherPlaces = places.filter((place) => !hasActiveHappyHour(place, day));
-  places = [...activeSpecialsPlaces, ...otherPlaces];
+  let activeSpecialsPlaces = initialPlaces.filter((place) => hasActiveHappyHour(place, day));
+  let otherPlaces = initialPlaces.filter((place) => !hasActiveHappyHour(place, day));
+  let places = [...activeSpecialsPlaces, ...otherPlaces];
 
   const bars = places.slice(0, amountOfPlaces);
 
   return (
     <div className='m-2'>
-      <Meta title={props.title} description={props.description} />
+      <Meta title={title} description={description} />
+      <NeighborhoodJsonLd neighborhood={neighborhood} places={places} />
       <Header />
       <main>
         <div className="text-center text-2xl italic mb-8 mt-4">{`Today's ${neighborhood} Specials`}</div>
@@ -81,23 +57,82 @@ export default function Neighborhood(props) {
   );
 }
 
-export async function getStaticPaths() {
-  const paths = Neighborhoods.map((neighb) => ({
-    params: { neighborhood: neighb },
-  }));
+export async function getServerSideProps({ params }) {
+  const neighborhoodSlug = params.neighborhood;
+  const neighborhood = slugToNeighborhood[neighborhoodSlug] || neighborhoodSlug;
+  const displayName = neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1);
 
-  return { paths, fallback: "blocking" };
-}
+  const day = getDay();
+  const dayOfWeek = convertDayName(day);
 
-export async function getStaticProps({ params }) {
-  const neighborhood = params.neighborhood;
-  
+  const { db } = await connectToDatabase();
+
+  const places = await db
+    .collection("eventPlaces")
+    .aggregate([
+      {
+        $match: {
+          enabled: true,
+          neighborhood: neighborhood,
+          events: {
+            $elemMatch: {
+              keywords: "happyHour",
+              "eventSchedule.byDay": dayOfWeek,
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          alt_id: 1,
+          name: 1,
+          slug: 1,
+          location: 1,
+          events: {
+            $filter: {
+              input: "$events",
+              as: "event",
+              cond: {
+                $and: [
+                  { $eq: ["$$event.keywords", "happyHour"] },
+                  {
+                    $gt: [
+                      {
+                        $size: {
+                          $filter: {
+                            input: "$$event.eventSchedule",
+                            as: "schedule",
+                            cond: { $in: [dayOfWeek, "$$schedule.byDay"] },
+                          },
+                        },
+                      },
+                      0,
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+          enabled: 1,
+          featured: 1,
+          neighborhood: 1,
+          lastUpdated: 1,
+        },
+      },
+      {
+        $sort: { featured: -1 },
+      },
+    ])
+    .toArray();
+
   return {
     props: {
-      title: `Best Happy Hours in ${neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1)}, Chicago // Hello Chicago`,
-      description: `List of bars and restaurants in the ${neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1)} neighborhood of Chicago that serve happy hour specials and deals.`,
+      title: `Best Happy Hours in ${displayName}, Chicago // Hello Chicago`,
+      description: `List of bars and restaurants in the ${displayName} neighborhood of Chicago that serve happy hour specials and deals.`,
       neighborhood: neighborhood,
-      slug: neighborhood
+      places: JSON.parse(JSON.stringify(places)),
+      day: day,
     },
   };
 }

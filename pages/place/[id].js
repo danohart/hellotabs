@@ -2,6 +2,7 @@ import Place from "../../components/Place";
 import Loader from "../../components/Loader";
 import Header from "../../components/Header";
 import Meta from "../../components/Meta";
+import JsonLd from "../../components/JsonLd";
 import { connectToDatabase } from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
 import { isValidObjectId } from "../../lib/slugify";
@@ -55,6 +56,7 @@ export default function SinglePlace({ place }) {
         title={`${place.name} Happy Hour Specials | ${place.neighborhood || "Chicago"}`}
         description={metaDescription}
       />
+      <JsonLd place={place} />
       <Header title='Everyday Specials' />
       <div className='flex flex-col items-center'>
         <div className='md:w-1/2'>
