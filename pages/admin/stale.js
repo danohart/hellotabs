@@ -13,7 +13,14 @@ export async function getServerSideProps() {
   const places = await db
     .collection("eventPlaces")
     .aggregate([
-      { $match: { enabled: true } },
+      {
+        $match: {
+          $or: [
+            { enabled: true },
+            { enabled: false, events: { $size: 0 } },
+          ],
+        },
+      },
       {
         $addFields: {
           lastUpdated: { $max: "$events.lastUpdated" },

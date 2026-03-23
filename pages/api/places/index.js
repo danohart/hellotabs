@@ -48,7 +48,7 @@ async function addPlace(req, res) {
   try {
     let { db } = await connectToDatabase();
 
-    const parsedBody = JSON.parse(req.body);
+    const parsedBody = req.body;
 
     await db.collection("eventPlaces").insertOne(parsedBody);
 
