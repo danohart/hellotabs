@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { useAuthContext } from "../_app";
 import AuthModal from "../../components/AuthModal";
 import neighborhoods from "../../lib/neighborhoods";
+import { generatePlaceSlug } from "../../lib/slugify";
 
 export default function AddPlace() {
   const { isAuthenticated, login } = useAuthContext();
@@ -84,6 +85,7 @@ export default function AddPlace() {
 
     const newPlace = {
       name: selected.name,
+      slug: generatePlaceSlug(selected.name, neighborhood),
       location: {
         streetAddress,
         city: "Chicago",
