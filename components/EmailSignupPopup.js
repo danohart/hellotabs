@@ -6,24 +6,12 @@
 // Once dismissed or submitted a cookie is set so it won't show again for 30 days.
 import { useState, useEffect, useCallback } from "react";
 import { useEmailSignup } from "../hooks/useEmailSignup";
+import { useSignupCookie, setSignupCookie, hasSignupCookie } from "../hooks/useSignupCookie";
 import SignupForm from "./SignupForm";
 import { trackEvent } from "../lib/analytics";
 
-const COOKIE_NAME = "hhc_signup_dismissed";
-const COOKIE_DAYS = 30;
 const TIMER_DELAY_MS = 20000;
 const SCROLL_THRESHOLD = 0.6;
-
-function setCookie(name, days) {
-  const expires = new Date();
-  expires.setDate(expires.getDate() + days);
-  document.cookie = `${name}=1; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
-}
-
-function hasCookie(name) {
-  if (typeof document === "undefined") return false;
-  return document.cookie.split(";").some((c) => c.trim().startsWith(`${name}=`));
-}
 
 export default function EmailSignupPopup() {
   const [open, setOpen] = useState(false);
@@ -32,7 +20,7 @@ export default function EmailSignupPopup() {
   const dismiss = useCallback(
     (reason) => {
       setOpen(false);
-      setCookie(COOKIE_NAME, COOKIE_DAYS);
+      setSignupCookie();
       trackEvent("email_popup_dismissed", { reason });
     },
     []
@@ -47,7 +35,7 @@ export default function EmailSignupPopup() {
   }, [formProps.status, dismiss]);
 
   useEffect(() => {
-    if (hasCookie(COOKIE_NAME)) return;
+    if (hasSignupCookie()) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
     let triggered = false;
