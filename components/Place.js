@@ -192,10 +192,12 @@ function Event({ event, showDays, day }) {
             className='flex flex-row justify-start items-baseline mb-2'
             key={index}
           >
-            {showDays && (
-              <div className='font-bold whitespace-nowrap'>
-                {formatDaysOfWeek(schedule.byDay)}
-              </div>
+            <div className='font-bold whitespace-nowrap'>
+              {formatDaysOfWeek(schedule.byDay)}
+            </div>
+
+            {schedule.startTime !== "null" && (
+              <div className='mx-2 font-extrabold'>&#183;</div>
             )}
             <div className='font-bold'>{formatTimeDisplay(schedule)}</div>
             {eventStatus !== "Not happening" ? (
