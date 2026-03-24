@@ -11,6 +11,34 @@ export type Place = {
     neighborhood: string;
     lastUpdated: Date;
     urls?: Urls;
+    googlePlaces?: GooglePlacesData;
+};
+
+export type GooglePlacesData = {
+    placeId?: string;
+    types?: string[];
+    primaryType?: string;
+    priceLevel?: PriceLevel;
+    attributes?: PlaceAttributes;
+    lastFetched?: Date;
+};
+
+export enum PriceLevel {
+    Free = 'PRICE_LEVEL_FREE',
+    Inexpensive = 'PRICE_LEVEL_INEXPENSIVE',
+    Moderate = 'PRICE_LEVEL_MODERATE',
+    Expensive = 'PRICE_LEVEL_EXPENSIVE',
+    VeryExpensive = 'PRICE_LEVEL_VERY_EXPENSIVE',
+}
+
+export type PlaceAttributes = {
+    goodForGroups?: boolean;
+    liveMusic?: boolean;
+    outdoorSeating?: boolean;
+    goodForWatchingSports?: boolean;
+    servesBeer?: boolean;
+    servesCocktails?: boolean;
+    servesWine?: boolean;
 };
 
 export type Address = {

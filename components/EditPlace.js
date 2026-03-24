@@ -34,6 +34,8 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
   const [editData, setEditData] = useState({ events: [], enabled: false });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [refreshingGoogle, setRefreshingGoogle] = useState(false);
+  const [googleData, setGoogleData] = useState(null);
 
   // Initialize form data when modal opens
   useEffect(() => {
@@ -60,9 +62,34 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
           })),
         })),
       });
+      setGoogleData(place.googlePlaces || null);
       setError("");
     }
   }, [isOpen, place]);
+
+  const handleRefreshGoogleData = async () => {
+    setRefreshingGoogle(true);
+    setError("");
+    try {
+      const response = await fetch("/api/places/google-places", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: token,
+          placeId: place._id,
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setGoogleData(result.googlePlaces);
+      } else {
+        setError(result.error || "Failed to fetch Google Places data");
+      }
+    } catch (err) {
+      setError("Network error fetching Google Places data");
+    }
+    setRefreshingGoogle(false);
+  };
 
   const updateEventSchedule = (eventIndex, scheduleIndex, field, value) => {
     const newEvents = [...editData.events];
@@ -242,6 +269,75 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
               />
               <span>Enabled (visible on site)</span>
             </label>
+          </div>
+
+          {/* Google Places Data */}
+          <div className='mb-6 p-4 border border-gray-300 rounded'>
+            <h4 className='font-semibold mb-3'>Google Places Data</h4>
+            <p className='text-sm text-gray-500 dark:text-gray-400 mb-3'>
+              Fetch place type, price level, and attributes from Google.
+            </p>
+            <button
+              type='button'
+              onClick={handleRefreshGoogleData}
+              disabled={refreshingGoogle}
+              className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50'
+            >
+              {refreshingGoogle ? "Fetching..." : "Refresh Google Data"}
+            </button>
+            {googleData && (
+              <div className='mt-4 p-3 bg-gray-50 dark:bg-slate-700 rounded text-sm'>
+                {googleData.primaryType && (
+                  <div className='mb-2'>
+                    <span className='font-medium'>Type: </span>
+                    <span className='px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded'>
+                      {googleData.primaryType.replace(/_/g, " ")}
+                    </span>
+                  </div>
+                )}
+                {googleData.priceLevel && (
+                  <div className='mb-2'>
+                    <span className='font-medium'>Price: </span>
+                    <span className='px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded'>
+                      {googleData.priceLevel === "PRICE_LEVEL_INEXPENSIVE" && "$"}
+                      {googleData.priceLevel === "PRICE_LEVEL_MODERATE" && "$$"}
+                      {googleData.priceLevel === "PRICE_LEVEL_EXPENSIVE" && "$$$"}
+                      {googleData.priceLevel === "PRICE_LEVEL_VERY_EXPENSIVE" && "$$$$"}
+                    </span>
+                  </div>
+                )}
+                {googleData.attributes && (
+                  <div className='flex flex-wrap gap-1 mt-2'>
+                    {googleData.attributes.liveMusic && (
+                      <span className='px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs'>Live Music</span>
+                    )}
+                    {googleData.attributes.outdoorSeating && (
+                      <span className='px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs'>Outdoor</span>
+                    )}
+                    {googleData.attributes.goodForGroups && (
+                      <span className='px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs'>Groups</span>
+                    )}
+                    {googleData.attributes.goodForWatchingSports && (
+                      <span className='px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs'>Sports</span>
+                    )}
+                    {googleData.attributes.servesBeer && (
+                      <span className='px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs'>Beer</span>
+                    )}
+                    {googleData.attributes.servesCocktails && (
+                      <span className='px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs'>Cocktails</span>
+                    )}
+                    {googleData.attributes.servesWine && (
+                      <span className='px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs'>Wine</span>
+                    )}
+                  </div>
+                )}
+                {googleData.lastFetched && (
+                  <p className='text-xs text-gray-400 mt-3'>
+                    Last fetched: {new Date(googleData.lastFetched).toLocaleDateString()}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Events Section */}
