@@ -6,6 +6,7 @@ import { useState } from "react";
 import EditPlace from "./EditPlace";
 import { useAuth } from "../hooks/useAuth";
 import { slugify } from "../lib/slugify";
+import { trackEvent } from "../lib/analytics";
 
 export default function Place({ place, day, showDays = false, onUpdate }) {
   const { isAuthenticated, token } = useAuth();
@@ -53,7 +54,10 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
         <div className='flex justify-between'>
           <div className='flex flex-col justify-start'>
             <h2 className='text-3xl md:text-4xl font-bold'>
-              <Link href={`/place/${place.slug || place._id}`}>{place.name}</Link>
+              <Link
+                href={`/place/${place.slug || place._id}`}
+                onClick={() => trackEvent("place_detail_view", { place_name: place.name, neighborhood: place.neighborhood })}
+              >{place.name}</Link>
             </h2>
             <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row'>
               <div>
@@ -62,6 +66,7 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
                   target='_blank'
                   rel='noreferrer'
                   href={getGoogleMapsUrl(place)}
+                  onClick={() => trackEvent("maps_click", { place_name: place.name, neighborhood: place.neighborhood })}
                 >
                   {place.location.streetAddress
                     ? place.location.streetAddress

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { trackEvent } from "../lib/analytics";
 
 const priceLabels = {
   PRICE_LEVEL_FREE: "Free",
@@ -15,7 +16,7 @@ function formatPlaceType(type) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-export default function SimilarPlaces({ title, places }) {
+export default function SimilarPlaces({ title, places, section, fromPlace }) {
   if (!places || places.length === 0) {
     return null;
   }
@@ -31,6 +32,13 @@ export default function SimilarPlaces({ title, places }) {
             key={place._id}
             href={`/place/${place.slug || place._id}`}
             className='block p-3 bg-white dark:bg-slate-700 rounded-lg border border-gray-200 dark:border-slate-600 hover:border-purple-400 dark:hover:border-purple-500 transition-colors'
+            onClick={() =>
+              trackEvent("similar_place_click", {
+                from_place: fromPlace,
+                to_place: place.name,
+                section,
+              })
+            }
           >
             <h4 className='font-semibold text-purple-600 dark:text-purple-400 text-sm truncate'>
               {place.name}

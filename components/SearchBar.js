@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { trackEvent } from "../lib/analytics";
 
 export default function SearchBar(props) {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function SearchBar(props) {
 
   function submitSearchQuery(event) {
     event.preventDefault();
+    trackEvent("search", { search_term: searchInput });
     router.push({
       pathname: "/search/",
       query: "s=" + searchInput,

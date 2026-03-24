@@ -1,8 +1,10 @@
 // pages/_app.js
 import React, { useEffect, createContext, useContext } from "react";
+import { useRouter } from "next/router";
 import "../styles/styles.css";
 import Page from "../components/Page";
 import { useAuth } from "../hooks/useAuth";
+import { trackPageView } from "../lib/analytics";
 
 // Create auth context
 const AuthContext = createContext();
@@ -21,6 +23,15 @@ function AuthProvider({ children }) {
 }
 
 function App({ Component, pageProps }) {
+  const router = useRouter();
+
+  // Fire a page view on every client-side route change
+  useEffect(() => {
+    const handleRouteChange = (url) => trackPageView(url);
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => router.events.off("routeChangeComplete", handleRouteChange);
+  }, [router.events]);
+
   useEffect(() => {
     const initializeTheme = () => {
       const savedTheme = localStorage.getItem("theme") || "system";

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
 import Meta from "../components/Meta";
 import Header from "../components/Header";
@@ -6,7 +6,6 @@ import Place from "../components/Place";
 import SearchBar from "../components/SearchBar";
 import { getDay } from "../lib/date";
 import fetcher from "../lib/fetcher";
-
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
 import { hasActiveHappyHour, isCurrentlyBetweenTwoTimes } from "../lib/time";
@@ -15,7 +14,7 @@ import {
   calculateDistance,
   getUserLocation,
 } from "../lib/location";
-import { useEffect } from "react";
+import { trackEvent } from "../lib/analytics";
 
 function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
@@ -24,7 +23,13 @@ function Home() {
   const day = getDay();
 
   function showMorePlaces() {
+    trackEvent("load_more", { visible_count: amountOfPlaces });
     setAmountOfPlaces(amountOfPlaces + 10);
+  }
+
+  function handleDealFilterChange(filter) {
+    trackEvent("deal_filter_change", { filter });
+    setDealTypeFilter(filter);
   }
 
   useEffect(() => {
@@ -32,8 +37,10 @@ function Home() {
       try {
         const locationResult = await getUserLocation();
         setUserLocation(locationResult);
+        trackEvent("location_granted");
       } catch (error) {
         console.error("Error fetching user location:", error.message);
+        trackEvent("location_denied");
       }
     };
 
@@ -51,6 +58,18 @@ function Home() {
   }, []);
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
+
+  useEffect(() => {
+    if (data?.success) {
+      const activeCount = data.places.filter((p) =>
+        hasActiveHappyHour(p, day)
+      ).length;
+      trackEvent("home_page_load", {
+        active_happy_hours: activeCount,
+        day_of_week: day,
+      });
+    }
+  }, [data]);
   if (error)
     return (
       <div>
@@ -141,7 +160,7 @@ function Home() {
             </h3>
             <div className='flex justify-center gap-2 text-sm'>
               <button
-                onClick={() => setDealTypeFilter("all")}
+                onClick={() => handleDealFilterChange("all")}
                 className={`px-4 py-2 rounded-full font-medium transition-colors ${
                   dealTypeFilter === "all"
                     ? "bg-purple-500 text-white dark:bg-purple-800"
@@ -151,7 +170,7 @@ function Home() {
                 All Deals
               </button>
               <button
-                onClick={() => setDealTypeFilter("drinks")}
+                onClick={() => handleDealFilterChange("drinks")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   dealTypeFilter === "drinks"
                     ? "bg-purple-500 text-white dark:bg-purple-800"
@@ -161,7 +180,7 @@ function Home() {
                 Drink Specials
               </button>
               <button
-                onClick={() => setDealTypeFilter("food")}
+                onClick={() => handleDealFilterChange("food")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   dealTypeFilter === "food"
                     ? "bg-purple-500 text-white dark:bg-purple-800"

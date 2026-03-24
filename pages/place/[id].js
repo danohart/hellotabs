@@ -73,11 +73,15 @@ export default function SinglePlace({ place, similarInNeighborhood, similarCityw
           <SimilarPlaces
             title={`Similar in ${place.neighborhood}`}
             places={similarInNeighborhood}
+            section="neighborhood"
+            fromPlace={place.name}
           />
 
           <SimilarPlaces
             title='Similar across Chicago'
             places={similarCitywide}
+            section="citywide"
+            fromPlace={place.name}
           />
         </div>
       </div>
