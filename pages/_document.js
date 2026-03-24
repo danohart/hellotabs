@@ -1,6 +1,7 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GA_ID =
+  process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_GA_ID : null;
 
 export default function Document() {
   return (

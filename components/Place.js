@@ -56,8 +56,15 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
             <h2 className='text-3xl md:text-4xl font-bold'>
               <Link
                 href={`/place/${place.slug || place._id}`}
-                onClick={() => trackEvent("place_detail_view", { place_name: place.name, neighborhood: place.neighborhood })}
-              >{place.name}</Link>
+                onClick={() =>
+                  trackEvent("place_detail_view", {
+                    place_name: place.name,
+                    neighborhood: place.neighborhood,
+                  })
+                }
+              >
+                {place.name}
+              </Link>
             </h2>
             <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row'>
               <div>
@@ -66,7 +73,12 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
                   target='_blank'
                   rel='noreferrer'
                   href={getGoogleMapsUrl(place)}
-                  onClick={() => trackEvent("maps_click", { place_name: place.name, neighborhood: place.neighborhood })}
+                  onClick={() =>
+                    trackEvent("maps_click", {
+                      place_name: place.name,
+                      neighborhood: place.neighborhood,
+                    })
+                  }
                 >
                   {place.location.streetAddress
                     ? place.location.streetAddress
@@ -185,7 +197,6 @@ function Event({ event, showDays, day }) {
                 {formatDaysOfWeek(schedule.byDay)}
               </div>
             )}
-            {showDays && <div className='mx-2 font-extrabold'>&#183;</div>}
             <div className='font-bold'>{formatTimeDisplay(schedule)}</div>
             {eventStatus !== "Not happening" ? (
               <div className='font-bold tracking-wider text-xs bg-orange-300 py-1 px-2 mx-4 rounded-md dark:text-orange-900'>

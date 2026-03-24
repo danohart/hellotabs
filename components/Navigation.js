@@ -4,6 +4,7 @@ import neighborhoods, { neighborhoodToSlug } from "../lib/neighborhoods";
 import { trackEvent } from "../lib/analytics";
 
 export default function Navigation() {
+  let [showNeighborhoods, setShowNeighborhoods] = useState(false);
   function handlePanelToggle() {
     if (!showNeighborhoods) trackEvent("neighborhood_panel_open");
     setShowNeighborhoods(!showNeighborhoods);
@@ -35,7 +36,9 @@ export default function Navigation() {
               <Link
                 href={`/neighborhood/${neighborhoodToSlug[neighborhood]}`}
                 key={neighborhood}
-                onClick={() => trackEvent("neighborhood_select", { neighborhood })}
+                onClick={() =>
+                  trackEvent("neighborhood_select", { neighborhood })
+                }
               >
                 <button className='m-1 bg-purple-500 text-white font-bold py-2 px-4 rounded dark:bg-purple-800'>
                   {neighborhood}
