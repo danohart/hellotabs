@@ -1,7 +1,7 @@
 // hooks/useEmailSignup.js
 // Shared form logic reused by the inline form, footer form, and popup.
 import { useState } from "react";
-import { setSignupCookie } from "./useSignupCookie";
+import { setSubmittedCookie } from "./useSignupCookie";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -46,7 +46,7 @@ export function useEmailSignup() {
         setMessage("You're in! Check your inbox for deals.");
         setEmail("");
         setFirstName("");
-        setSignupCookie(); // hide all forms/popup site-wide
+        setSubmittedCookie(); // hide all forms/popup site-wide
       } else {
         setStatus("error");
         setMessage(data.error || "Something went wrong. Please try again.");

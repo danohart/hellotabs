@@ -1,16 +1,13 @@
 // components/EmailSignupPopup.js
-// Modal popup with three trigger strategies:
-//   1. 20-second timer (all devices)
-//   2. 60% scroll depth (all devices)
-//   3. Mobile: scroll-only (timer suppressed on small screens to avoid annoyance)
-// Once dismissed or submitted a cookie is set so it won't show again for 30 days.
+// Popup trigger: 60% scroll depth only (no timer).
+// Dismissed → sets popup-only cookie (inline + footer forms stay visible).
+// Submitted → sets submitted cookie (hides everything site-wide).
 import { useState, useEffect, useCallback } from "react";
 import { useEmailSignup } from "../hooks/useEmailSignup";
-import { useSignupCookie, setSignupCookie, hasSignupCookie } from "../hooks/useSignupCookie";
+import { useSignupCookie, setDismissedCookie, hasPopupSuppressedCookie } from "../hooks/useSignupCookie";
 import SignupForm from "./SignupForm";
 import { trackEvent } from "../lib/analytics";
 
-const TIMER_DELAY_MS = 20000;
 const SCROLL_THRESHOLD = 0.6;
 
 export default function EmailSignupPopup() {
@@ -20,7 +17,7 @@ export default function EmailSignupPopup() {
   const dismiss = useCallback(
     (reason) => {
       setOpen(false);
-      setSignupCookie();
+      setDismissedCookie();
       trackEvent("email_popup_dismissed", { reason });
     },
     []
@@ -35,9 +32,8 @@ export default function EmailSignupPopup() {
   }, [formProps.status, dismiss]);
 
   useEffect(() => {
-    if (hasSignupCookie()) return;
+    if (hasPopupSuppressedCookie()) return;
 
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     let triggered = false;
 
     function trigger(source) {
@@ -56,14 +52,8 @@ export default function EmailSignupPopup() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    let timerId = null;
-    if (!isMobile) {
-      timerId = setTimeout(() => trigger("timer"), TIMER_DELAY_MS);
-    }
-
     function cleanup() {
       window.removeEventListener("scroll", handleScroll);
-      if (timerId) clearTimeout(timerId);
     }
 
     return cleanup;

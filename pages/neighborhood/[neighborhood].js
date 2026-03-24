@@ -7,9 +7,21 @@ import { NeighborhoodJsonLd } from "../../components/JsonLd";
 import { getDay, convertDayName } from "../../lib/date";
 import { hasActiveHappyHour } from "../../lib/time";
 import { connectToDatabase } from "../../lib/mongodb";
-import { slugToNeighborhood, getRelatedNeighborhoods, neighborhoodToSlug } from "../../lib/neighborhoods";
+import {
+  slugToNeighborhood,
+  getRelatedNeighborhoods,
+  neighborhoodToSlug,
+} from "../../lib/neighborhoods";
+import EmailSignupInline from "../../components/EmailSignupInline";
 
-export default function Neighborhood({ title, description, neighborhood, places: initialPlaces, day, relatedNeighborhoods }) {
+export default function Neighborhood({
+  title,
+  description,
+  neighborhood,
+  places: initialPlaces,
+  day,
+  relatedNeighborhoods,
+}) {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
 
   function showMorePlaces() {
@@ -17,8 +29,12 @@ export default function Neighborhood({ title, description, neighborhood, places:
   }
 
   // sort so active happy hours are first
-  let activeSpecialsPlaces = initialPlaces.filter((place) => hasActiveHappyHour(place, day));
-  let otherPlaces = initialPlaces.filter((place) => !hasActiveHappyHour(place, day));
+  let activeSpecialsPlaces = initialPlaces.filter((place) =>
+    hasActiveHappyHour(place, day),
+  );
+  let otherPlaces = initialPlaces.filter(
+    (place) => !hasActiveHappyHour(place, day),
+  );
   let places = [...activeSpecialsPlaces, ...otherPlaces];
 
   const bars = places.slice(0, amountOfPlaces);
@@ -28,10 +44,11 @@ export default function Neighborhood({ title, description, neighborhood, places:
       <Meta title={title} description={description} />
       <NeighborhoodJsonLd neighborhood={neighborhood} places={places} />
       <Header />
+      <EmailSignupInline />
       <main>
-        <div className="text-center text-2xl italic mb-8 mt-4">{`Today's ${neighborhood} Specials`}</div>
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col md:w-1/2">
+        <div className='text-center text-2xl italic mb-8 mt-4'>{`Today's ${neighborhood} Specials`}</div>
+        <div className='flex flex-col items-center'>
+          <div className='flex flex-col md:w-1/2'>
             {bars.length === 0 ? (
               <div className='w-full text-center py-12 text-4xl'>
                 No happy hours found in{" "}
@@ -79,7 +96,8 @@ export default function Neighborhood({ title, description, neighborhood, places:
 export async function getServerSideProps({ params }) {
   const neighborhoodSlug = params.neighborhood;
   const neighborhood = slugToNeighborhood[neighborhoodSlug] || neighborhoodSlug;
-  const displayName = neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1);
+  const displayName =
+    neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1);
 
   const day = getDay();
   const dayOfWeek = convertDayName(day);
