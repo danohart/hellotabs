@@ -15,6 +15,7 @@ import {
   getUserLocation,
 } from "../lib/location";
 import { trackEvent } from "../lib/analytics";
+import EmailSignupInline from "../components/EmailSignupInline";
 
 function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
@@ -192,6 +193,7 @@ function Home() {
             </div>
           </div>
 
+          <EmailSignupInline />
           <Navigation />
           <main>
             <div className='flex flex-wrap justify-items-center mt-6'>

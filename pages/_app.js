@@ -5,6 +5,7 @@ import "../styles/styles.css";
 import Page from "../components/Page";
 import { useAuth } from "../hooks/useAuth";
 import { trackPageView } from "../lib/analytics";
+import EmailSignupPopup from "../components/EmailSignupPopup";
 
 // Create auth context
 const AuthContext = createContext();
@@ -77,6 +78,7 @@ function App({ Component, pageProps }) {
       <Page>
         <Component {...pageProps} />
       </Page>
+      <EmailSignupPopup />
     </AuthProvider>
   );
 }

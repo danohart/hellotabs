@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../pages/_app";
 import AuthModal from "./AuthModal";
+import EmailSignupFooter from "./EmailSignupFooter";
 
 export default function Footer() {
   const { isAuthenticated, login, logout } = useAuthContext();
@@ -23,6 +24,7 @@ export default function Footer() {
   };
   return (
     <footer className='text-sm w-3/4 mx-auto text-center py-12'>
+      <EmailSignupFooter />
       <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>
         <img
           alt='Creative Commons License'
