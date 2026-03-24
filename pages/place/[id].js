@@ -7,6 +7,7 @@ import SimilarPlaces from "../../components/SimilarPlaces";
 import { connectToDatabase } from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
 import { isValidObjectId } from "../../lib/slugify";
+import { findSimilarPlaces } from "../api/places/similar";
 
 export async function getServerSideProps({ params, res }) {
   const { id } = params;
@@ -35,47 +36,9 @@ export async function getServerSideProps({ params, res }) {
     return { notFound: true };
   }
 
-  // Fetch similar places if this place has Google data
-  let similarInNeighborhood = [];
-  let similarCitywide = [];
-
-  if (place.googlePlaces?.primaryType) {
-    const { primaryType } = place.googlePlaces;
-
-    const baseQuery = {
-      _id: { $ne: place._id },
-      enabled: true,
-      "googlePlaces.primaryType": primaryType,
-    };
-
-    similarInNeighborhood = await db
-      .collection("eventPlaces")
-      .find({ ...baseQuery, neighborhood: place.neighborhood })
-      .project({
-        _id: 1,
-        name: 1,
-        slug: 1,
-        neighborhood: 1,
-        "googlePlaces.primaryType": 1,
-        "googlePlaces.priceLevel": 1,
-      })
-      .limit(6)
-      .toArray();
-
-    similarCitywide = await db
-      .collection("eventPlaces")
-      .find({ ...baseQuery, neighborhood: { $ne: place.neighborhood } })
-      .project({
-        _id: 1,
-        name: 1,
-        slug: 1,
-        neighborhood: 1,
-        "googlePlaces.primaryType": 1,
-        "googlePlaces.priceLevel": 1,
-      })
-      .limit(6)
-      .toArray();
-  }
+  // Fetch similar places using scored type matching
+  const { similar: similarInNeighborhood, citywide: similarCitywide } =
+    await findSimilarPlaces(db, place);
 
   return {
     props: {
