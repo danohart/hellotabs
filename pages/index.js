@@ -3,12 +3,11 @@ import useSWR from "swr";
 import Meta from "../components/Meta";
 import Header from "../components/Header";
 import Place from "../components/Place";
-import SearchBar from "../components/SearchBar";
 import { getDay } from "../lib/date";
 import fetcher from "../lib/fetcher";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
-import { hasActiveHappyHour, isCurrentlyBetweenTwoTimes } from "../lib/time";
+import { hasActiveHappyHour, getPlaceDealStatus } from "../lib/time";
 import {
   sortByDistance,
   calculateDistance,
@@ -20,6 +19,7 @@ import EmailSignupInline from "../components/EmailSignupInline";
 function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const [userLocation, setUserLocation] = useState(null);
+  const [locationLoading, setLocationLoading] = useState(false);
   const [dealTypeFilter, setDealTypeFilter] = useState("all");
   const day = getDay();
 
@@ -33,37 +33,48 @@ function Home() {
     setDealTypeFilter(filter);
   }
 
+  // On load, silently check if permission was already granted and use it —
+  // but never prompt the browser dialog automatically.
   useEffect(() => {
-    const fetchUserLocation = async () => {
-      try {
-        const locationResult = await getUserLocation();
-        setUserLocation(locationResult);
+    if (!navigator.permissions) return;
+    navigator.permissions.query({ name: "geolocation" }).then((status) => {
+      if (status.state === "granted") {
+        // Permission already exists — fetch silently, no dialog fires.
+        getUserLocation().then((loc) => {
+          if (loc) {
+            setUserLocation(loc);
+            trackEvent("location_auto_used");
+          }
+        });
+      }
+      // "prompt" or "denied" — do nothing; wait for explicit button click.
+    });
+  }, []);
+
+  async function handleRequestLocation() {
+    setLocationLoading(true);
+    trackEvent("location_button_clicked");
+    try {
+      const loc = await getUserLocation();
+      if (loc) {
+        setUserLocation(loc);
         trackEvent("location_granted");
-      } catch (error) {
-        console.error("Error fetching user location:", error.message);
+      } else {
         trackEvent("location_denied");
       }
-    };
-
-    const handlePermissionChange = () => {
-      fetchUserLocation();
-    };
-
-    navigator.permissions
-      .query({ name: "geolocation" })
-      .then((permissionStatus) => {
-        permissionStatus.onchange = handlePermissionChange;
-      });
-
-    fetchUserLocation();
-  }, []);
+    } catch {
+      trackEvent("location_denied");
+    } finally {
+      setLocationLoading(false);
+    }
+  }
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
 
   useEffect(() => {
     if (data?.success) {
       const activeCount = data.places.filter((p) =>
-        hasActiveHappyHour(p, day)
+        hasActiveHappyHour(p, day),
       ).length;
       trackEvent("home_page_load", {
         active_happy_hours: activeCount,
@@ -71,6 +82,7 @@ function Home() {
       });
     }
   }, [data]);
+
   if (error)
     return (
       <div>
@@ -86,6 +98,7 @@ function Home() {
       </>
     );
   if (!data.success) return <div>Failed to load</div>;
+
   let places = data.places;
 
   if (userLocation) {
@@ -100,66 +113,73 @@ function Home() {
     places = places.filter((place) => {
       return place.events.some((event) => {
         if (event.keywords !== "happyHour") return false;
-
-        const hasTargetCategory = event.menu.some((item) => {
-          if (dealTypeFilter === "drinks") {
-            return item.category === "Drink";
-          } else if (dealTypeFilter === "food") {
-            return item.category === "Food";
-          }
+        return event.menu.some((item) => {
+          if (dealTypeFilter === "drinks") return item.category === "Drink";
+          if (dealTypeFilter === "food") return item.category === "Food";
           return true;
         });
-
-        return hasTargetCategory;
       });
     });
   }
 
-  // sort so active happy hours are first
-  let activeSpecialsPlaces = places.filter((place) =>
-    hasActiveHappyHour(place, day)
-  );
-  let otherPlaces = places.filter((place) => !hasActiveHappyHour(place, day));
-  places = [...activeSpecialsPlaces, ...otherPlaces];
-
-  function happyHoursRightNow() {
-    const currentTime = new Date();
-    const currentDay = currentTime.getDay();
-
-    const todayPlace = places.filter((place) => hasActiveHappyHour(place, day));
-
-    return todayPlace.length;
-  }
-
-  function determineCurrentHappyHourVerbiage() {
-    if (happyHoursRightNow() > 1)
-      return `There are ${happyHoursRightNow()} happy hours happening right now. Get on
-    it!`;
-    if (happyHoursRightNow() === 1)
-      return `There's only ${happyHoursRightNow()} happy hour happening right now. Get on
-    it!`;
-
-    return `There are ${happyHoursRightNow()} happy hours happening right now.`;
-  }
+  // Active deals first, then upcoming, then the rest.
+  const activeNow = places.filter((p) => hasActiveHappyHour(p, day));
+  const notActive = places.filter((p) => !hasActiveHappyHour(p, day));
+  places = [...activeNow, ...notActive];
 
   const bars = places.slice(0, amountOfPlaces);
 
   return (
     <div>
       <Meta />
-      <Header title={`${day} Specials`} />
+      <Header />
       <div className='flex flex-col items-center'>
-        <div className='flex flex-col md:w-1/2'>
-          <div className='mt-6 mx-10 text-center'>
-            {determineCurrentHappyHourVerbiage()}
+        <div className='flex flex-col md:w-1/2 w-full sm:px-1 lg:px-4'>
+          {/* ── Hero ── */}
+          <div className='mt-8 mb-6 text-center'>
+            <h1 className='text-3xl md:text-4xl font-extrabold tracking-tight mb-2'>
+              Chicago&rsquo;s Best Happy Hour Deals
+            </h1>
+            <p className='text-sm font-semibold text-purple-400 uppercase tracking-widest mb-3'>
+              Updated daily. Always free.
+            </p>
+            <p className='text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto'>
+              Drink specials, food deals, and happy hours across Chicago &mdash;
+              all in one place.
+            </p>
           </div>
-          <SearchBar />
 
-          <div className='w-3/4 mx-auto py-4'>
+          {/* ── Location CTA ── */}
+          {!userLocation && (
+            <div className='flex justify-center my-4'>
+              <button
+                onClick={handleRequestLocation}
+                disabled={locationLoading}
+                className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold px-5 py-3 rounded-full transition-colors text-lg'
+              >
+                {locationLoading ? (
+                  <>
+                    <span className='animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full' />
+                    Finding your location…
+                  </>
+                ) : (
+                  <>Show deals near me</>
+                )}
+              </button>
+            </div>
+          )}
+          {userLocation && (
+            <p className='text-center text-xs text-green-500 dark:text-green-400 my-2'>
+              📍 Sorted by distance from you
+            </p>
+          )}
+
+          {/* ── Deal type filter ── */}
+          <div className='w-full mx-auto py-4'>
             <h3 className='text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3'>
               What kind of deals?
             </h3>
-            <div className='flex justify-center gap-2 text-sm'>
+            <div className='flex justify-center gap-2 text-sm flex-wrap'>
               <button
                 onClick={() => handleDealFilterChange("all")}
                 className={`px-4 py-2 rounded-full font-medium transition-colors ${
@@ -172,7 +192,7 @@ function Home() {
               </button>
               <button
                 onClick={() => handleDealFilterChange("drinks")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full font-medium transition-colors ${
                   dealTypeFilter === "drinks"
                     ? "bg-purple-500 text-white dark:bg-purple-800"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-slate-600"
@@ -182,7 +202,7 @@ function Home() {
               </button>
               <button
                 onClick={() => handleDealFilterChange("food")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full font-medium transition-colors ${
                   dealTypeFilter === "food"
                     ? "bg-purple-500 text-white dark:bg-purple-800"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-slate-600"
@@ -193,38 +213,74 @@ function Home() {
             </div>
           </div>
 
-          <EmailSignupInline />
+          {/* <EmailSignupInline /> */}
+
+          {/* ── Neighborhood nav ── */}
           <Navigation />
+
+          {/* ── Deal list ── */}
           <main>
-            <div className='flex flex-wrap justify-items-center mt-6'>
-              {/* {daysOfTheWeek.map((theDay) => (
-            <button
-              className='w-1/5 px-4'
-              onClick={() => setNavigationDay(theDay)}
-              key={theDay}
-            >
-              {theDay}
-            </button>
-          ))} */}
-            </div>
-            <div className='flex flex-wrap w-full'>
-              {bars.map((bar) => (
-                <Place place={bar} day={day} key={bar._id} />
-              ))}
-              {places.length <= amountOfPlaces ? null : (
-                <div className='flex justify-center w-full'>
-                  <button
-                    className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
-                    onClick={showMorePlaces}
-                  >
-                    See More
-                  </button>
-                </div>
-              )}
-            </div>
+            {bars.length === 0 ? (
+              <p className='text-center text-gray-500 dark:text-gray-400 mt-10 text-sm'>
+                Nothing listed yet today — check back after noon, or browse
+                deals by neighborhood above.
+              </p>
+            ) : (
+              <div className='flex flex-wrap w-full'>
+                {bars.map((bar) => (
+                  <PlaceWithBadge place={bar} day={day} key={bar._id} />
+                ))}
+                {places.length > amountOfPlaces && (
+                  <div className='flex justify-center w-full mt-4'>
+                    <button
+                      className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
+                      onClick={showMorePlaces}
+                    >
+                      See More
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </main>
         </div>
       </div>
+    </div>
+  );
+}
+
+// Wraps <Place> and prepends a time-context badge above each card.
+function PlaceWithBadge({ place, day }) {
+  const status = getPlaceDealStatus(place, day);
+
+  return (
+    <div className='w-full'>
+      <DealTimeBadge status={status} />
+      <Place place={place} day={day} />
+    </div>
+  );
+}
+
+function DealTimeBadge({ status }) {
+  if (!status) return null;
+
+  const { type, label } = status;
+
+  const styles = {
+    active:
+      "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
+    upcoming:
+      "bg-yellow-50 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+    soon: "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300",
+  };
+
+  return (
+    <div
+      className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full my-4 ${
+        styles[type] ?? styles.upcoming
+      }`}
+    >
+      {label}
     </div>
   );
 }
