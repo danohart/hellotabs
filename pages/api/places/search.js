@@ -30,6 +30,8 @@ export default async function handler(req, res) {
       name: place.name,
       formattedAddress: place.formatted_address,
       businessStatus: place.business_status,
+      latitude: place.geometry?.location?.lat ?? null,
+      longitude: place.geometry?.location?.lng ?? null,
     }));
 
     return res.json({ results, success: true });

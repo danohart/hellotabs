@@ -91,7 +91,7 @@ export default function AddPlace() {
         city: "Chicago",
         state: "IL",
         postalCode: null,
-        geo: { latitude: null, longitude: null },
+        geo: { latitude: selected.latitude ?? null, longitude: selected.longitude ?? null },
       },
       neighborhood,
       googlePlaceId: selected.googlePlaceId,
