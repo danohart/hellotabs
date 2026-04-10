@@ -12,6 +12,7 @@ import {
   getRelatedNeighborhoods,
   neighborhoodToSlug,
 } from "../../lib/neighborhoods";
+import { slugify } from "../../lib/slugify";
 import EmailSignupInline from "../../components/EmailSignupInline";
 
 export default function Neighborhood({
@@ -95,6 +96,18 @@ export default function Neighborhood({
 
 export async function getServerSideProps({ params }) {
   const neighborhoodSlug = params.neighborhood;
+
+  // Redirect non-slug URLs to slug version (e.g., "Logan Square" -> "logan-square")
+  const properSlug = slugify(neighborhoodSlug);
+  if (neighborhoodSlug !== properSlug) {
+    return {
+      redirect: {
+        destination: `/neighborhood/${properSlug}`,
+        permanent: true, // 301 redirect for SEO
+      },
+    };
+  }
+
   const neighborhood = slugToNeighborhood[neighborhoodSlug] || neighborhoodSlug;
   const displayName =
     neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1);
