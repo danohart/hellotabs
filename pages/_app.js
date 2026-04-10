@@ -26,6 +26,11 @@ function AuthProvider({ children }) {
 function App({ Component, pageProps }) {
   const router = useRouter();
 
+  // Track initial page load
+  useEffect(() => {
+    trackPageView(router.asPath);
+  }, []);
+
   // Fire a page view on every client-side route change
   useEffect(() => {
     const handleRouteChange = (url) => trackPageView(url);
