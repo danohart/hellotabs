@@ -49,7 +49,7 @@ export default function Header({ title }) {
           <Link to='/' href='/'>
             Home
           </Link>
-          <Link to='/' href='/'>
+          <Link to='/' href='/' aria-label='Go to home page'>
             <Icon icon='HomeIcon' />
           </Link>
         </div>
