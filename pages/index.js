@@ -15,6 +15,7 @@ import {
 } from "../lib/location";
 import { trackEvent } from "../lib/analytics";
 import EmailSignupInline from "../components/EmailSignupInline";
+import PopularNeighborhoods from "../components/PopularNeighborhoods";
 
 function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
@@ -213,8 +214,6 @@ function Home() {
             </div>
           </div>
 
-          {/* <EmailSignupInline /> */}
-
           {/* ── Neighborhood nav ── */}
           <Navigation />
 
@@ -242,6 +241,7 @@ function Home() {
                 )}
               </div>
             )}
+            <PopularNeighborhoods />
           </main>
         </div>
       </div>

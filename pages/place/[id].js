@@ -54,14 +54,26 @@ export default function SinglePlace({ place, similarInNeighborhood, similarCityw
     return <Loader />;
   }
 
-  const metaDescription = place.neighborhood
-    ? `Happy hour specials at ${place.name} in ${place.neighborhood}, Chicago. View daily drink and food deals.`
-    : `Happy hour specials at ${place.name} in Chicago. View daily drink and food deals.`;
+  // Build a richer description with actual deals if available
+  const happyHourEvent = place.events?.find((e) => e.keywords === "happyHour");
+  const hasMenu = happyHourEvent?.menu && happyHourEvent.menu.length > 0;
+
+  let metaDescription;
+  if (hasMenu && place.neighborhood) {
+    const deals = happyHourEvent.menu.slice(0, 2).map(item =>
+      item.price ? `$${item.price} ${item.name.toLowerCase()}` : item.name
+    ).join(", ");
+    metaDescription = `${place.name} happy hour in ${place.neighborhood}, Chicago. ${deals} and more daily specials. View times, menu & deals.`;
+  } else if (place.neighborhood) {
+    metaDescription = `Happy hour specials at ${place.name} in ${place.neighborhood}, Chicago. Daily drink and food deals with times and menu.`;
+  } else {
+    metaDescription = `Happy hour specials at ${place.name} in Chicago. Daily drink and food deals with times and menu.`;
+  }
 
   return (
     <>
       <Meta
-        title={`${place.name} Happy Hour Specials | ${place.neighborhood || "Chicago"}`}
+        title={`${place.name} Happy Hour - ${place.neighborhood || "Chicago"} Deals & Times`}
         description={metaDescription}
       />
       <JsonLd place={place} />

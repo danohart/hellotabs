@@ -33,6 +33,7 @@ function generateLocalBusinessSchema(place) {
     },
   };
 
+  // Add geo coordinates
   if (place.location?.geo?.latitude && place.location?.geo?.longitude) {
     schema.geo = {
       "@type": "GeoCoordinates",
@@ -41,8 +42,32 @@ function generateLocalBusinessSchema(place) {
     };
   }
 
+  // Add URL
   if (place.urls?.homepage) {
     schema.url = place.urls.homepage;
+  }
+
+  // Add canonical URL
+  if (place.slug) {
+    schema.sameAs = [`https://www.hellochicago.co/place/${place.slug}`];
+  }
+
+  // Add price range if available from Google Places
+  if (place.googlePlaces?.priceLevel) {
+    schema.priceRange = place.googlePlaces.priceLevel;
+  }
+
+  // Add attributes from Google Places
+  if (place.googlePlaces?.attributes) {
+    const attrs = place.googlePlaces.attributes;
+    if (attrs.servesBeer !== undefined) schema.servesBeer = attrs.servesBeer;
+    if (attrs.servesWine !== undefined) schema.servesWine = attrs.servesWine;
+    if (attrs.servesCocktails !== undefined) schema.servesCocktails = attrs.servesCocktails;
+  }
+
+  // Add primary type
+  if (place.googlePlaces?.primaryType) {
+    schema.additionalType = `https://schema.org/${place.googlePlaces.primaryType}`;
   }
 
   return schema;
@@ -84,6 +109,8 @@ function generateEventSchema(place) {
             price: item.price,
             priceCurrency: "USD",
             availability: "https://schema.org/InStock",
+            priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+            category: item.category || "Drink",
           });
         }
       }
