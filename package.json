@@ -9,9 +9,18 @@
     "lint": "next lint",
     "seed": "node ./scripts/seed.js",
     "check-status": "node ./scripts/checkBusinessStatus.js",
-    "check-status:prod": "node ./scripts/checkBusinessStatus.js --prod"
+    "check-status:prod": "node ./scripts/checkBusinessStatus.js --prod",
+    "generate-email": "node ./scripts/generateEmailTemplate.js",
+    "cap:add:ios": "npx cap add ios",
+    "cap:sync": "npx cap sync",
+    "cap:sync:ios": "npx cap sync ios",
+    "cap:open:ios": "npx cap open ios",
+    "cap:build:ios": "npm run build && npx cap sync ios && npx cap open ios"
   },
   "dependencies": {
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/ios": "^8.3.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",

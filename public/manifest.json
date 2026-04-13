@@ -1,36 +1,62 @@
 {
     "short_name": "Hello Chicago",
-    "name": "Hello Chicago // Daily Happy Hour Specials in Chicago",
+    "name": "Hello Chicago - Chicago Happy Hour Deals",
+    "description": "Find the best happy hour deals in Chicago. Daily updated drink specials and food deals across all neighborhoods.",
     "icons": [
       {
         "src": "/app/hellochicago.png",
         "type": "image/png",
-        "sizes": "512x512"
+        "sizes": "512x512",
+        "purpose": "any"
+      },
+      {
+        "src": "/app/hellochicago.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "maskable"
       },
       {
         "src": "/app/hellochicago-192.png",
         "type": "image/png",
-        "sizes": "192x192"
+        "sizes": "192x192",
+        "purpose": "any"
+      },
+      {
+        "src": "/app/hellochicago-192.png",
+        "type": "image/png",
+        "sizes": "192x192",
+        "purpose": "maskable"
       }
     ],
     "start_url": "/?source=homescreen",
     "display": "standalone",
+    "display_override": ["window-controls-overlay", "standalone"],
+    "orientation": "portrait-primary",
     "scope": "/",
-    "description": "Daily Happy Hour Specials in Chicago",
     "background_color": "#EEF2FF",
-    "theme_color": "#EEF2FF",
-    "dark_mode_background_color": "#1e293b",
-    "dark_mode_theme_color": "#1e293b",
+    "theme_color": "#7c3aed",
+    "categories": ["lifestyle", "food", "entertainment"],
     "screenshots": [
       {
         "src": "/app/screenshot1.png",
         "type": "image/png",
-        "sizes": "416x905"
+        "sizes": "416x905",
+        "form_factor": "narrow"
       },
       {
         "src": "/app/screenshot2.png",
-        "type": "image/jpg",
-        "sizes": "416x905"
+        "type": "image/png",
+        "sizes": "416x905",
+        "form_factor": "narrow"
+      }
+    ],
+    "shortcuts": [
+      {
+        "name": "Today's Deals",
+        "short_name": "Deals",
+        "description": "View today's happy hour deals",
+        "url": "/?shortcut=deals",
+        "icons": [{ "src": "/app/hellochicago-192.png", "sizes": "192x192" }]
       }
     ]
   }
