@@ -6,11 +6,11 @@ export default function Meta(props) {
 
   const metaTitle = props.title
     ? props.title
-    : "Hello Chicago | Daily Happy Hour Specials in Chicago";
+    : "Best Happy Hour in Chicago Today - Daily Deals & Specials | Hello Chicago";
 
   const metaDescription = props.description
     ? props.description
-    : "Happy Hour in Chicago every day specials throughout the city.";
+    : "Find the best happy hour deals in Chicago today. Daily updated specials across Logan Square, Wicker Park, West Loop, Lakeview & more neighborhoods.";
 
   return (
     <Head>

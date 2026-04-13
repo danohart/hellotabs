@@ -183,8 +183,8 @@ export async function getServerSideProps({ params }) {
 
   return {
     props: {
-      title: `Best Happy Hours in ${displayName}, Chicago // Hello Chicago`,
-      description: `List of bars and restaurants in the ${displayName} neighborhood of Chicago that serve happy hour specials and deals.`,
+      title: `Best Happy Hour in ${displayName} Chicago Today - ${day} Deals`,
+      description: `Find the best happy hour deals in ${displayName}, Chicago today (${day}). Updated daily with drink specials, food deals, and times for ${places.length}+ bars and restaurants.`,
       neighborhood: neighborhood,
       places: JSON.parse(JSON.stringify(places)),
       day: day,
