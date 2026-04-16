@@ -144,7 +144,7 @@ function Home() {
             <p className='text-sm font-semibold text-purple-400 uppercase tracking-widest mb-3'>
               Updated daily. Always free.
             </p>
-            <p className='text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto'>
+            <p className='text-sm text-gray-800 dark:text-gray-400 max-w-sm mx-auto'>
               Drink specials, food deals, and happy hours across Chicago &mdash;
               all in one place.
             </p>
