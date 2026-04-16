@@ -7,7 +7,7 @@ import { getDay } from "../lib/date";
 import fetcher from "../lib/fetcher";
 import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
-import { hasActiveHappyHour, getPlaceDealStatus } from "../lib/time";
+import { hasActiveHappyHour } from "../lib/time";
 import {
   sortByDistance,
   calculateDistance,
@@ -249,38 +249,11 @@ function Home() {
   );
 }
 
-// Wraps <Place> and prepends a time-context badge above each card.
+// Simplified wrapper - badge removed as it was redundant with inline "Now" badge
 function PlaceWithBadge({ place, day }) {
-  const status = getPlaceDealStatus(place, day);
-
   return (
     <div className='w-full'>
-      <DealTimeBadge status={status} />
       <Place place={place} day={day} />
-    </div>
-  );
-}
-
-function DealTimeBadge({ status }) {
-  if (!status) return null;
-
-  const { type, label } = status;
-
-  const styles = {
-    active:
-      "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
-    upcoming:
-      "bg-yellow-50 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
-    soon: "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300",
-  };
-
-  return (
-    <div
-      className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full my-4 ${
-        styles[type] ?? styles.upcoming
-      }`}
-    >
-      {label}
     </div>
   );
 }
