@@ -249,7 +249,6 @@ function Home() {
   );
 }
 
-// Simplified wrapper - badge removed as it was redundant with inline "Now" badge
 function PlaceWithBadge({ place, day }) {
   return (
     <div className='w-full'>

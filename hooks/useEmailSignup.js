@@ -8,6 +8,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function useEmailSignup() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [message, setMessage] = useState("");
 
@@ -36,7 +37,7 @@ export function useEmailSignup() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), firstName: firstName.trim() }),
+        body: JSON.stringify({ email: email.trim(), firstName: firstName.trim(), neighborhood: neighborhood.trim() }),
       });
 
       const data = await res.json();
@@ -46,6 +47,7 @@ export function useEmailSignup() {
         setMessage("You're in! Check your inbox for deals.");
         setEmail("");
         setFirstName("");
+        setNeighborhood("");
         setSubmittedCookie(); // hide all forms/popup site-wide
       } else {
         setStatus("error");
@@ -62,7 +64,8 @@ export function useEmailSignup() {
     setMessage("");
     setEmail("");
     setFirstName("");
+    setNeighborhood("");
   }
 
-  return { email, setEmail, firstName, setFirstName, status, message, submit, reset };
+  return { email, setEmail, firstName, setFirstName, neighborhood, setNeighborhood, status, message, submit, reset };
 }

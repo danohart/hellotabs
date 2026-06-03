@@ -2,12 +2,15 @@
 // Shared markup used by EmailSignupInline, EmailSignupFooter, and EmailSignupPopup.
 // Accepts the hook return values as props so each placement owns its own state.
 import { trackEvent } from "../lib/analytics";
+import { POPULAR_NEIGHBORHOODS } from "../lib/neighborhoods";
 
 export default function SignupForm({
   email,
   setEmail,
   firstName,
   setFirstName,
+  neighborhood,
+  setNeighborhood,
   status,
   message,
   submit,
@@ -15,6 +18,7 @@ export default function SignupForm({
   subheadline,
   buttonText,
   showFirstName = false,
+  showNeighborhood = false,
   compact = false,
 }) {
   function handleSubmit(e) {
@@ -67,6 +71,19 @@ export default function SignupForm({
             disabled={status === "loading"}
             className="w-full rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-60"
           />
+        )}
+        {showNeighborhood && (
+          <select
+            value={neighborhood}
+            onChange={(e) => setNeighborhood(e.target.value)}
+            disabled={status === "loading"}
+            className="w-full rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-60"
+          >
+            <option value="">Your neighborhood (optional)</option>
+            {POPULAR_NEIGHBORHOODS.map((n) => (
+              <option key={n.slug} value={n.name}>{n.name}</option>
+            ))}
+          </select>
         )}
 
         <div className={`flex ${compact ? "flex-col gap-2" : "flex-row gap-2"}`}>

@@ -13,10 +13,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { email, firstName } = req.body;
+  const { email, firstName, neighborhood } = req.body;
 
   if (!email || !EMAIL_REGEX.test(email)) {
-    return res.status(400).json({ error: "Please enter a valid email address." });
+    return res
+      .status(400)
+      .json({ error: "Please enter a valid email address." });
   }
 
   const listId = process.env.MAILCHIMP_AUDIENCE_ID;
@@ -27,6 +29,7 @@ export default async function handler(req, res) {
       status: "subscribed",
       merge_fields: {
         ...(firstName ? { FNAME: firstName } : {}),
+        ...(neighborhood ? { NEIGHBOR: neighborhood } : {}),
       },
       tags: ["website-signup"],
     });
@@ -50,9 +53,13 @@ export default async function handler(req, res) {
           code: "already_subscribed",
         });
       }
-      if (title === "Invalid Resource" || detail.toLowerCase().includes("email")) {
+      if (
+        title === "Invalid Resource" ||
+        detail.toLowerCase().includes("email")
+      ) {
         return res.status(400).json({
-          error: "That email address doesn't look right. Please double-check it.",
+          error:
+            "That email address doesn't look right. Please double-check it.",
           code: "invalid_email",
         });
       }

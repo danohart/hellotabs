@@ -18,6 +18,7 @@ export default function EmailSignupInline() {
         subheadline="Join 500+ Chicagoans who never pay full price after 5pm."
         buttonText="Find My Happy Hour →"
         showFirstName={true}
+        showNeighborhood={true}
       />
     </section>
   );
