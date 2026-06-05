@@ -1,6 +1,7 @@
 // pages/_app.js
 import React, { useEffect, createContext, useContext } from "react";
 import { useRouter } from "next/router";
+import posthog from "posthog-js";
 import "../styles/styles.css";
 import Page from "../components/Page";
 import { useAuth } from "../hooks/useAuth";
@@ -25,6 +26,16 @@ function AuthProvider({ children }) {
 
 function App({ Component, pageProps }) {
   const router = useRouter();
+
+  useEffect(() => {
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN, {
+      api_host: "/ingest",
+      ui_host: "https://us.posthog.com",
+      defaults: "2026-01-30",
+      capture_exceptions: true,
+      debug: process.env.NODE_ENV === "development",
+    });
+  }, []);
 
   // Track initial page load
   useEffect(() => {

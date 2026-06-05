@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Place from "../../components/Place";
 import Loader from "../../components/Loader";
 import Header from "../../components/Header";
@@ -8,6 +9,7 @@ import { connectToDatabase } from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
 import { isValidObjectId } from "../../lib/slugify";
 import { findSimilarPlaces } from "../api/places/similar";
+import { trackEvent } from "../../lib/analytics";
 
 export async function getServerSideProps({ params, res }) {
   const { id } = params;
@@ -50,6 +52,17 @@ export async function getServerSideProps({ params, res }) {
 }
 
 export default function SinglePlace({ place, similarInNeighborhood, similarCitywide }) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (place) {
+      trackEvent("place_viewed", {
+        place_name: place.name,
+        neighborhood: place.neighborhood,
+        slug: place.slug,
+      });
+    }
+  }, []);
+
   if (!place) {
     return <Loader />;
   }

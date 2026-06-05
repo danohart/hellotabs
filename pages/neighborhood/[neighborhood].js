@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { trackEvent } from "../../lib/analytics";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import Place from "../../components/Place";
@@ -24,6 +25,15 @@ export default function Neighborhood({
   relatedNeighborhoods,
 }) {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    trackEvent("neighborhood_viewed", {
+      neighborhood,
+      place_count: initialPlaces.length,
+      day,
+    });
+  }, []);
 
   function showMorePlaces() {
     setAmountOfPlaces((amountOfPlaces += 10));

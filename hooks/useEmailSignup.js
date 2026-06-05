@@ -1,6 +1,7 @@
 // hooks/useEmailSignup.js
 // Shared form logic reused by the inline form, footer form, and popup.
 import { useState } from "react";
+import posthog from "posthog-js";
 import { setSubmittedCookie } from "./useSignupCookie";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,6 +44,11 @@ export function useEmailSignup() {
       const data = await res.json();
 
       if (res.ok) {
+        posthog.identify(email.trim(), {
+          email: email.trim(),
+          ...(firstName.trim() ? { first_name: firstName.trim() } : {}),
+          ...(neighborhood.trim() ? { neighborhood: neighborhood.trim() } : {}),
+        });
         setStatus("success");
         setMessage("You're in! Check your inbox for deals.");
         setEmail("");
