@@ -11,12 +11,13 @@ export default function EmailSignupFooter() {
   if (hasSigned) return null;
 
   return (
-    <div className="w-full border-t border-gray-200 dark:border-slate-700 pt-8 mb-6">
+    <div className='w-full border-t border-gray-200 dark:border-slate-700 pt-8 mb-6'>
       <SignupForm
         {...formProps}
         headline="Get Today's Best Happy Hour Deals — Free"
-        subheadline="Join 500+ Chicagoans who never pay full price after 5pm."
-        buttonText="Send Me the Deals"
+        subheadline='Join 500+ Chicagoans who never pay full price after 5pm.'
+        buttonText='Send Me the Deals'
+        showNeighborhood={true}
         compact={true}
       />
     </div>

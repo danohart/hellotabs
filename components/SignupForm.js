@@ -18,7 +18,7 @@ export default function SignupForm({
   subheadline,
   buttonText,
   showFirstName = false,
-  showNeighborhood = true,
+  showNeighborhood = false,
   compact = false,
 }) {
   function handleSubmit(e) {
