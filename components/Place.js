@@ -4,6 +4,7 @@ import Link from "next/link";
 import { formatTimeDisplay, getEventStatus } from "../lib/time";
 import { useState } from "react";
 import EditPlace from "./EditPlace";
+import ReportIssueModal from "./ReportIssueModal";
 import { useAuth } from "../hooks/useAuth";
 import { slugify } from "../lib/slugify";
 import { trackEvent } from "../lib/analytics";
@@ -11,6 +12,7 @@ import { trackEvent } from "../lib/analytics";
 export default function Place({ place, day, showDays = false, onUpdate }) {
   const { isAuthenticated, token } = useAuth();
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
 
   function getGoogleMapsUrl(placeInfo) {
     const placeAddress = placeInfo.location.streetAddress
@@ -124,8 +126,20 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
             Last updated {formatDateDisplay(lastUpdated)}
           </div>
         )}
+        <button
+          onClick={() => setShowReportModal(true)}
+          className='text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 underline mt-1'
+        >
+          Report an issue
+        </button>
       </div>
 
+      <ReportIssueModal
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+        placeId={place._id}
+        placeName={place.name}
+      />
       <EditPlace
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
