@@ -68,7 +68,7 @@ export default function Place({ place, day, showDays = false, onUpdate }) {
                 {place.name}
               </Link>
             </h2>
-            <div className='text-purple-500 dark:text-purple-400 flex flex-col md:flex-row my-2 display-flex flex-row items-center'>
+            <div className='text-xs text-purple-500 dark:text-purple-400 flex flex-col md:flex-row my-2 display-flex flex-row items-center gap-2'>
               <div className='px-4 py-1 rounded bg-purple-600 text-purple-100'>
                 <a
                   target='_blank'
