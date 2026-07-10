@@ -196,68 +196,85 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
     setEditData({ ...editData, events: newEvents });
   };
 
+  const compressImage = (file) =>
+    new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error("Could not load image"));
+      };
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const MAX = 1200;
+        let { width, height } = img;
+        if (width > MAX || height > MAX) {
+          if (width > height) {
+            height = Math.round((height * MAX) / width);
+            width = MAX;
+          } else {
+            width = Math.round((width * MAX) / height);
+            height = MAX;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", 0.8));
+      };
+      img.src = url;
+    });
+
   const handleImageUpload = async (file) => {
     if (!file) return;
     setExtracting(true);
     setExtractionError("");
 
-    const reader = new FileReader();
-    reader.onerror = () => {
-      setExtractionError("Failed to read the image file. Please try again.");
-      setExtracting(false);
-    };
-    reader.onload = async (e) => {
-      const dataUrl = e.target.result;
-      const [header, imageBase64] = dataUrl.split(",");
-      const mediaTypeMatch = header.match(/data:([^;]+)/);
-      const mediaType = mediaTypeMatch ? mediaTypeMatch[1] : "image/jpeg";
+    try {
+      const dataUrl = await compressImage(file);
+      const [, imageBase64] = dataUrl.split(",");
 
-      // Warn if file is very large
-      if (imageBase64.length > 7_000_000) {
-        setExtractionError("Image is too large. Please use a photo under 5MB.");
-        setExtracting(false);
-        return;
+      const response = await fetch("/api/places/extract-special", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, imageBase64, mediaType: "image/jpeg" }),
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        // Normalize times for display: "1600" → "16:00" (for <input type="time">)
+        const normalizedEvent = {
+          ...result.event,
+          eventSchedule: (result.event.eventSchedule || []).map((s) => ({
+            ...s,
+            startTime: s.startTime
+              ? `${s.startTime.slice(0, 2)}:${s.startTime.slice(2, 4)}`
+              : "",
+            endTime: s.endTime
+              ? `${s.endTime.slice(0, 2)}:${s.endTime.slice(2, 4)}`
+              : "",
+          })),
+          menu: result.event.menu || [],
+          lastUpdated: new Date().toISOString(),
+          lastUpdatedBy: "admin",
+        };
+        setExtractedEvent(normalizedEvent);
+        setExtractionStep("review");
+      } else {
+        setExtractionError(
+          result.error || "Extraction failed. Try a clearer photo or enter data manually."
+        );
       }
+    } catch (err) {
+      setExtractionError(
+        err.message === "Could not load image"
+          ? "Could not read the image file. Please try a different photo."
+          : "Network error during extraction. Please try again."
+      );
+    }
 
-      try {
-        const response = await fetch("/api/places/extract-special", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token, imageBase64, mediaType }),
-        });
-        const result = await response.json();
-
-        if (result.success) {
-          // Normalize times for display: "1600" → "16:00" (for <input type="time">)
-          const normalizedEvent = {
-            ...result.event,
-            eventSchedule: (result.event.eventSchedule || []).map((s) => ({
-              ...s,
-              startTime: s.startTime
-                ? `${s.startTime.slice(0, 2)}:${s.startTime.slice(2, 4)}`
-                : "",
-              endTime: s.endTime
-                ? `${s.endTime.slice(0, 2)}:${s.endTime.slice(2, 4)}`
-                : "",
-            })),
-            menu: result.event.menu || [],
-            lastUpdated: new Date().toISOString(),
-            lastUpdatedBy: "admin",
-          };
-          setExtractedEvent(normalizedEvent);
-          setExtractionStep("review");
-        } else {
-          setExtractionError(
-            result.error || "Extraction failed. Try a clearer photo or enter data manually."
-          );
-        }
-      } catch (err) {
-        setExtractionError("Network error during extraction. Please try again.");
-      }
-
-      setExtracting(false);
-    };
-    reader.readAsDataURL(file);
+    setExtracting(false);
   };
 
   const handleConfirmExtraction = () => {
