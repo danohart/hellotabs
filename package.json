@@ -18,6 +18,7 @@
     "cap:build:ios": "npm run build && npx cap sync ios && npx cap open ios"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
     "@capacitor/cli": "^8.3.0",
     "@capacitor/core": "^8.3.0",
     "@capacitor/ios": "^8.3.0",

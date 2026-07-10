@@ -37,6 +37,13 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
   const [refreshingGoogle, setRefreshingGoogle] = useState(false);
   const [googleData, setGoogleData] = useState(null);
 
+  // Image extraction sub-flow state
+  const [extractionMode, setExtractionMode] = useState(false);
+  const [extracting, setExtracting] = useState(false);
+  const [extractionError, setExtractionError] = useState("");
+  const [extractedEvent, setExtractedEvent] = useState(null);
+  const [extractionStep, setExtractionStep] = useState("upload"); // "upload" | "review"
+
   // Initialize form data when modal opens
   useEffect(() => {
     if (isOpen && place) {
@@ -187,6 +194,88 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
     }
 
     setEditData({ ...editData, events: newEvents });
+  };
+
+  const handleImageUpload = async (file) => {
+    if (!file) return;
+    setExtracting(true);
+    setExtractionError("");
+
+    const reader = new FileReader();
+    reader.onerror = () => {
+      setExtractionError("Failed to read the image file. Please try again.");
+      setExtracting(false);
+    };
+    reader.onload = async (e) => {
+      const dataUrl = e.target.result;
+      const [header, imageBase64] = dataUrl.split(",");
+      const mediaTypeMatch = header.match(/data:([^;]+)/);
+      const mediaType = mediaTypeMatch ? mediaTypeMatch[1] : "image/jpeg";
+
+      // Warn if file is very large
+      if (imageBase64.length > 7_000_000) {
+        setExtractionError("Image is too large. Please use a photo under 5MB.");
+        setExtracting(false);
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/places/extract-special", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, imageBase64, mediaType }),
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          // Normalize times for display: "1600" → "16:00" (for <input type="time">)
+          const normalizedEvent = {
+            ...result.event,
+            eventSchedule: (result.event.eventSchedule || []).map((s) => ({
+              ...s,
+              startTime: s.startTime
+                ? `${s.startTime.slice(0, 2)}:${s.startTime.slice(2, 4)}`
+                : "",
+              endTime: s.endTime
+                ? `${s.endTime.slice(0, 2)}:${s.endTime.slice(2, 4)}`
+                : "",
+            })),
+            menu: result.event.menu || [],
+            lastUpdated: new Date().toISOString(),
+            lastUpdatedBy: "admin",
+          };
+          setExtractedEvent(normalizedEvent);
+          setExtractionStep("review");
+        } else {
+          setExtractionError(
+            result.error || "Extraction failed. Try a clearer photo or enter data manually."
+          );
+        }
+      } catch (err) {
+        setExtractionError("Network error during extraction. Please try again.");
+      }
+
+      setExtracting(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleConfirmExtraction = () => {
+    setEditData({
+      ...editData,
+      events: [...editData.events, extractedEvent],
+    });
+    setExtractionMode(false);
+    setExtractionStep("upload");
+    setExtractedEvent(null);
+    setExtractionError("");
+  };
+
+  const handleCancelExtraction = () => {
+    setExtractionMode(false);
+    setExtractionStep("upload");
+    setExtractedEvent(null);
+    setExtractionError("");
   };
 
   const handleSubmit = async (e) => {
@@ -344,14 +433,236 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
           <div className='mb-6'>
             <div className='flex justify-between items-center mb-4'>
               <h4 className='font-semibold'>Events</h4>
-              <button
-                type='button'
-                className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center gap-2'
-                onClick={addNewEvent}
-              >
-                <span>+</span> Add New Event
-              </button>
+              <div className='flex gap-2'>
+                <button
+                  type='button'
+                  className='bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center gap-2'
+                  onClick={() => setExtractionMode(true)}
+                >
+                  Import from Image
+                </button>
+                <button
+                  type='button'
+                  className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center gap-2'
+                  onClick={addNewEvent}
+                >
+                  <span>+</span> Add New Event
+                </button>
+              </div>
             </div>
+
+            {/* Image extraction sub-flow */}
+            {extractionMode && (
+              <div className='mb-6 p-4 border-2 border-green-400 rounded bg-green-50 dark:bg-slate-700'>
+                <div className='flex justify-between items-center mb-3'>
+                  <h5 className='font-semibold text-green-800 dark:text-green-300'>
+                    {extractionStep === "upload"
+                      ? "Upload Happy Hour Image"
+                      : "Review Extracted Data"}
+                  </h5>
+                  <button
+                    type='button'
+                    onClick={handleCancelExtraction}
+                    className='text-gray-500 hover:text-gray-700 text-xl leading-none'
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {extractionStep === "upload" && (
+                  <div>
+                    <p className='text-sm text-gray-600 dark:text-gray-300 mb-3'>
+                      Upload a photo of a chalkboard, menu card, or printed
+                      happy hour special. AI will extract the deal details
+                      automatically.
+                    </p>
+                    <input
+                      type='file'
+                      accept='image/*'
+                      disabled={extracting}
+                      className='block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600 disabled:opacity-50'
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleImageUpload(file);
+                      }}
+                    />
+                    {extracting && (
+                      <p className='mt-3 text-sm text-blue-600 dark:text-blue-400'>
+                        Analyzing image... this takes a few seconds.
+                      </p>
+                    )}
+                    {extractionError && (
+                      <div className='mt-3 p-3 bg-red-50 dark:bg-red-900 rounded text-red-600 dark:text-red-300 text-sm'>
+                        {extractionError}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {extractionStep === "review" && extractedEvent && (
+                  <div>
+                    <p className='text-sm text-gray-600 dark:text-gray-300 mb-4'>
+                      Review the extracted data below. You can edit any field
+                      before adding it to the listing.
+                    </p>
+
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
+                      <div>
+                        <label className='block mb-1 text-sm font-medium'>
+                          Event Name
+                        </label>
+                        <input
+                          className='text-black w-full p-2 border rounded dark:text-gray-200'
+                          type='text'
+                          value={extractedEvent.name || ""}
+                          onChange={(e) =>
+                            setExtractedEvent({
+                              ...extractedEvent,
+                              name: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <label className='block mb-1 text-sm font-medium'>
+                          Keywords
+                        </label>
+                        <input
+                          className='text-black w-full p-2 border rounded dark:text-gray-200'
+                          type='text'
+                          value={extractedEvent.keywords || ""}
+                          onChange={(e) =>
+                            setExtractedEvent({
+                              ...extractedEvent,
+                              keywords: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className='mb-4'>
+                      <label className='block mb-1 text-sm font-medium'>
+                        Description
+                      </label>
+                      <textarea
+                        className='text-black w-full p-2 border rounded dark:text-gray-200'
+                        rows='2'
+                        value={extractedEvent.description || ""}
+                        onChange={(e) =>
+                          setExtractedEvent({
+                            ...extractedEvent,
+                            description: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    {(extractedEvent.eventSchedule || []).map((schedule, si) => (
+                      <div
+                        key={si}
+                        className='mb-3 p-3 bg-white dark:bg-slate-600 rounded border'
+                      >
+                        <div className='text-xs font-medium text-gray-500 mb-2'>
+                          Schedule {si + 1}
+                        </div>
+                        <div className='text-sm mb-2'>
+                          <span className='font-medium'>Days: </span>
+                          {(schedule.byDay || []).join(", ") || "None extracted"}
+                        </div>
+                        <div className='grid grid-cols-2 gap-2'>
+                          <div>
+                            <label className='block text-xs font-medium mb-1'>
+                              Start
+                            </label>
+                            <input
+                              type='time'
+                              className='text-black w-full p-1 border rounded text-sm dark:text-gray-200'
+                              value={schedule.startTime || ""}
+                              onChange={(e) => {
+                                const updated = [
+                                  ...(extractedEvent.eventSchedule || []),
+                                ];
+                                updated[si] = {
+                                  ...updated[si],
+                                  startTime: e.target.value,
+                                };
+                                setExtractedEvent({
+                                  ...extractedEvent,
+                                  eventSchedule: updated,
+                                });
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label className='block text-xs font-medium mb-1'>
+                              End
+                            </label>
+                            <input
+                              type='time'
+                              className='text-black w-full p-1 border rounded text-sm dark:text-gray-200'
+                              value={schedule.endTime || ""}
+                              onChange={(e) => {
+                                const updated = [
+                                  ...(extractedEvent.eventSchedule || []),
+                                ];
+                                updated[si] = {
+                                  ...updated[si],
+                                  endTime: e.target.value,
+                                };
+                                setExtractedEvent({
+                                  ...extractedEvent,
+                                  eventSchedule: updated,
+                                });
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                    {(extractedEvent.menu || []).length > 0 && (
+                      <div className='mb-4'>
+                        <div className='text-sm font-medium mb-2'>
+                          Menu Items ({extractedEvent.menu.length})
+                        </div>
+                        {extractedEvent.menu.map((item, ii) => (
+                          <div
+                            key={ii}
+                            className='flex gap-2 mb-1 text-sm items-center'
+                          >
+                            <span className='flex-1 truncate'>{item.name}</span>
+                            <span className='text-gray-500 text-xs'>
+                              {item.category}
+                            </span>
+                            <span className='text-gray-700 dark:text-gray-300 w-10 text-right'>
+                              {item.price != null ? `$${item.price}` : "—"}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className='flex gap-2 mt-4'>
+                      <button
+                        type='button'
+                        onClick={handleCancelExtraction}
+                        className='flex-1 bg-gray-400 text-white py-2 rounded hover:bg-gray-500'
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type='button'
+                        onClick={handleConfirmExtraction}
+                        className='flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 font-semibold'
+                      >
+                        Add This Event to Listing
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {editData.events.map((event, eventIndex) => (
               <div
