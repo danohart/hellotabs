@@ -120,17 +120,22 @@ function Home() {
       distance: calculateDistance(userLocation, place.location.geo),
     }));
     places = sortByDistance(places);
-  } else {
-    // No distance data yet — rather than an arbitrary alphabetical dump of
-    // every place in the city, only show curated featured picks until the
-    // user shares location and we can actually sort by nearby.
+  } else if (!activeNowOnly) {
+    // No distance data yet and not asking for what's active right now —
+    // rather than an arbitrary alphabetical dump of every place in the
+    // city, only show curated featured picks until the user shares
+    // location and we can actually sort by nearby.
     places = places.filter((place) => place.featured);
   }
+  // else: no location, but "Active now" is on — that's an explicit ask for
+  // what's happening right now, so show every currently-active place below,
+  // not just featured ones.
 
   if (activeNowOnly) {
     places = places.filter((place) => hasActiveHappyHour(place, day));
   }
 
+  const showingActiveOnly = !userLocation && activeNowOnly;
   const featuredPlace = places.find((place) => place.featured) || null;
   const nearbyPlaces = featuredPlace
     ? places.filter((place) => place !== featuredPlace)
@@ -192,10 +197,10 @@ function Home() {
           <main className='mt-4'>
             {visiblePlaces.length === 0 && !featuredPlace ? (
               <p className='text-center text-gray-500 dark:text-gray-400 mt-10 text-sm'>
-                {!userLocation
-                  ? "No featured deals to show yet — enable location above to browse every happy hour near you."
-                  : activeNowOnly
-                    ? 'Nothing happening right now — try turning off "Active now" to see today’s full lineup.'
+                {activeNowOnly
+                  ? 'Nothing happening right now — try turning off "Active now" to see today’s full lineup.'
+                  : !userLocation
+                    ? "No featured deals to show yet — enable location above to browse every happy hour near you."
                     : "Nothing listed yet today — check back after noon, or browse deals by neighborhood above."}
               </p>
             ) : (
@@ -203,7 +208,11 @@ function Home() {
                 {featuredPlace && (
                   <>
                     <h2 className='text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2'>
-                      {userLocation ? "Featured near you" : "Featured places"}
+                      {showingActiveOnly
+                        ? "Happening now"
+                        : userLocation
+                          ? "Featured near you"
+                          : "Featured places"}
                     </h2>
                     <PlaceCard place={featuredPlace} variant='featured' />
                   </>
@@ -211,7 +220,11 @@ function Home() {
 
                 {visiblePlaces.length > 0 && (
                   <h2 className='text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2 mt-3'>
-                    {userLocation ? "More nearby" : "More featured places"}
+                    {showingActiveOnly
+                      ? "More happening now"
+                      : userLocation
+                        ? "More nearby"
+                        : "More featured places"}
                   </h2>
                 )}
                 {visiblePlaces.map((place) => (
