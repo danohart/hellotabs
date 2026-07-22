@@ -121,9 +121,10 @@ function Home() {
     }));
     places = sortByDistance(places);
   } else {
-    // No distance data yet — fall back to a stable, browsable order rather
-    // than blocking the list on location permission.
-    places = [...places].sort((a, b) => a.name.localeCompare(b.name));
+    // No distance data yet — rather than an arbitrary alphabetical dump of
+    // every place in the city, only show curated featured picks until the
+    // user shares location and we can actually sort by nearby.
+    places = places.filter((place) => place.featured);
   }
 
   if (activeNowOnly) {
@@ -191,15 +192,18 @@ function Home() {
           <main className='mt-4'>
             {visiblePlaces.length === 0 && !featuredPlace ? (
               <p className='text-center text-gray-500 dark:text-gray-400 mt-10 text-sm'>
-                Nothing listed yet today — check back after noon, or browse
-                deals by neighborhood above.
+                {!userLocation
+                  ? "No featured deals to show yet — enable location above to browse every happy hour near you."
+                  : activeNowOnly
+                    ? 'Nothing happening right now — try turning off "Active now" to see today’s full lineup.'
+                    : "Nothing listed yet today — check back after noon, or browse deals by neighborhood above."}
               </p>
             ) : (
               <>
                 {featuredPlace && (
                   <>
                     <h2 className='text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2'>
-                      Featured near you
+                      {userLocation ? "Featured near you" : "Featured places"}
                     </h2>
                     <PlaceCard place={featuredPlace} variant='featured' />
                   </>
@@ -207,7 +211,7 @@ function Home() {
 
                 {visiblePlaces.length > 0 && (
                   <h2 className='text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2 mt-3'>
-                    More nearby
+                    {userLocation ? "More nearby" : "More featured places"}
                   </h2>
                 )}
                 {visiblePlaces.map((place) => (

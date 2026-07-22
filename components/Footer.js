@@ -23,7 +23,7 @@ export default function Footer() {
     return result;
   };
   return (
-    <footer className='text-sm w-3/4 mx-auto text-center py-12'>
+    <footer className='text-sm w-3/4 mx-auto text-center py-12 mb-12'>
       <EmailSignupFooter />
       <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>
         <img
