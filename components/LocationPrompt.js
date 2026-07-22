@@ -2,9 +2,12 @@ import Icon from "./Icon";
 
 export default function LocationPrompt({ loading, onEnable }) {
   return (
-    <div className='flex items-center justify-between gap-3 bg-purple-50 dark:bg-slate-700 border border-purple-200 dark:border-slate-600 rounded-lg px-4 py-3 my-3 text-sm'>
+    <div className='flex items-center justify-between gap-3 bg-purple-50 dark:bg-slate-700 border border-purple-800 dark:border-slate-800 rounded-lg px-4 py-3 my-3 text-sm'>
       <div className='flex items-center gap-2 text-purple-800 dark:text-purple-200'>
-        <Icon icon='LocationDotIcon' className='h-4 w-4 text-current shrink-0' />
+        <Icon
+          icon='LocationDotIcon'
+          className='h-4 w-4 text-current shrink-0'
+        />
         <span>Enable location to sort deals by distance.</span>
       </div>
       <button
