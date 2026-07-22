@@ -11,12 +11,12 @@ export default function EmailSignupInline() {
   if (hasSigned) return null;
 
   return (
-    <section className="w-full bg-indigo-50 dark:bg-slate-800 border border-indigo-100 dark:border-slate-700 rounded-2xl px-6 py-8 my-8">
+    <section className='w-full bg-indigo-50 dark:bg-slate-800 border border-indigo-100 dark:border-slate-700 rounded-2xl px-6 py-8'>
       <SignupForm
         {...formProps}
         headline="Chicago's best drink specials. In your inbox. Free."
-        subheadline="Join 500+ Chicagoans who never pay full price after 5pm."
-        buttonText="Find My Happy Hour →"
+        subheadline='Join 500+ Chicagoans who never pay full price after 5pm.'
+        buttonText='Sign Up →'
         showFirstName={true}
         showNeighborhood={true}
       />

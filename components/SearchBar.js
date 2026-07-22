@@ -1,20 +1,21 @@
 import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Icon from "./Icon";
 import { trackEvent } from "../lib/analytics";
 
-export default function SearchBar(props) {
+export default function SearchBar({ autoFocus = true, ...props }) {
   const router = useRouter();
   let [searchInput, setSearchInput] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Focus the input when component mounts
-    if (inputRef.current) {
+    // Focus the input when component mounts (skipped when the search bar is
+    // permanently embedded in a page, e.g. the home hero, where popping the
+    // keyboard open on every load would be unwanted).
+    if (autoFocus && inputRef.current) {
       inputRef.current.focus();
     }
-  }, []);
+  }, [autoFocus]);
 
   function updateSearchInput(query) {
     setSearchInput(query.target.value);
@@ -30,23 +31,18 @@ export default function SearchBar(props) {
   }
 
   return (
-    <div className='w-3/4 mx-auto py-4 flex items-center'>
-      <div className='w-4'>
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className='h-5 w-5 text-gray-500'
+    <div className='w-full mx-auto py-2'>
+      <form onSubmit={submitSearchQuery} className='relative'>
+        <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4'>
+          <Icon icon='SearchIcon' className='h-4 w-4 text-gray-400' />
+        </div>
+        <input
+          ref={inputRef}
+          className='w-full bg-white dark:bg-slate-700 rounded-full py-3 pl-11 pr-4 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400'
+          placeholder={props.placeholder || "Search for a particular place"}
+          onChange={updateSearchInput}
         />
-      </div>
-      <div className='w-full pl-2'>
-        <form onSubmit={submitSearchQuery}>
-          <input
-            ref={inputRef}
-            className='w-full bg-transparent border-b border-purple-500 hover:bg-purple-200 dark:hover:bg-purple-900 focus:bg-white dark:focus:bg-purple-400 dark:focus:text-slate-800 p-2'
-            placeholder={props.placeholder || "Search for a particular place"}
-            onChange={updateSearchInput}
-          />
-        </form>
-      </div>
+      </form>
     </div>
   );
 }

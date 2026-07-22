@@ -4,13 +4,19 @@ import { useState } from "react";
 import Icon from "./Icon";
 import ThemeToggle from "./ThemeToggle";
 import SearchBar from "./SearchBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-export default function Header({ title }) {
+export default function Header({ title, minimal = false }) {
   const router = useRouter();
   const isHome = router.pathname === "/";
   const [showSearch, setShowSearch] = useState(false);
+
+  // Used on pages (like the redesigned home feed) that render their own
+  // branding + navigation already covered by the bottom tab bar — only the
+  // theme toggle still needs a home. Returned bare (no wrapping row/margin)
+  // so the caller can place it inline with its own heading.
+  if (minimal) {
+    return <ThemeToggle />;
+  }
 
   return (
     <>
@@ -20,12 +26,15 @@ export default function Header({ title }) {
         }`}
       >
         <div
-          className='font-extrabold uppercase flex items-center cursor-pointer text-sm'
+          className='font-extrabold uppercase flex items-center gap-2 cursor-pointer text-sm'
           onClick={() => router.back()}
         >
           {!isHome && (
             <>
-              <Icon icon='ArrowLeftIcon' />
+              <Icon
+                icon='ArrowLeftIcon'
+                className='h-5 w-5 text-purple-800 dark:text-purple-400'
+              />
               Back
             </>
           )}
@@ -37,12 +46,12 @@ export default function Header({ title }) {
             className='flex items-center'
             aria-label='Toggle search'
           >
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
+            <Icon
+              icon='SearchIcon'
               className={`h-5 w-5 transition-colors ${
                 showSearch
-                  ? "h-5 w-5 mr-2 text-purple-500 dark:text-purple-800"
-                  : "h-5 w-5 mr-2 text-purple-800 dark:text-purple-400"
+                  ? "text-purple-500 dark:text-purple-800"
+                  : "text-purple-800 dark:text-purple-400"
               }`}
             />
           </button>
@@ -50,7 +59,10 @@ export default function Header({ title }) {
             Home
           </Link>
           <Link to='/' href='/' aria-label='Go to home page'>
-            <Icon icon='HomeIcon' />
+            <Icon
+              icon='HomeIcon'
+              className='h-5 w-5 text-purple-800 dark:text-purple-400'
+            />
           </Link>
         </div>
       </div>

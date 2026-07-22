@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import useSWR from "swr";
 import Meta from "../components/Meta";
 import Header from "../components/Header";
-import Place from "../components/Place";
+import Icon from "../components/Icon";
+import PlaceCard from "../components/PlaceCard";
+import BottomNav from "../components/BottomNav";
+import HomeFilters from "../components/HomeFilters";
+import LocationPrompt from "../components/LocationPrompt";
+import SearchBar from "../components/SearchBar";
 import { getDay } from "../lib/date";
 import fetcher from "../lib/fetcher";
-import Navigation from "../components/Navigation";
 import Loader from "../components/Loader";
 import { hasActiveHappyHour } from "../lib/time";
 import {
@@ -14,14 +18,15 @@ import {
   getUserLocation,
 } from "../lib/location";
 import { trackEvent } from "../lib/analytics";
-import EmailSignupInline from "../components/EmailSignupInline";
 import PopularNeighborhoods from "../components/PopularNeighborhoods";
+import { useScrollRestoration } from "../hooks/useScrollRestoration";
 
 function Home() {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const [userLocation, setUserLocation] = useState(null);
   const [locationLoading, setLocationLoading] = useState(false);
-  const [dealTypeFilter, setDealTypeFilter] = useState("all");
+  const [locationPermission, setLocationPermission] = useState("unknown");
+  const [activeNowOnly, setActiveNowOnly] = useState(false);
   const day = getDay();
 
   function showMorePlaces() {
@@ -29,18 +34,16 @@ function Home() {
     setAmountOfPlaces(amountOfPlaces + 10);
   }
 
-  function handleDealFilterChange(filter) {
-    trackEvent("deal_filter_change", { filter });
-    setDealTypeFilter(filter);
-  }
-
   // On load, silently check if permission was already granted and use it —
-  // but never prompt the browser dialog automatically.
+  // but never prompt the browser dialog automatically. If the user has
+  // already denied, we remember that too so the inline prompt doesn't nag.
   useEffect(() => {
     if (!navigator.permissions) return;
+    let permissionStatus;
     navigator.permissions.query({ name: "geolocation" }).then((status) => {
+      permissionStatus = status;
+      setLocationPermission(status.state);
       if (status.state === "granted") {
-        // Permission already exists — fetch silently, no dialog fires.
         getUserLocation().then((loc) => {
           if (loc) {
             setUserLocation(loc);
@@ -48,8 +51,11 @@ function Home() {
           }
         });
       }
-      // "prompt" or "denied" — do nothing; wait for explicit button click.
+      status.onchange = () => setLocationPermission(status.state);
     });
+    return () => {
+      if (permissionStatus) permissionStatus.onchange = null;
+    };
   }, []);
 
   async function handleRequestLocation() {
@@ -59,11 +65,14 @@ function Home() {
       const loc = await getUserLocation();
       if (loc) {
         setUserLocation(loc);
+        setLocationPermission("granted");
         trackEvent("location_granted");
       } else {
+        setLocationPermission("denied");
         trackEvent("location_denied");
       }
     } catch {
+      setLocationPermission("denied");
       trackEvent("location_denied");
     } finally {
       setLocationLoading(false);
@@ -71,6 +80,8 @@ function Home() {
   }
 
   const { data, error } = useSWR("/api/places/" + day, fetcher);
+
+  useScrollRestoration("scroll:home", Boolean(data?.success));
 
   useEffect(() => {
     if (data?.success) {
@@ -103,133 +114,107 @@ function Home() {
   let places = data.places;
 
   if (userLocation) {
+    // Distance data available — nearby places float to the top.
     places = places.map((place) => ({
       ...place,
       distance: calculateDistance(userLocation, place.location.geo),
     }));
     places = sortByDistance(places);
+  } else {
+    // No distance data yet — fall back to a stable, browsable order rather
+    // than blocking the list on location permission.
+    places = [...places].sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  if (dealTypeFilter !== "all") {
-    places = places.filter((place) => {
-      return place.events.some((event) => {
-        if (event.keywords !== "happyHour") return false;
-        return event.menu.some((item) => {
-          if (dealTypeFilter === "drinks") return item.category === "Drink";
-          if (dealTypeFilter === "food") return item.category === "Food";
-          return true;
-        });
-      });
-    });
+  if (activeNowOnly) {
+    places = places.filter((place) => hasActiveHappyHour(place, day));
   }
 
-  // Active deals first, then upcoming, then the rest.
-  const activeNow = places.filter((p) => hasActiveHappyHour(p, day));
-  const notActive = places.filter((p) => !hasActiveHappyHour(p, day));
-  places = [...activeNow, ...notActive];
+  const featuredPlace = places.find((place) => place.featured) || null;
+  const nearbyPlaces = featuredPlace
+    ? places.filter((place) => place !== featuredPlace)
+    : places;
+  const visiblePlaces = nearbyPlaces.slice(0, amountOfPlaces);
 
-  const bars = places.slice(0, amountOfPlaces);
+  const showLocationPrompt = !userLocation && locationPermission !== "denied";
 
   return (
     <div>
       <Meta />
-      <Header />
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center pb-24'>
         <div className='flex flex-col md:w-1/2 w-full sm:px-1 lg:px-4'>
           {/* ── Hero ── */}
-          <div className='mt-8 mb-6 text-center'>
-            <h1 className='text-3xl md:text-4xl font-extrabold tracking-tight mb-2'>
-              Chicago&rsquo;s Best Happy Hour Deals
-            </h1>
-            <p className='text-sm font-semibold text-purple-400 uppercase tracking-widest mb-3'>
-              Updated daily. Always free.
+          <div className='mt-4 mb-6'>
+            <div className='flex items-center gap-2 text-purple-600 dark:text-purple-400 font-bold text-sm mb-2'>
+              <Icon icon='LocationDotIcon' className='h-4 w-4 text-current' />
+              Hello Chicago
+            </div>
+            <div className='flex items-start justify-between gap-3'>
+              <h1 className='text-3xl md:text-4xl font-extrabold tracking-tight mb-1'>
+                Chicago&rsquo;s Best Happy Hour Deals
+              </h1>
+              <Header minimal />
+            </div>
+            <p className='text-sm font-semibold text-purple-500 uppercase tracking-widest mb-3'>
+              Updated daily
             </p>
-            <p className='text-sm text-gray-800 dark:text-gray-400 max-w-sm mx-auto'>
+            <p className='text-sm text-gray-800 dark:text-gray-400 max-w-sm'>
               Drink specials, food deals, and happy hours across Chicago &mdash;
               all in one place.
             </p>
           </div>
 
-          {/* ── Location CTA ── */}
-          {!userLocation && (
-            <div className='flex justify-center my-4'>
-              <button
-                onClick={handleRequestLocation}
-                disabled={locationLoading}
-                className='flex items-center gap-2 bg-purple-500 hover:bg-purple-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold px-5 py-3 rounded-full transition-colors text-lg'
-              >
-                {locationLoading ? (
-                  <>
-                    <span className='animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full' />
-                    Finding your location…
-                  </>
-                ) : (
-                  <>Show deals near me</>
-                )}
-              </button>
-            </div>
+          <SearchBar
+            autoFocus={false}
+            placeholder='Search bars, deals, neighborhoods'
+          />
+
+          <HomeFilters
+            activeNowOnly={activeNowOnly}
+            onToggleActiveNow={setActiveNowOnly}
+          />
+
+          {showLocationPrompt && (
+            <LocationPrompt
+              loading={locationLoading}
+              onEnable={handleRequestLocation}
+            />
           )}
           {userLocation && (
-            <p className='text-center text-xs text-green-500 dark:text-green-400 my-2'>
-              📍 Sorted by distance from you
+            <p className='flex items-center justify-center gap-1.5 text-center text-xs text-green-600 dark:text-green-400 my-2'>
+              <Icon icon='LocationDotIcon' className='h-3 w-3 text-current' />
+              Sorted by distance from you
             </p>
           )}
 
-          {/* ── Deal type filter ── */}
-          <div className='w-full mx-auto py-4'>
-            <h3 className='text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3'>
-              What kind of deals?
-            </h3>
-            <div className='flex justify-center gap-2 text-sm flex-wrap'>
-              <button
-                onClick={() => handleDealFilterChange("all")}
-                className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                  dealTypeFilter === "all"
-                    ? "bg-purple-500 text-white dark:bg-purple-800"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-slate-600"
-                }`}
-              >
-                All Deals
-              </button>
-              <button
-                onClick={() => handleDealFilterChange("drinks")}
-                className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                  dealTypeFilter === "drinks"
-                    ? "bg-purple-500 text-white dark:bg-purple-800"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-slate-600"
-                }`}
-              >
-                Drink Specials
-              </button>
-              <button
-                onClick={() => handleDealFilterChange("food")}
-                className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                  dealTypeFilter === "food"
-                    ? "bg-purple-500 text-white dark:bg-purple-800"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-slate-600"
-                }`}
-              >
-                Food Specials
-              </button>
-            </div>
-          </div>
-
-          {/* ── Neighborhood nav ── */}
-          <Navigation />
-
           {/* ── Deal list ── */}
-          <main>
-            {bars.length === 0 ? (
+          <main className='mt-4'>
+            {visiblePlaces.length === 0 && !featuredPlace ? (
               <p className='text-center text-gray-500 dark:text-gray-400 mt-10 text-sm'>
                 Nothing listed yet today — check back after noon, or browse
                 deals by neighborhood above.
               </p>
             ) : (
-              <div className='flex flex-wrap w-full'>
-                {bars.map((bar) => (
-                  <PlaceWithBadge place={bar} day={day} key={bar._id} />
+              <>
+                {featuredPlace && (
+                  <>
+                    <h2 className='text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2'>
+                      Featured near you
+                    </h2>
+                    <PlaceCard place={featuredPlace} variant='featured' />
+                  </>
+                )}
+
+                {visiblePlaces.length > 0 && (
+                  <h2 className='text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2 mt-3'>
+                    More nearby
+                  </h2>
+                )}
+                {visiblePlaces.map((place) => (
+                  <PlaceCard place={place} key={place._id} />
                 ))}
-                {places.length > amountOfPlaces && (
+
+                {nearbyPlaces.length > amountOfPlaces && (
                   <div className='flex justify-center w-full mt-4'>
                     <button
                       className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
@@ -239,20 +224,13 @@ function Home() {
                     </button>
                   </div>
                 )}
-              </div>
+              </>
             )}
             <PopularNeighborhoods />
           </main>
         </div>
       </div>
-    </div>
-  );
-}
-
-function PlaceWithBadge({ place, day }) {
-  return (
-    <div className='w-full'>
-      <Place place={place} day={day} />
+      <BottomNav />
     </div>
   );
 }

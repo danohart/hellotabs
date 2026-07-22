@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import Loader from "../../components/Loader";
-import Place from "../../components/Place";
+import PlaceCard from "../../components/PlaceCard";
 import fetcher from "../../lib/fetcher";
 
 const PRICE_LEVELS = [
@@ -171,7 +171,7 @@ export default function Search() {
             </p>
           ) : (
             visiblePlaces.map((place) => (
-              <Place place={place} day={"allDays"} key={place._id} />
+              <PlaceCard place={place} key={place._id} />
             ))
           )}
         </div>

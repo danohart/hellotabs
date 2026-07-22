@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import Place from "../../components/Place";
+import PlaceDetail from "../../components/PlaceDetail";
 import Loader from "../../components/Loader";
-import Header from "../../components/Header";
 import Meta from "../../components/Meta";
 import JsonLd from "../../components/JsonLd";
 import SimilarPlaces from "../../components/SimilarPlaces";
@@ -90,10 +89,9 @@ export default function SinglePlace({ place, similarInNeighborhood, similarCityw
         description={metaDescription}
       />
       <JsonLd place={place} />
-      <Header title='Everyday Specials' />
-      <div className='flex flex-col items-center'>
-        <div className='md:w-1/2'>
-          <Place place={place} day='allDays' showDays={true} />
+      <div className='flex flex-col items-center pb-24'>
+        <div className='w-full md:w-1/2 px-4'>
+          <PlaceDetail place={place} />
 
           <SimilarPlaces
             title={`Similar in ${place.neighborhood}`}

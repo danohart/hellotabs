@@ -52,6 +52,31 @@ a {
   text-decoration: none;
 }
 
+/* Visible, on-brand scrollbar for horizontally-scrollable rows (e.g. the
+   home page's filter pills) so it reads as "scroll me" rather than
+   disappearing like a native mobile scrollbar. */
+.scrollbar-purple {
+  scrollbar-width: thin;
+  scrollbar-color: #a855f7 #e5e7eb;
+}
+.scrollbar-purple::-webkit-scrollbar {
+  height: 5px;
+}
+.scrollbar-purple::-webkit-scrollbar-track {
+  background: #e5e7eb;
+  border-radius: 9999px;
+}
+.scrollbar-purple::-webkit-scrollbar-thumb {
+  background: #a855f7;
+  border-radius: 9999px;
+}
+.dark .scrollbar-purple {
+  scrollbar-color: #a855f7 #334155;
+}
+.dark .scrollbar-purple::-webkit-scrollbar-track {
+  background: #334155;
+}
+
 * {
   box-sizing: border-box;
 }

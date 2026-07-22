@@ -2,11 +2,13 @@ import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Header from "../../components/Header";
-import Place from "../../components/Place";
+import PlaceCard from "../../components/PlaceCard";
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import fetcher from "../../lib/fetcher";
 import SearchBar from "../../components/SearchBar";
+import BottomNav from "../../components/BottomNav";
+import { useScrollRestoration } from "../../hooks/useScrollRestoration";
 
 const PRICE_LEVELS = [
   { value: "PRICE_LEVEL_INEXPENSIVE", label: "$" },
@@ -57,6 +59,8 @@ export default function SearchIndex() {
     fetcher
   );
 
+  useScrollRestoration(`scroll:search:${searchQuery || ""}`, Boolean(data));
+
   function showMorePlaces() {
     setAmountOfPlaces((prev) => prev + 10);
   }
@@ -67,6 +71,23 @@ export default function SearchIndex() {
       [group]: toggleValue(prev[group], value),
     }));
     setAmountOfPlaces(10);
+  }
+
+  // Reached directly (e.g. via the bottom nav's Search tab) with no query
+  // yet — prompt for one instead of spinning on a fetch that never starts.
+  if (!searchQuery) {
+    return (
+      <div className='m-2 pb-24'>
+        <Meta title='Hello Chicago - Search' />
+        <Header />
+        <div className='flex flex-col items-center'>
+          <div className='w-full md:w-1/2'>
+            <SearchBar />
+          </div>
+        </div>
+        <BottomNav />
+      </div>
+    );
   }
 
   if (error) return <div>Failed to load</div>;
@@ -104,7 +125,7 @@ export default function SearchIndex() {
   const visiblePlaces = filteredPlaces.slice(0, amountOfPlaces);
 
   return (
-    <div className='m-2'>
+    <div className='m-2 pb-24'>
       <Meta title='Hello Chicago - Search' />
       <Header title={`Find: ${searchQuery}`} />
       <SearchBar placeholder={searchQuery} />
@@ -178,12 +199,7 @@ export default function SearchIndex() {
               </div>
             ) : (
               visiblePlaces.map((place) => (
-                <Place
-                  place={place}
-                  day={"allDays"}
-                  showDays={true}
-                  key={place._id}
-                />
+                <PlaceCard place={place} key={place._id} />
               ))
             )}
 
@@ -200,6 +216,7 @@ export default function SearchIndex() {
           </div>
         </div>
       </main>
+      <BottomNav />
     </div>
   );
 }

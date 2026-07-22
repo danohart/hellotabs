@@ -3,7 +3,7 @@ import Link from "next/link";
 import { trackEvent } from "../../lib/analytics";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
-import Place from "../../components/Place";
+import PlaceCard from "../../components/PlaceCard";
 import { NeighborhoodJsonLd } from "../../components/JsonLd";
 import { getDay, convertDayName } from "../../lib/date";
 import { hasActiveHappyHour } from "../../lib/time";
@@ -15,6 +15,7 @@ import {
 } from "../../lib/neighborhoods";
 import { slugify } from "../../lib/slugify";
 import EmailSignupInline from "../../components/EmailSignupInline";
+import { useScrollRestoration } from "../../hooks/useScrollRestoration";
 
 export default function Neighborhood({
   title,
@@ -25,6 +26,8 @@ export default function Neighborhood({
   relatedNeighborhoods,
 }) {
   let [amountOfPlaces, setAmountOfPlaces] = useState(10);
+
+  useScrollRestoration(`scroll:neighborhood:${neighborhood}`, true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -55,21 +58,23 @@ export default function Neighborhood({
       <Meta title={title} description={description} />
       <NeighborhoodJsonLd neighborhood={neighborhood} places={places} />
       <Header />
-      <EmailSignupInline />
-      <main>
-        <div className='text-center text-2xl italic mb-8 mt-4'>{`Today's ${neighborhood} Specials`}</div>
-        <div className='flex flex-col items-center'>
-          <div className='flex flex-col md:w-1/2'>
+      <main className='flex flex-col items-center'>
+        <div className='flex flex-col md:w-1/2 w-full space-y-6'>
+          <EmailSignupInline />
+
+          <div className='text-center text-2xl italic'>{`Today's ${neighborhood} Specials`}</div>
+
+          <div>
             {bars.length === 0 ? (
               <div className='w-full text-center py-12 text-4xl'>
                 No happy hours found in{" "}
                 <span className='font-bold'>{neighborhood}</span> today.
               </div>
             ) : (
-              bars.map((bar) => <Place place={bar} day={day} key={bar._id} />)
+              bars.map((bar) => <PlaceCard place={bar} key={bar._id} />)
             )}
             {bars && bars.length >= 10 && bars.length !== places.length ? (
-              <div className='flex justify-center w-full'>
+              <div className='flex justify-center w-full mt-3'>
                 <button
                   className='w-1/2 bg-purple-500 text-white font-bold py-2 px-4 rounded'
                   onClick={showMorePlaces}
@@ -78,26 +83,26 @@ export default function Neighborhood({
                 </button>
               </div>
             ) : null}
-
-            {relatedNeighborhoods && relatedNeighborhoods.length > 0 && (
-              <div className='mt-8 p-4 border-t border-gray-200 dark:border-gray-600'>
-                <h2 className='text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300'>
-                  Nearby Neighborhoods
-                </h2>
-                <div className='flex flex-wrap gap-2'>
-                  {relatedNeighborhoods.map((related) => (
-                    <Link
-                      key={related.name}
-                      href={`/neighborhood/${related.slug}`}
-                      className='px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors'
-                    >
-                      {related.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
+
+          {relatedNeighborhoods && relatedNeighborhoods.length > 0 && (
+            <div className='p-4 border-t border-gray-200 dark:border-gray-600'>
+              <h2 className='text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300'>
+                Nearby Neighborhoods
+              </h2>
+              <div className='flex flex-wrap gap-2'>
+                {relatedNeighborhoods.map((related) => (
+                  <Link
+                    key={related.name}
+                    href={`/neighborhood/${related.slug}`}
+                    className='px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors'
+                  >
+                    {related.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
