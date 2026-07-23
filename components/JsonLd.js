@@ -18,6 +18,41 @@ function formatTime(time) {
   return `${hours}:${minutes}`;
 }
 
+const DAY_INDEX = { SU: 0, MO: 1, TU: 2, WE: 3, TH: 4, FR: 5, SA: 6 };
+
+// Google's Event rich-result requirements call for a top-level startDate —
+// a recurring `eventSchedule.startTime` alone doesn't satisfy that. Since
+// this is a weekly-recurring happy hour with no fixed start, we compute the
+// next matching occurrence's date each time the page renders.
+function getNextOccurrenceDate(dayCodes) {
+  const indices = dayCodes.map((d) => DAY_INDEX[d]).filter((i) => i !== undefined);
+  if (indices.length === 0) return null;
+
+  const now = new Date();
+  for (let offset = 0; offset < 7; offset++) {
+    const candidate = new Date(now);
+    candidate.setDate(now.getDate() + offset);
+    if (indices.includes(candidate.getDay())) {
+      return candidate.toISOString().split("T")[0];
+    }
+  }
+  return null;
+}
+
+// Chicago's UTC offset, DST-aware, for the given date — lets startDate/
+// endDate be unambiguous ISO 8601 without hand-rolling DST rules.
+function getChicagoOffset(date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    timeZoneName: "shortOffset",
+  }).formatToParts(date);
+  const offsetPart = parts.find((p) => p.type === "timeZoneName")?.value || "GMT-6";
+  const match = offsetPart.match(/GMT([+-]\d+)/);
+  const hours = match ? parseInt(match[1], 10) : -6;
+  const sign = hours >= 0 ? "+" : "-";
+  return `${sign}${String(Math.abs(hours)).padStart(2, "0")}:00`;
+}
+
 function generateLocalBusinessSchema(place) {
   const schema = {
     "@context": "https://schema.org",
@@ -77,6 +112,7 @@ function generateEventSchema(place) {
   if (!place.events) return null;
 
   const allDays = [];
+  const rawDayCodes = [];
   let startTime = null;
   let endTime = null;
   const allOffers = [];
@@ -90,6 +126,7 @@ function generateEventSchema(place) {
         : [schedule.byDay];
 
       for (const dayCode of days) {
+        rawDayCodes.push(dayCode);
         const dayName = DAY_MAP[dayCode];
         if (dayName && !allDays.includes(`https://schema.org/${dayName}`)) {
           allDays.push(`https://schema.org/${dayName}`);
@@ -150,6 +187,16 @@ function generateEventSchema(place) {
 
   if (startTime) eventSchema.eventSchedule.startTime = startTime;
   if (endTime) eventSchema.eventSchedule.endTime = endTime;
+
+  // Google's Event rich-result requirements need a top-level startDate, not
+  // just the recurring schedule's startTime — fill in the next occurrence.
+  const nextDate = getNextOccurrenceDate(rawDayCodes);
+  if (nextDate) {
+    const offset = getChicagoOffset(new Date(`${nextDate}T12:00:00Z`));
+    if (startTime) eventSchema.startDate = `${nextDate}T${startTime}:00${offset}`;
+    if (endTime) eventSchema.endDate = `${nextDate}T${endTime}:00${offset}`;
+    if (!startTime) eventSchema.startDate = nextDate;
+  }
 
   if (allOffers.length > 0) {
     eventSchema.offers = allOffers;

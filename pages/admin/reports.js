@@ -1,26 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import { useAuthContext } from "../_app";
 import AuthModal from "../../components/AuthModal";
-import { connectToDatabase } from "../../lib/mongodb";
-
-export async function getServerSideProps() {
-  const { db } = await connectToDatabase();
-
-  const reports = await db
-    .collection("reports")
-    .find({ status: { $in: ["pending", "auto_flagged"] } })
-    .sort({ createdAt: -1 })
-    .toArray();
-
-  return {
-    props: {
-      initialReports: JSON.parse(JSON.stringify(reports)),
-    },
-  };
-}
 
 const REPORT_TYPE_LABELS = {
   place_closed: "Place is closed",
@@ -196,10 +179,24 @@ function ReportCard({ report, token, onActionComplete }) {
   );
 }
 
-export default function AdminReports({ initialReports }) {
+export default function AdminReports() {
   const { isAuthenticated, login, token } = useAuthContext();
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [reports, setReports] = useState(initialReports);
+  const [reports, setReports] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    fetch("/api/reports", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.reports) setReports(data.reports);
+        else setError(data.error || "Failed to load");
+      })
+      .catch(() => setError("Network error"));
+  }, [isAuthenticated, token]);
 
   const handleLogin = async (password) => {
     const result = await login(password);
@@ -232,6 +229,30 @@ export default function AdminReports({ initialReports }) {
           onClose={() => setShowAuthModal(false)}
           onLogin={handleLogin}
         />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Meta title="Admin — Reports" />
+        <Header />
+        <p className="text-center text-red-500 dark:text-red-400 mt-20">
+          {error}
+        </p>
+      </>
+    );
+  }
+
+  if (!reports) {
+    return (
+      <>
+        <Meta title="Admin — Reports" />
+        <Header />
+        <p className="text-center text-gray-400 dark:text-gray-500 mt-20">
+          Loading…
+        </p>
       </>
     );
   }
