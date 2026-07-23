@@ -156,7 +156,9 @@ export default function PlaceDetail({ place }) {
         <div
           key={index}
           className={`mt-6 ${
-            index > 0 ? "pt-6 border-t border-gray-100 dark:border-slate-700" : ""
+            index > 0
+              ? "pt-6 border-t border-gray-100 dark:border-slate-700"
+              : ""
           }`}
         >
           <p className='text-xs font-bold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-2'>
@@ -225,7 +227,7 @@ export default function PlaceDetail({ place }) {
               neighborhood: place.neighborhood,
             })
           }
-          className='block w-full text-center bg-purple-600 hover:bg-purple-700 !text-white font-bold py-3.5 rounded-xl'
+          className='block w-2/3 mx-auto text-center bg-purple-600 hover:bg-purple-700 !text-white font-bold py-3.5 rounded-xl'
         >
           Get directions
         </a>
