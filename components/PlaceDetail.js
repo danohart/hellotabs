@@ -8,6 +8,7 @@ import { formatRelativeTime } from "../lib/date";
 import { getPlaceDealStatus, getTodaysHappyHourSummary } from "../lib/time";
 import { getSpecialsByDay, getPriceColumnLabel } from "../lib/menu";
 import { trackEvent } from "../lib/analytics";
+import { TIP_URL } from "../lib/constants";
 
 function getGoogleMapsUrl(place) {
   const streetAddress = place.location.streetAddress || "";
@@ -173,6 +174,22 @@ export default function PlaceDetail({ place }) {
           />
         </div>
       ))}
+
+      <a
+        href={TIP_URL}
+        target='_blank'
+        rel='noreferrer'
+        onClick={() =>
+          trackEvent("tip_click", {
+            location: "place_detail",
+            place_name: place.name,
+          })
+        }
+        className='mt-6 flex items-center justify-center gap-1.5 text-sm font-medium !text-rose-500 dark:!text-rose-400 hover:!text-rose-600 dark:hover:!text-rose-300'
+      >
+        <Icon icon='HeartIcon' className='h-3.5 w-3.5 text-current' />
+        Enjoying Hello Chicago? Buy me a drink
+      </a>
 
       <div className='mt-6 border border-dashed border-gray-300 dark:border-slate-600 rounded-lg py-3 text-center text-sm text-gray-500 dark:text-gray-400'>
         Own this place?{" "}

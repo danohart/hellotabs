@@ -11,11 +11,13 @@ import {
   faLocationDot,
   faMagnifyingGlass,
   faChartSimple,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ICONS = {
   HomeIcon: faHouse,
   ChartIcon: faChartSimple,
+  HeartIcon: faHeart,
   ArrowLeftIcon: faArrowLeft,
   ChevronLeftIcon: faChevronLeft,
   TagIcon: faGlassWhiskey,
