@@ -20,14 +20,28 @@ import {
 import { trackEvent } from "../lib/analytics";
 import PopularNeighborhoods from "../components/PopularNeighborhoods";
 import { useScrollRestoration } from "../hooks/useScrollRestoration";
+import { getPlacesForDay } from "../lib/places";
 
-function Home() {
+// Server-rendered so the day's deals are actually present in the response
+// crawlers and link-preview scrapers see, instead of an empty loading shell.
+export async function getServerSideProps() {
+  const day = getDay();
+  const places = await getPlacesForDay(day);
+
+  return {
+    props: {
+      initialPlaces: places,
+      day,
+    },
+  };
+}
+
+function Home({ initialPlaces, day }) {
   const [amountOfPlaces, setAmountOfPlaces] = useState(10);
   const [userLocation, setUserLocation] = useState(null);
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationPermission, setLocationPermission] = useState("unknown");
   const [activeNowOnly, setActiveNowOnly] = useState(false);
-  const day = getDay();
 
   function showMorePlaces() {
     trackEvent("load_more", { visible_count: amountOfPlaces });
@@ -79,7 +93,9 @@ function Home() {
     }
   }
 
-  const { data, error } = useSWR("/api/places/" + day, fetcher);
+  const { data, error } = useSWR("/api/places/" + day, fetcher, {
+    fallbackData: { success: true, places: initialPlaces },
+  });
 
   useScrollRestoration("scroll:home", Boolean(data?.success));
 
