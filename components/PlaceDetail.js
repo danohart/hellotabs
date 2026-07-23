@@ -5,16 +5,8 @@ import ReportIssueModal from "./ReportIssueModal";
 import EditPlace from "./EditPlace";
 import { useAuth } from "../hooks/useAuth";
 import { formatRelativeTime } from "../lib/date";
-import {
-  getPlaceDealStatus,
-  getTodaysHappyHourSummary,
-  getFullWeekSchedule,
-} from "../lib/time";
-import {
-  getDrinkSpecials,
-  getFoodSpecials,
-  getPriceColumnLabel,
-} from "../lib/menu";
+import { getPlaceDealStatus, getTodaysHappyHourSummary } from "../lib/time";
+import { getSpecialsByDay, getPriceColumnLabel } from "../lib/menu";
 import { trackEvent } from "../lib/analytics";
 
 function getGoogleMapsUrl(place) {
@@ -31,21 +23,21 @@ function getMostRecentUpdate(events) {
   );
 }
 
-function SpecialsSection({ title, icon, items }) {
+function SpecialsList({ title, icon, items }) {
   if (items.length === 0) return null;
 
   return (
-    <div className='mt-6'>
-      <h3 className='flex items-center gap-2 font-bold text-lg text-gray-900 dark:text-gray-100'>
+    <div className='mt-4 first:mt-0'>
+      <h4 className='flex items-center gap-2 font-bold text-base text-gray-900 dark:text-gray-100'>
         <Icon
           icon={icon}
           className='h-4 w-4 text-purple-600 dark:text-purple-400'
         />
         {title}
-      </h3>
-      <div className='mt-2 divide-y divide-gray-100 dark:divide-slate-700'>
+      </h4>
+      <div className='mt-1 divide-y divide-gray-100 dark:divide-slate-700'>
         {items.map((item, index) => (
-          <div key={index} className='flex items-center justify-between py-2.5'>
+          <div key={index} className='flex items-center justify-between py-2'>
             <span className='text-gray-800 dark:text-gray-200'>
               {item.name}
             </span>
@@ -65,9 +57,7 @@ export default function PlaceDetail({ place }) {
 
   const status = getPlaceDealStatus(place);
   const todaysSummary = getTodaysHappyHourSummary(place);
-  const drinkSpecials = getDrinkSpecials(place);
-  const foodSpecials = getFoodSpecials(place);
-  const fullSchedule = getFullWeekSchedule(place.events);
+  const specialsByDay = getSpecialsByDay(place);
   const lastUpdated = getMostRecentUpdate(place.events);
 
   return (
@@ -161,39 +151,28 @@ export default function PlaceDetail({ place }) {
         </div>
       )}
 
-      <SpecialsSection
-        title='Drink specials'
-        icon='TagIcon'
-        items={drinkSpecials}
-      />
-      <SpecialsSection
-        title='Food specials'
-        icon='CurrencyDollarIcon'
-        items={foodSpecials}
-      />
-
-      {fullSchedule.length > 0 && (
-        <div className='mt-6'>
-          <h3 className='font-bold text-lg text-gray-900 dark:text-gray-100'>
-            Happy hour schedule
-          </h3>
-          <div className='mt-2 divide-y divide-gray-100 dark:divide-slate-700'>
-            {fullSchedule.map((row, index) => (
-              <div
-                key={index}
-                className='flex items-center justify-between py-2.5 text-sm'
-              >
-                <span className='text-gray-700 dark:text-gray-300'>
-                  {row.dayLabel}
-                </span>
-                <span className='font-medium text-gray-900 dark:text-gray-100'>
-                  {row.timeLabel}
-                </span>
-              </div>
-            ))}
-          </div>
+      {specialsByDay.map((group, index) => (
+        <div
+          key={index}
+          className={`mt-6 ${
+            index > 0 ? "pt-6 border-t border-gray-100 dark:border-slate-700" : ""
+          }`}
+        >
+          <p className='text-xs font-bold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-2'>
+            {group.daysLabel}
+          </p>
+          <SpecialsList
+            title='Drink specials'
+            icon='TagIcon'
+            items={group.drinkSpecials}
+          />
+          <SpecialsList
+            title='Food specials'
+            icon='CurrencyDollarIcon'
+            items={group.foodSpecials}
+          />
         </div>
-      )}
+      ))}
 
       <div className='mt-6 border border-dashed border-gray-300 dark:border-slate-600 rounded-lg py-3 text-center text-sm text-gray-500 dark:text-gray-400'>
         Own this place?{" "}
