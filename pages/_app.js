@@ -34,6 +34,11 @@ function App({ Component, pageProps }) {
       defaults: "2026-01-30",
       capture_exceptions: true,
       debug: process.env.NODE_ENV === "development",
+      loaded: (posthog) => {
+        if (process.env.NODE_ENV === "development") {
+          posthog.opt_out_capturing();
+        }
+      },
     });
   }, []);
 
