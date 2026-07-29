@@ -6,6 +6,14 @@ import { getMapStyle } from "../lib/mapStyle";
 import { getPlaceDealStatus } from "../lib/time";
 import { trackEvent } from "../lib/analytics";
 
+// MapLibre's own worker-resolution (new Worker(url, {type:"module"})) doesn't
+// resolve correctly under Next.js's webpack dev bundler — the worker target
+// gets created and torn down immediately, so tiles queue forever and never
+// render. Pointing it at statically-served copies of the worker bundle and
+// its "-shared" sibling (vendored from node_modules/maplibre-gl/dist/, must
+// be re-copied on maplibre-gl upgrades) works around that.
+maplibregl.setWorkerUrl("/maplibre-gl-worker.mjs");
+
 // Chicago's rough geographic center — used only until we know the user's
 // actual location (see pages/map.js).
 const DEFAULT_CENTER = { lat: 41.8781, lng: -87.6298 };
@@ -69,10 +77,20 @@ export default function PlaceMap({ places, userLocation }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Swap the whole style (and re-tint markers) when light/dark mode changes.
+  // Swap the whole style when light/dark mode changes. useTheme() reports
+  // "light" on first render and corrects itself a tick later, so this often
+  // fires again immediately after the map is constructed — calling setStyle
+  // before the initial style finishes loading corrupts MapLibre's style
+  // state, so wait for "load" first if it hasn't fired yet.
   useEffect(() => {
-    if (!mapRef.current) return;
-    mapRef.current.setStyle(getMapStyle(resolvedTheme));
+    const map = mapRef.current;
+    if (!map) return;
+    const applyStyle = () => map.setStyle(getMapStyle(resolvedTheme));
+    if (map.isStyleLoaded()) {
+      applyStyle();
+    } else {
+      map.once("load", applyStyle);
+    }
   }, [resolvedTheme]);
 
   // Recenter once the user's location becomes available (it isn't known yet
