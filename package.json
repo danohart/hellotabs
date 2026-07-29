@@ -35,6 +35,7 @@
     "@tailwindcss/postcss": "^4.1.11",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
+    "@vercel/og": "^0.11.1",
     "maplibre-gl": "^6.0.0",
     "mongodb": "^6.3.0",
     "next": "14.2.35",

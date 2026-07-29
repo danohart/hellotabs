@@ -10,6 +10,7 @@ import { isValidObjectId } from "../../lib/slugify";
 import { findSimilarPlaces } from "../api/places/similar";
 import { trackEvent } from "../../lib/analytics";
 import { formatDaysOfWeek } from "../../lib/date";
+import { getTopSpecials } from "../../lib/menu";
 
 export async function getServerSideProps({ params, res }) {
   const { id } = params;
@@ -121,9 +122,18 @@ export default function SinglePlace({
     metaDescription = `${metaDescription} ${attributeNote}`;
   }
 
+  const topSpecials = hasMenu ? getTopSpecials(place, 3) : [];
+  const ogParams = new URLSearchParams({ name: place.name });
+  if (place.neighborhood) ogParams.set("neighborhood", place.neighborhood);
+  topSpecials.forEach((special, i) => {
+    ogParams.set(`deal${i + 1}`, special.label);
+    ogParams.set(`deal${i + 1}cat`, special.category);
+  });
+  const ogImageUrl = `https://www.hellochicago.co/api/og?${ogParams.toString()}`;
+
   return (
     <>
-      <Meta title={metaTitle} description={metaDescription} />
+      <Meta title={metaTitle} description={metaDescription} image={ogImageUrl} />
       <JsonLd place={place} />
       <div className='flex flex-col items-center pb-24'>
         <div className='w-full md:w-1/2 px-4'>

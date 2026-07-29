@@ -12,6 +12,11 @@ export default function Meta(props) {
     ? props.description
     : "Find the best happy hour deals in Chicago today. Daily updated specials across Logan Square, Wicker Park, West Loop, Lakeview & more neighborhoods.";
 
+  const metaImage = props.image || "https://www.hellochicago.co/chicagohappyhour.png";
+  // The static fallback is 1200x628; dynamic per-place images (pages/api/og.js)
+  // are rendered at exactly 1200x630 — keep the reported size accurate for each.
+  const metaImageHeight = props.image ? "630" : "628";
+
   // The canonical path drops query strings by default (tracking params like
   // ?fbclid=, case-variant redirects, etc. should never produce their own
   // indexable URL) — except on the search results page, where the query
@@ -38,19 +43,15 @@ export default function Meta(props) {
         content={metaDescription}
         key='description'
       />
-      <meta
-        property='og:image'
-        content='https://www.hellochicago.co/chicagohappyhour.png'
-      />
+      <meta property='og:image' content={metaImage} />
+      <meta property='og:image:width' content='1200' />
+      <meta property='og:image:height' content={metaImageHeight} />
 
       <meta property='twitter:card' content='summary_large_image' />
       <meta property='twitter:url' content={canonicalUrl} />
       <meta property='twitter:title' content={metaTitle} />
       <meta property='twitter:description' content={metaDescription} />
-      <meta
-        property='twitter:image'
-        content='https://www.hellochicago.co/chicagohappyhour.png'
-      ></meta>
+      <meta property='twitter:image' content={metaImage}></meta>
 
       <link rel='manifest' href='/manifest.json' />
       <meta name='theme-color' content='#223079' />

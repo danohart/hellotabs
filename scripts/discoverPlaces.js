@@ -1,11 +1,16 @@
 // scripts/discoverPlaces.js
 // Sweeps every Chicago neighborhood (lib/neighborhoodCoordinates.json) for
-// bars/restaurants/cafes via Google Places Nearby Search, cross-checks each
-// candidate against OpenStreetMap (free `brand` tag = strong chain signal),
-// dedupes against everything already in the DB, runs chain detection, and
-// inserts survivors as disabled stubs — the same shape pages/admin/add.js
-// creates by hand. New stubs show up in the existing /admin/stale review
-// queue; nothing here goes live without a human approving it there.
+// bars via Google Places Nearby Search, cross-checks each candidate against
+// OpenStreetMap (free `brand` tag = strong chain signal), dedupes against
+// everything already in the DB, runs chain detection, and inserts survivors
+// as disabled stubs — the same shape pages/admin/add.js creates by hand. New
+// stubs show up in the existing /admin/stale review queue; nothing here goes
+// live without a human approving it there.
+//
+// Candidates confidently identified as chains (static blocklist or an OSM
+// `brand` tag match — see lib/chainDetection.js) are excluded outright, not
+// inserted at all. Only the low-confidence LLM-guessed chain calls still get
+// inserted-but-flagged, so a human can double-check the ambiguous ones.
 //
 // Run manually:
 //   node scripts/discoverPlaces.js                       ← local DB, dry-run off
@@ -39,7 +44,11 @@ if (!MONGODB_URI) throw new Error("Missing MONGODB_URI in .env.local");
 if (!DB_NAME) throw new Error("Missing DB_NAME in .env.local");
 
 const SEARCH_RADIUS_METERS = 1200;
-const INCLUDED_TYPES = ["bar", "restaurant", "cafe", "night_club"];
+const INCLUDED_TYPES = ["bar", "pub", "wine_bar", "bar_and_grill", "night_club"];
+// Filters out event/banquet spaces (e.g. Rockwell on the River) at the API
+// level — best-effort, since it only catches candidates Google has actually
+// tagged with one of these types. /admin/stale review remains the backstop.
+const EXCLUDED_TYPES = ["event_venue", "banquet_hall", "wedding_venue"];
 
 // Mirrors lib/slugify.js — duplicated here because that file is an ES module
 // (imported by Next.js pages) and can't be require()'d from a plain script.
@@ -81,6 +90,7 @@ async function searchNearby(lat, lng) {
     },
     body: JSON.stringify({
       includedTypes: INCLUDED_TYPES,
+      excludedTypes: EXCLUDED_TYPES,
       maxResultCount: 20,
       locationRestriction: {
         circle: {
@@ -146,7 +156,8 @@ async function run() {
 
     let addedCount = 0;
     let duplicateCount = 0;
-    let chainCount = 0;
+    let excludedChainCount = 0;
+    let flaggedChainCount = 0;
     let osmOnlyCount = 0;
 
     for (const neighborhood of neighborhoods) {
@@ -190,6 +201,19 @@ async function run() {
           osmBrand: osmMatch?.brand,
         });
 
+        // Confidently-identified chains (static blocklist or OSM `brand` tag
+        // match) are excluded outright — no ambiguity, no need for a human
+        // to look at it. Low-confidence LLM guesses still get inserted (but
+        // flagged) below so a human can make the call.
+        if (chainCheck.isChain && chainCheck.confidence === "high") {
+          excludedChainCount++;
+          console.log(
+            `  ✗ CHAIN   ${candidate.name} — excluded (${chainCheck.source}: ${chainCheck.reasoning})`
+          );
+          await new Promise((r) => setTimeout(r, 200));
+          continue;
+        }
+
         const stub = {
           name: candidate.name,
           slug: generatePlaceSlug(candidate.name, neighborhood),
@@ -209,7 +233,7 @@ async function run() {
           chainCheck,
         };
 
-        if (chainCheck.isChain) chainCount++;
+        if (chainCheck.isChain) flaggedChainCount++;
 
         if (isDryRun) {
           console.log(
@@ -240,10 +264,11 @@ async function run() {
     }
 
     console.log(`\nDone.`);
-    console.log(`  Added        : ${addedCount}${isDryRun ? " (dry run)" : ""}`);
-    console.log(`  Flagged chain: ${chainCount}`);
-    console.log(`  Duplicates   : ${duplicateCount}`);
-    console.log(`  OSM-only     : ${osmOnlyCount} (found in OSM, not matched to a Google result — not inserted)`);
+    console.log(`  Added         : ${addedCount}${isDryRun ? " (dry run)" : ""}`);
+    console.log(`  Excluded chain: ${excludedChainCount} (high-confidence — not inserted)`);
+    console.log(`  Flagged chain : ${flaggedChainCount} (low-confidence — inserted, needs review)`);
+    console.log(`  Duplicates    : ${duplicateCount}`);
+    console.log(`  OSM-only      : ${osmOnlyCount} (found in OSM, not matched to a Google result — not inserted)`);
   } finally {
     await client.close();
   }
