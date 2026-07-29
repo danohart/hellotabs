@@ -31,7 +31,11 @@ const daysOfTheWeek = [
 ];
 
 export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
-  const [editData, setEditData] = useState({ events: [], enabled: false });
+  const [editData, setEditData] = useState({
+    events: [],
+    enabled: false,
+    featured: false,
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [refreshingGoogle, setRefreshingGoogle] = useState(false);
@@ -49,6 +53,7 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
     if (isOpen && place) {
       setEditData({
         enabled: place.enabled,
+        featured: place.featured,
         events: place.events.map((event) => ({
           ...event,
           eventSchedule: event.eventSchedule.map((schedule) => ({
@@ -374,6 +379,17 @@ export default function EditPlace({ isOpen, onClose, place, token, onUpdate }) {
                 className='mr-2'
               />
               <span>Enabled (visible on site)</span>
+            </label>
+            <label className='flex items-center mt-2'>
+              <input
+                type='checkbox'
+                checked={editData.featured || false}
+                onChange={(e) =>
+                  setEditData({ ...editData, featured: e.target.checked })
+                }
+                className='mr-2'
+              />
+              <span>Featured</span>
             </label>
           </div>
 

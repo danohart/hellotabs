@@ -18,6 +18,7 @@ export default async function handler(req, res) {
 
     const allowedUpdates = {};
     if (updates.enabled !== undefined) allowedUpdates.enabled = updates.enabled;
+    if (updates.featured !== undefined) allowedUpdates.featured = updates.featured;
 
     if (updates.events) {
       allowedUpdates.events = updates.events.map((event) => ({
