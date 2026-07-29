@@ -35,6 +35,7 @@ export default async function handler(req, res) {
             neighborhood: 1,
             lastUpdated: 1,
             "location.streetAddress": 1,
+            chainCheck: 1,
           },
         },
         { $sort: { lastUpdated: 1 } },

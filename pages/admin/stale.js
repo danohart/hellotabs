@@ -96,6 +96,14 @@ export default function StalePlaces() {
                         <span className="text-sm text-gray-400 dark:text-gray-400 ml-2">
                           {place.neighborhood}
                         </span>
+                        {place.chainCheck?.isChain && (
+                          <span
+                            title={place.chainCheck.reasoning}
+                            className="ml-2 text-xs font-semibold text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/40 rounded-full px-2 py-0.5"
+                          >
+                            possible chain
+                          </span>
+                        )}
                       </div>
                     </div>
                     <span className="text-sm text-gray-400 dark:text-gray-400 shrink-0 ml-4">
