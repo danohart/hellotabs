@@ -12,6 +12,7 @@ import {
   faMagnifyingGlass,
   faChartSimple,
   faHeart,
+  faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ICONS = {
@@ -27,6 +28,7 @@ const ICONS = {
   StarIcon: faStar,
   LocationDotIcon: faLocationDot,
   SearchIcon: faMagnifyingGlass,
+  MapIcon: faMapLocationDot,
 };
 
 // Icons inherit color from the surrounding text (currentColor) so they

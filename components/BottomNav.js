@@ -5,6 +5,7 @@ import { trackEvent } from "../lib/analytics";
 
 const TABS = [
   { href: "/", label: "Home", icon: "HomeIcon" },
+  { href: "/map", label: "Map", icon: "MapIcon" },
   { href: "/search", label: "Search", icon: "SearchIcon" },
 ];
 

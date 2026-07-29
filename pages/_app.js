@@ -3,6 +3,7 @@ import React, { useEffect, createContext, useContext } from "react";
 import { useRouter } from "next/router";
 import posthog from "posthog-js";
 import "../styles/styles.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import Page from "../components/Page";
 import { useAuth } from "../hooks/useAuth";
 import { trackPageView } from "../lib/analytics";
